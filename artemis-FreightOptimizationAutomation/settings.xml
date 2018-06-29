@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+<pluginGroups>
+    <pluginGroup>com.atlassian.maven.plugins</pluginGroup>
+    <pluginGroup>org.apache.maven.plugins</pluginGroup>
+</pluginGroups>
+
+  <profiles>
+    <profile>
+      <id>artifactory</id>
+    <repositories>
+	    <repository>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>artifactory-release</id>
+          <name>central</name>
+          <url>http://artifactory/artifactory/libs-release-local</url>
+        </repository>
+		<repository>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+          <id>artifactory-snapshot</id>
+            <name>mst-snapshots</name>
+            <url>http://artifactory/artifactory/libs-release-local</url>
+           <!-- <url>http://artifactory/artifactory/libs-snapshot-local</url>   -->
+		</repository>
+		<!--repository>
+		  <id>mvnRepository</id>
+		  <name>MavenRepository</name>
+		  <url>http://mvnrepository.com</url>
+		</repository-->
+	</repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>artifactory-plugins</id>
+          <name>plugins-release</name>
+          <url>http://artifactory/artifactory/plugins-release</url>
+        </pluginRepository>
+        <pluginRepository>
+          <snapshots />
+          <id>joker</id>
+          <name>artifactoy-plugins-snapshot</name>
+          <url>http://artifactory/artifactory/libs-release-local</url>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
+  <activeProfiles>
+    <activeProfile>artifactory</activeProfile>
+  </activeProfiles>
+  
+  </settings>

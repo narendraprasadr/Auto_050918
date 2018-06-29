@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+
+	<config type="env" name="QA">
+
+		<cyberark>
+			<safe>PSV-FS-WMS-AutoTest-Q</safe>
+			<appid>WMS_Q</appid>
+			<userIDAdmin>roint3</userIDAdmin>
+			<userIDOther>roint1</userIDOther>
+			<pwdobjectid>Misc-Macys-Application-Passive-roint3</pwdobjectid>
+            <pwdobjectidvendor>Misc-Macys-Application-Passive-MNETQAROINT1</pwdobjectidvendor>
+			
+		</cyberark>
+
+		<activespace>
+			<server>
+				<url>tcp://tibanp01.federated.fds:32151;tibanp19.federated.fds:32151?remote=true
+				</url>
+			</server>
+			<metaspace>
+				<name>D2CWMS_WA_QA04</name>
+			</metaspace>
+			<member>
+				<name>Automation</name>
+			</member>
+			<session>20000</session>
+		</activespace>
+
+		<ems>
+			<server>
+				<url>tcp://tibenp09.federated.fds:7212</url>
+				<username>admd2cwms</username>
+			</server>
+		</ems>
+		<was>
+			<env>
+				<apolloUrl>http://vcia4213:8180</apolloUrl>
+				<hostname>http://vcia0121:8080_QA</hostname>
+				<pheme>http://vcia4071:9080/phmsimulator/simulator/index</pheme>
+				<wms>tst-app01-wms-mb</wms>
+				<username>enter user name</username>
+				<pwdobjectid>Enter object</pwdobjectid>
+			</env>
+		</was>
+
+		<!-- Database Details -->
+		<db>
+			<driver>
+				<classname>oracle.jdbc.driver.OracleDriver</classname>
+			</driver>
+
+			<itemuser>
+				<name>itemqa</name>
+				<pwdobjectid>Misc-Macys-Application-Passive-itemqa</pwdobjectid>
+				<connecturi>jdbc:oracle:thin:@wmssbx1.federated.fds:1521/WMSSBX1F
+				</connecturi>
+			</itemuser>
+			<locnuser>
+				<name>locationqa</name>
+				<pwdobjectid>Misc-Macys-Application-Passive-locationqa</pwdobjectid>
+				<connecturi>jdbc:oracle:thin:@wmssbx1.federated.fds:1521/WMSSBX1F
+				</connecturi>
+			</locnuser>
+			<invuser>
+				<name>inventoryqa</name>
+				<pwdobjectid>Misc-Macys-Application-Passive-inventoryqa</pwdobjectid>
+				<connecturi>jdbc:oracle:thin:@wmssbx1.federated.fds:1521/WMSSBX1F
+				</connecturi>
+			</invuser>
+
+
+			<mstuser>
+				<name>MSTTST05</name>
+				<pwdobjectid>Misc-Macys-Application-Passive-MSTTST05</pwdobjectid>
+				<connecturi>jdbc:Oracle:thin:@wmsdev02db.federated.fds:1521/wmbdev2f
+				</connecturi>
+			</mstuser>
+			<wmsuser>
+				<name>WMMBPRD</name>
+				<pwdobjectid>Misc-Macys-Application-Passive-WMMBPRD</pwdobjectid>
+				<session>120000</session>
+				<connecturi>jdbc:oracle:thin:@wmsmbtstdb:1521/wmsmbtst</connecturi>
+			</wmsuser>
+			<appuser>
+				<name>MSTMBPRD</name>
+				<pwdobjectid>Misc-Macys-Application-Passive-WMMBPRD</pwdobjectid>
+				<connecturi>jdbc:oracle:thin:@wmsmbtstdb:1521/wmsmbtst</connecturi>
+			</appuser>
+
+			<autouser>
+				<name>WMTSTAUTO</name>
+				<pwdobjectid>Misc-Macys-Application-Passive-WMTSTAUTO</pwdobjectid>
+				<connecturi>jdbc:oracle:thin:@WMSDEV02DB.FEDERATED.FDS:1521/WMBDEV2F
+				</connecturi>
+			</autouser>
+			
+			<proteususer>
+					<name>MSTMBPRD</name>
+					<pwdobjectid>Misc-Macys-Application-Passive-MSTMBPRD</pwdobjectid>
+					<connecturi>jdbc:Oracle:thin:@wmsmbtstdb:1521/wmsmbtst</connecturi>
+			</proteususer>
+			       
+         
+			 <sqlserver>       
+			  <driver>      
+			    <classname>com.microsoft.sqlserver.jdbc.SQLServerDriver</classname>
+			  </driver>       
+			  <MA000XVSQL22>
+			      <name>fdsnetwebuser</name>
+			      <pwdobjectid>Database-Macys-Passive-SQLServer-MA000XVSQL22-fdsnetwebuser</pwdobjectid>               <connecturi>jdbc:sqlserver://MA000XVSQL22:1433;DatabaseName=WebCache</connecturi>
+			  </MA000XVSQL22>                   
+			</sqlserver>
+                  
+			
+			 
+			<Oracle>
+			  <driver>
+			     <classname>oracle.jdbc.driver.OracleDriver</classname>
+			  </driver>
+			  <LFCBIZ01DB>
+			     <name>FARCVM1</name>     
+			       <pwdobjectid>Database-Macys-Passive-OracleDatabase-LFCBIZ01DB-FARCVM1      
+			       </pwdobjectid>
+			<connecturi>jdbc:oracle:thin:@//LFCBIZ01DB.federated.fds:1521/LFCBIZ01 </connecturi>
+			    </LFCBIZ01DB>
+			</Oracle>
+			
+			
+			
+		</db>
+
+		<db2>
+			<driver>
+				<classname>oracle.jdbc.driver.OracleDriver</classname>
+			</driver>
+			<mstuser>
+				<name>MSTTST05</name>
+				<pwdobjectid>Misc-Macys-Application-Passive-MSTTST05</pwdobjectid>
+				<connecturi>jdbc:Oracle:thin:@wmsdev02db.federated.fds:1521/wmbdev2f
+				</connecturi>
+			</mstuser>
+			<wmsuser>
+				<name>WMMBPRD</name>
+				<pwdobjectid>Misc-Macys-Application-Passive-WMMBPRD</pwdobjectid>
+				<session>120000</session>
+				<connecturi>jdbc:oracle:thin:@wmsmbtstdb:1521/wmsmbtst</connecturi>
+			</wmsuser>
+			<appuser>
+				<name>MSTMBPRD</name>
+				<pwdobjectid>Misc-Macys-Application-Passive-WMMBPRD</pwdobjectid>
+				<connecturi>jdbc:oracle:thin:@wmsmbtstdb:1521/wmsmbtst</connecturi>
+			</appuser>
+
+			<autouser>
+				<name>WMTSTAUTO</name>
+				<pwdobjectid>Misc-Macys-Application-Passive-WMTSTAUTO</pwdobjectid>
+				<connecturi>jdbc:oracle:thin:@WMSDEV02DB.FEDERATED.FDS:1521/WMBDEV2F
+				</connecturi>
+			</autouser>
+
+		</db2>
+		
+		<postgresql>		
+				<driver>
+					<classname>org.postgresql.Driver</classname>
+				</driver>		
+			<artemispostgres>
+			    <name>artemisuser</name>
+			    <!-- <pwdobjectid>Misc-Macys-Application-Passive-artemisuserdev</pwdobjectid>
+				<connecturi>jdbc:postgresql://11.126.84.64:5432/artemisdb</connecturi> -->
+				<pwdobjectid>Misc-Macys-Application-Passive-artemisuser</pwdobjectid>
+                <connecturi>jdbc:postgresql://lp000xswms0049:5432/artemisprod</connecturi>
+			</artemispostgres>				
+			</postgresql>
+
+		<soap>
+			<Wsdl>http://transfersdashboardserviceua/TransfersDashboardService.svc?wsdl
+			</Wsdl>
+			<endpointurl>http://transfersdashboardserviceua/TransfersDashboardService.svc
+			</endpointurl>
+			<GetAllMerchDivisionSoapAction>http://tempuri.org/ITransfersDashboardWCF/GetAllMerchDivision
+			</GetAllMerchDivisionSoapAction>
+			<GetAllLocationsoapAction>http://tempuri.org/ITransfersDashboardWCF/GetAllLocation
+			</GetAllLocationsoapAction>
+		</soap>
+		
+		
+
+
+
+		<!-- END of Database Details -->
+	</config>
+
+	<config type="env" name="Dev">
+
+		<cyberark>
+			<safe>PSV-FS-WMS-AutoTest-D</safe>
+			<appid>WMS_D</appid>
+		</cyberark>
+
+		<activespace>
+			<server>
+				<url>tcp://tibanc04.federated.fds:56051;tibanc04.federated.fds:56052?remote=true
+				</url>
+			</server>
+			<metaspace>
+				<name>D2CWMS_WA_DEV</name>
+			</metaspace>
+			<member>
+				<name>Automation</name>
+			</member>
+			<session>30000</session>
+		</activespace>
+		<ems>
+			<server>
+				<url>tcp://tibanc04.federated.fds:7222</url>
+				<username>admd2cwms</username>
+				<pwdobjectid>admd2cwms</pwdobjectid>
+			</server>
+		</ems>
+		<was>
+			<env>
+				<apolloUrl>http://vcia0196:8080</apolloUrl>
+				<hostname>http://vcia0313:8080</hostname>
+				<taloshandheld />
+				<wms>dev-app01-wms</wms>
+				<configPublishTopic>M.D2C.WMS.COMMON.CONFIG.PUBLISH
+				</configPublishTopic>
+				<username>Enter Username</username>
+				<pwdobjectid>Enter Password</pwdobjectid>
+			</env>
+		</was>
+		<db>
+			<driver>
+				<classname>oracle.jdbc.driver.OracleDriver</classname>
+			</driver>
+			<mstuser>
+				<name>MSTTST05</name>
+				<pwdobjectid>Misc-Macys-Application-Passive-MSTTST05</pwdobjectid>
+				<connecturi>jdbc:Oracle:thin:@wmsdev02db.federated.fds:1521/wmbdev2f
+				</connecturi>
+			</mstuser>
+			<wmsuser>
+				<name>WMMBPRD</name>
+				<pwdobjectid>Misc-Macys-Application-Passive-WMMBPRD</pwdobjectid>
+				<session>120000</session>
+				<connecturi>jdbc:oracle:thin:@wmsmbtstdb:1521/wmsmbtst</connecturi>
+			</wmsuser>
+			<appuser>
+				<name>MSTMBPRD</name>
+				<pwdobjectid>Misc-Macys-Application-Passive-WMMBPRD</pwdobjectid>
+				<connecturi>jdbc:oracle:thin:@wmsmbtstdb:1521/wmsmbtst</connecturi>
+			</appuser>
+
+			<autouser>
+				<name>WMTSTAUTO</name>
+				<pwdobjectid>Misc-Macys-Application-Passive-WMTSTAUTO</pwdobjectid>
+				<connecturi>jdbc:oracle:thin:@WMSDEV02DB.FEDERATED.FDS:1521/WMBDEV2F
+				</connecturi>
+			</autouser>
+		</db>
+
+		<db2>
+			<driver>
+				<classname>oracle.jdbc.driver.OracleDriver</classname>
+			</driver>
+			<mstuser>
+				<name>MSTTST05</name>
+				<pwdobjectid>Misc-Macys-Application-Passive-MSTTST05</pwdobjectid>
+				<connecturi>jdbc:Oracle:thin:@wmsdev02db.federated.fds:1521/wmbdev2f
+				</connecturi>
+			</mstuser>
+			<wmsuser>
+				<name>WMMBPRD</name>
+				<pwdobjectid>Misc-Macys-Application-Passive-WMMBPRD</pwdobjectid>
+				<session>120000</session>
+				<connecturi>jdbc:oracle:thin:@wmsmbtstdb:1521/wmsmbtst</connecturi>
+			</wmsuser>
+			<appuser>
+				<name>MSTMBPRD</name>
+				<pwdobjectid>Misc-Macys-Application-Passive-WMMBPRD</pwdobjectid>
+				<connecturi>jdbc:oracle:thin:@wmsmbtstdb:1521/wmsmbtst</connecturi>
+			</appuser>
+
+			<autouser>
+				<name>WMTSTAUTO</name>
+				<pwdobjectid>Misc-Macys-Application-Passive-WMTSTAUTO</pwdobjectid>
+				<connecturi>jdbc:oracle:thin:@WMSDEV02DB.FEDERATED.FDS:1521/WMBDEV2F
+				</connecturi>
+			</autouser>
+
+		</db2>
+
+		<soap>
+			<Wsdl>http://transfersdashboardserviceua/TransfersDashboardService.svc?wsdl
+			</Wsdl>
+			<endpointurl>http://transfersdashboardserviceua/TransfersDashboardService.svc
+			</endpointurl>
+			<GetAllMerchDivisionSoapAction>http://tempuri.org/ITransfersDashboardWCF/GetAllMerchDivision
+			</GetAllMerchDivisionSoapAction>
+			<GetAllLocationsoapAction>http://tempuri.org/ITransfersDashboardWCF/GetAllLocation
+			</GetAllLocationsoapAction>
+		</soap>
+
+		<!-- END of Database Details -->
+	</config>
+
+</document>

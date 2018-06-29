@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<!-- <suite name="suite"> -->
+
+<suite name="Suite" parallel="tests"  allow-return-values="true" thread-count="1">
+
+  <listeners>
+	 <listener class-name="com.macys.mst.artemis.selenium.WebDriverListener"/>	
+  </listeners>  
+  
+ <!-- <test name="test1"> 	 
+  	    <parameter name="Exeenv" value="QA"></parameter>  	   
+  	    <parameter name="TestConfigName" value="smoke"></parameter> 
+  		<parameter name="Flagdatasetup" value="No"></parameter>
+  		<parameter name="Flagtestexecution" value="Yes"></parameter>
+  		<parameter name="browserName" value="firefox"></parameter> 
+  		<parameter name="Flag-testUI" value="Yes"></parameter> 
+  		<parameter name="Runtests-fromJira" value="Yes"></parameter>
+  		 <parameter name="test_results_tab_injira" value="QA_smoke_firefox"></parameter>   				  		
+	    <classes> 	      
+	       <class name="com.macys.mst.bptt.execdrivers.ExecutionConfig"/>	         	       
+	    </classes>     
+  	</test> 
+  	
+  	 <test name="test2"> 	 
+  	    <parameter name="Exeenv" value="Dev"></parameter>  	   
+  	    <parameter name="TestConfigName" value="smoke"></parameter> 
+  		<parameter name="Flagdatasetup" value="No"></parameter>
+  		<parameter name="Flagtestexecution" value="Yes"></parameter>
+  		<parameter name="browserName" value="chrome"></parameter> 
+  		<parameter name="Flag-testUI" value="Yes"></parameter> 
+  		<parameter name="Runtests-fromJira" value="Yes"></parameter>
+  		 <parameter name="test_results_tab_injira" value="Dev_smoke_chrome"></parameter>   				  		
+	    <classes> 	      
+	       <class name="com.macys.mst.mnet.execdrivers.ExecutionConfig"/>	         	       
+	    </classes>     
+  	</test>   -->	
+
+  	
+  	 <test name="test3"> 	 
+  	    <parameter name="Exeenv" value="QA"></parameter>  	   
+  	    <parameter name="TestConfigName" value="QA"></parameter> 
+  		<parameter name="Flagdatasetup" value="No"></parameter>
+  		<parameter name="GenerateStepDefs" value="No"></parameter>
+  		<parameter name="Flagtestexecution" value="Yes"></parameter>
+  		<parameter name="browserName" value="chrome"></parameter> 
+  		<parameter name="Runtests-fromJira" value="No"></parameter>
+  		<parameter name="Flag-testUI" value="Yes"></parameter> 
+  		
+  		<parameter name="test_results_tab_injira" value="QA_Test"></parameter>   			  		
+	    <classes> 	      
+	       <class name="com.macys.mst.FreightOptimization.execdrivers.ExecutionConfig"/>	         	       
+	    </classes>     
+  	</test>  
+  	
+  	<!-- <test name="test4"> 	 
+  	    <parameter name="Exeenv" value="QA"></parameter>  	   
+  	    <parameter name="TestConfigName" value="regression"></parameter> 
+  		<parameter name="Flagdatasetup" value="No"></parameter>
+  		<parameter name="Flagtestexecution" value="Yes"></parameter>
+  		<parameter name="browserName" value="firefox"></parameter> 
+  		<parameter name="Flag-testUI" value="No"></parameter> 
+  		<parameter name="Runtests-fromJira" value="Yes"></parameter>
+  		<parameter name="test_results_tab_injira" value="Dev_Regression"></parameter>   			  		
+	    <classes> 	      
+	       <class name="com.macys.mst.mnet.execdrivers.ExecutionConfig"/>	         	       
+	    </classes>     
+  	</test> -->
+
+</suite>
