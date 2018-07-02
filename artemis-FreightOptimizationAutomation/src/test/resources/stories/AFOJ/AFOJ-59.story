@@ -23,6 +23,7 @@ When click the link Freight Movement Request
 Then take me to the page Freight Movement Request
 And select DCTODC radio button
 Then Verify All the Origin address are populated from Rest services
+Then go back to default window 
 
 Examples:
 |MacysNet_URL               |Service_URL                                                           |

@@ -46,7 +46,7 @@ public class General {
 	/***********************************************************************************************************************************************************
 	 * 'Method name : waitToLoadElement 'Project name :
 	 * FreightOptimizationAutomation 'Description : This method is to wait until the element load
-	 * 'Developer : Sriram 'Reviewed By : 'Created On : May 2018
+	 * 'Developer : Sriram 'Reviewed By : 'Created On : May 2018 
 	 ************************************************************************************************************************************************************/
 	public static void waitToLoadElement(WebElement weleElementName) throws Exception {
 

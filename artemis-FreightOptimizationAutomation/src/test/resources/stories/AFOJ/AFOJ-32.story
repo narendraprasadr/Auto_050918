@@ -17,37 +17,28 @@ Meta:
 @productName Macy'sNET
 @moduleName Additional Freight Optimization
 @automatedBy BH05412_Praveenkumar
-					 
-Given user is on page Freight Movement Request
-When select DCTODC radio button
-Then validate the below fields are mandatory in DC To DC Pick Up Request page:
-|MandatoryFields|
-|Origin         |
-|Destination    |
-|Name           |
-|Address        |
-|City           |
-|State          |
-|Zip            |
-|Freight Type   |
-|Piece Count    |
-|Weight (lbs)   |
-|Cubic Feet     |
-|Pick Up Date   |
-|Time           |
-|Time Zone      |
-|Carrier Type   |
-|Trailer Class  |
-And verify the Optional fields in DC To DC Pick Up Request page:
-|OptionalFields|
-|Trailer Number|
-|SCAC          |
-|Pallets       |
-|Units/Cartons |
-|Driver Notes  |
-Then Mandatory field Frieght type is defaulted to Processed Freight
+
+Given Admin user is on freight movement page
+When Admin user selects DC to DC radio button
+Then validate the MandatoryFields in DC To DC Pick Up Request page
+Then validate the OptionalFields in DC To DC Pick Up Request page
+Then validate fields DefaultValue
+
 Examples:
-|FieldName   |DefaultValue     |
-|Frieght typ |Processed Freight|
-|Pick Up Date|Current Date     |
-|Pick Up Time|12:00 AM         |
+|MacysNet_URL               |
+|http://dev.macysnet.com/AP/|
+
+Scenario:Retrieve data for all the fields in the DC to DC page
+
+Meta:
+@acceptance
+@id AFOJ-32-SC015
+@productName Macy'sNET
+@moduleName Additional Freight Optimization
+@automatedBy BH05412_Praveenkumar
+
+Given Admin user is on freight movement page and select DC To DC
+
+Examples:
+|MacysNet_URL               |
+|http://dev.macysnet.com/AP/|

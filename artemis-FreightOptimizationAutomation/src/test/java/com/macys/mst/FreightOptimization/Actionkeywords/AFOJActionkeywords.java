@@ -360,10 +360,12 @@ public class AFOJActionkeywords {
 		  logger.info("Inside Project Action --> Switch_Window ");
 		  try
 		  {
-			  int n=Integer.parseInt(strdata);
 			  ArrayList<String> newTab = new ArrayList<String>(lcldriver.getWindowHandles());
-			  lcldriver.switchTo().window(newTab.get(n));
-			 
+			  
+			    int n=Integer.parseInt(strdata);
+				  lcldriver.switchTo().window(newTab.get(n));
+				  
+		  
 			 
 		  }catch(Exception e)
 		  {
@@ -409,4 +411,27 @@ public class AFOJActionkeywords {
 		
 		
 	}
+	
+	 public static void select_Date(WebDriver lclDriver,String locString,String date) {
+			logger.info("Inside Project Action --> select_Date");
+			try
+			{
+				List<WebElement> dateWidget = lclDriver.findElements(By.xpath(General.get_Locator(locString)));
+
+				for (WebElement cell: dateWidget){
+					String value=cell.getText();
+				   if (value.equals(date)){
+					   cell.click();
+					   logger.info("Then given '"+date +"' Date is selected successfully");
+				      break;
+				 }
+				}
+				
+			}catch(Exception e)
+			{
+				assertFalse(date + " date is not selected", true);
+				logger.info("Inside Project Action -->   "+date +" date is not selected");
+			}
+			
+		}
 }

@@ -67,7 +67,7 @@ public class MacysNetKBDDriver extends KDDdriverMap{
 	         put("AFOJ_validate_Text" , new ExecuteAction(){public void executeAction(){AFOJActionkeywords.validate_Text(LclDriver, object, data);}});
 	         put("switch_Frame" , new ExecuteAction(){public void executeAction(){AFOJActionkeywords.switch_Frame(LclDriver, data);}});
 	         put("Switch_Window" , new ExecuteAction(){public void executeAction(){AFOJActionkeywords.Switch_Window(LclDriver, data);}});
-	         
+	         put("select_Date" , new ExecuteAction(){public void executeAction(){AFOJActionkeywords.select_Date(LclDriver, object, data);}});
 	      }};													
 	       return actionsKeywords;
 	    
