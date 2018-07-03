@@ -19,15 +19,13 @@ Meta:
 @moduleName Additional Freight Optimization
 @automatedBy BH0446_Sriram
 					 
-Given Login to MacysNet application as Admin user
-When click the link Freight Movement Request
-Then take me to the page Freight Movement Request
-And select DCTODC radio button
+Given Admin user is on freight movement page
+When select DCTODC radio button
 Then validate a free form text box called Driver Notes that allows the user to input data
 And verify the maximum text length of characters accepted is 128.
 Examples:
-|InputText                                                                                                                                     |AcceptedText                                                                                                                    |MacysNet_URL               |
-|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW               |WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW |http://dev.macysnet.com/AP/|
+|InputText                                                                                                                                     |AcceptedText                                                                                                                    |
+|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW               |WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW |
 |                                                                                                                                              |                                                                                                                                |
 |A                                                                                                                                             |A                                                                                                                               |
 |WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|
@@ -43,13 +41,12 @@ Meta:
 @moduleName Additional Freight Optimization
 @automatedBy BH0446_Sriram
 					 
-Given Login to MacysNet application as Admin user
-When click the link Freight Movement Request
-Then take me to the page Freight Movement Request
-And select DCTODC radio button
+Given Admin user is on freight movement page
+When select DCTODC radio button
 Then validate a free form text box called Driver Notes that allows the user to input data
 And verify the maximum text length of characters accepted is 127.
+Then close freight movement page
 Examples:
-|InputText                                                                                                                      |MacysNet_URL               |
-|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|http://dev.macysnet.com/AP/|
+|InputText                                                                                                                      |
+|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|
 

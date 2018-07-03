@@ -18,16 +18,13 @@ Meta:
 @moduleName Additional Freight Optimization
 @automatedBy BH00446_Sriram
 					 
-Given Login to MacysNet application as Admin user
-When click the link Freight Movement Request
-Then take me to the page Freight Movement Request
-And select DCTODC radio button
+Given Admin user is on freight movement page
+When select DCTODC radio button
 Then Verify All the Origin address are populated from Rest services
-Then go back to default window 
 
 Examples:
-|MacysNet_URL               |Service_URL                                                           |
-|http://dev.macysnet.com/AP/|http://lp000xstrs0002:8355/api/platform_msp/v1/shipping/retrieveAllDCs|
+|Service_URL                                                           |
+|http://lp000xstrs0002:8355/api/platform_msp/v1/shipping/retrieveAllDCs|
 
 
 Scenario: DC2DC Execute an initial load of data for the DC to DC page
@@ -39,15 +36,13 @@ Meta:
 @moduleName Additional Freight Optimization
 @automatedBy BH00446_Sriram
 					 
-Given Login to MacysNet application as Admin user
-When click the link Freight Movement Request
-Then take me to the page Freight Movement Request
-And select DCTODC radio button
+Given Admin user is on freight movement page
+When select DCTODC radio button
 Then Verify All the Destination address are populated from Rest services
 
 Examples:
-|MacysNet_URL               |Service_URL                                                           |
-|http://dev.macysnet.com/AP/|http://lp000xstrs0002:8355/api/platform_msp/v1/shipping/retrieveAllDCs|
+|Service_URL                                                           |
+|http://lp000xstrs0002:8355/api/platform_msp/v1/shipping/retrieveAllDCs|
 
 Scenario: DC2DC Execute an initial load of data for the DC to DC page
 
@@ -58,15 +53,13 @@ Meta:
 @moduleName Additional Freight Optimization
 @automatedBy BH00446_Sriram
 					 
-Given Login to MacysNet application as Admin user
-When click the link Freight Movement Request
-Then take me to the page Freight Movement Request
-And select DCTODC radio button
+Given Admin user is on freight movement page
+When select DCTODC radio button
 Then Verify All the Freight Type are populated from Rest services
 
 Examples:
-|MacysNet_URL               |Service_URL                                                                  |
-|http://dev.macysnet.com/AP/|http://lp000xstrs0002:8355/api/platform_msp/v1/shipping/getFreightLoadOptions|
+|Service_URL                                                                  |
+|http://lp000xstrs0002:8355/api/platform_msp/v1/shipping/getFreightLoadOptions|
 
 Scenario: DC2DC Execute an initial load of data for the DC to DC page
 
@@ -77,15 +70,13 @@ Meta:
 @moduleName Additional Freight Optimization
 @automatedBy BH00446_Sriram
 					 
-Given Login to MacysNet application as Admin user
-When click the link Freight Movement Request
-Then take me to the page Freight Movement Request
-And select DCTODC radio button
+Given Admin user is on freight movement page
+When select DCTODC radio button
 Then Verify All the Carrier Type are populated from Rest services
 
 Examples:
-|MacysNet_URL               |Service_URL                                                                  |
-|http://dev.macysnet.com/AP/|http://lp000xstrs0002:8355/api/platform_msp/v1/shipping/getFreightLoadOptions|
+|Service_URL                                                                  |
+|http://lp000xstrs0002:8355/api/platform_msp/v1/shipping/getFreightLoadOptions|
 
 Scenario: DC2DC Execute an initial load of data for the DC to DC page
 
@@ -96,12 +87,10 @@ Meta:
 @moduleName Additional Freight Optimization
 @automatedBy BH00446_Sriram
 					 
-Given Login to MacysNet application as Admin user
-When click the link Freight Movement Request
-Then take me to the page Freight Movement Request
-And select DCTODC radio button
+Given Admin user is on freight movement page
+When select DCTODC radio button
 Then Verify All the Trailer Class are populated from Rest services
 
 Examples:
-|MacysNet_URL               |Service_URL                                                                  |
-|http://dev.macysnet.com/AP/|http://lp000xstrs0002:8355/api/platform_msp/v1/shipping/getFreightLoadOptions|
+|Service_URL                                                                  |
+|http://lp000xstrs0002:8355/api/platform_msp/v1/shipping/getFreightLoadOptions|

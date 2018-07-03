@@ -18,17 +18,12 @@ Meta:
 @moduleName Additional Freight Optimization
 @automatedBy BH05412_Praveenkumar
 
-Given Login to MacysNet application as Admin user
-When click the link Freight Movement Request
-Then take me to the page Freight Movement Request
-And select DCTODC radio button
+Given Admin user is on freight movement page
+When select DCTODC radio button
 Then user enter all mandatory fields
 Then click on submit button
 Then validate all the fields are cleared on DCTODC page
 
-Examples:
-|MacysNet_URL                |
-| http://dev.macysnet.com/AP/|
 
 Scenario: Validate Invalid SCAC Code error message
 
@@ -39,14 +34,14 @@ Meta:
 @moduleName Additional Freight Optimization
 @automatedBy BH05412_Praveenkumar
 
-Given Login to MacysNet application as Admin user
-When click the link Freight Movement Request
-Then take me to the page Freight Movement Request
-And select DCTODC radio button
+Given Admin user is on freight movement page
+When select DCTODC radio button
 Then user enter all mandatory fields 
 Then user enter invalid SCAC Code
 Then click on submit button
+Then validate the service code
+Then close freight movement page
 
 Examples:
-|MacysNet_URL                |
-| http://dev.macysnet.com/AP/|
+|serviceUrl                                                                         |returnCode|field                |value                                                                                                                                                                       |
+|http://lp000xstrs0002:8355/api/platform_msp/v1/shipping/postOutboundShipmentRequest|400       |ShipmentRequestSubmit|originID:3,destinationID:6-loadInformation=pieceCount:100,pieceCountInPallets:true,weightLbs:75,cubicFeet:235,pickupDate:07/29/2018,pickupTime:3:30 PM,scac:AAAA,timeZone:ET|

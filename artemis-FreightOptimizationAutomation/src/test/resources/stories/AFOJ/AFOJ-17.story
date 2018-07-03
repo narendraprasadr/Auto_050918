@@ -24,6 +24,3 @@ When click the link Freight Movement Request
 Then take me to the page Freight Movement Request
 Then validate that CRC/RTV, DC to DC and Non-Retail radio buttons are displayed
 
-Examples:
-|MacysNet_URL               |
-|http://dev.macysnet.com/AP/|

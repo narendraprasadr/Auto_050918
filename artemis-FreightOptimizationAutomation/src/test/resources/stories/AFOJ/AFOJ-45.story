@@ -23,17 +23,12 @@ Meta:
 @automatedBy BH0446_Sriram
 					 
 
-Given Login to MacysNet application as Admin user
-When click the link Freight Movement Request
-Then take me to the page Freight Movement Request
-And select DC to DC radio button
+Given Admin user is on freight movement page
+When select DC to DC radio button
 Then user user enter all mandatory fields expect Trailer Class
 And click on submit button
 Then verify the mandatory fields which are null are highlight with please enter value
 
-Examples:
-|MacysNet_URL               |
-|http://dev.macysnet.com/AP/|
 
 Scenario: Validate all fields contain valid values
 
@@ -44,18 +39,12 @@ Meta:
 @moduleName Additional Freight Optimization
 @automatedBy BH0446_Sriram
 					 
-
-Given Login to MacysNet application as Admin user
-When click the link Freight Movement Request
-Then take me to the page Freight Movement Request
-And select DC to DC radio button
+Given Admin user is on freight movement page
+When select DC to DC radio button
 Then select Origin address
 Then select Destination address
 And Verify Origin and Destination Should not be same message is display 
 
-Examples:
-|MacysNet_URL               |
-|http://dev.macysnet.com/AP/|
 
 Scenario: Validate all fields are refresh when we rest page
 
@@ -66,15 +55,8 @@ Meta:
 @moduleName Additional Freight Optimization
 @automatedBy BH0446_Sriram
 					 
-
-Given Login to MacysNet application as Admin user
-When click the link Freight Movement Request
-Then take me to the page Freight Movement Request
-And select DC to DC radio button
+Given Admin user is on freight movement page
+When select DC to DC radio button
 Then user user enter all mandatory fields 
 And refresh Freight Movement Request page
 Then validate all the fields are cleared on DCTODC page
-
-Examples:
-|MacysNet_URL               |
-|http://dev.macysnet.com/AP/|

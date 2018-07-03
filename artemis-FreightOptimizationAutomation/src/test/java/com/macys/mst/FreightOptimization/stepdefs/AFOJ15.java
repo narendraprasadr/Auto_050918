@@ -1,4 +1,3 @@
-
 package com.macys.mst.FreightOptimization.stepdefs;
 
 import java.util.List;
@@ -17,59 +16,52 @@ import org.openqa.selenium.WebDriver;
 public class AFOJ15 {
 
     private ExamplesTable actionstable;
+
     private List tablemaprows;
+
     private Map examplesmap;
+
     private ConcurrentHashMap obj;
+
     private WebDriverListener WbDrvrListener;
-    private final static WebDriver gbldriver = LocalDriverManager.getInstance().getDriver();
+
+    private static final WebDriver gbldriver = LocalDriverManager.getInstance().getDriver();
+
     public Long TestNGThreadID = Thread.currentThread().getId();
 
     @BeforeStory
     public void beforeStory() {
-        ConcurrentHashMap<String,String> obj = WebDriverListener.EnvMap.get(TestNGThreadID);
+        ConcurrentHashMap<String, String> obj = WebDriverListener.EnvMap.get(TestNGThreadID);
         WebDriverListener.EnvMap.put((Thread.currentThread().getId()), obj);
     }
 
     @Given("MacysNet URL is launched")
-    public void MacysNetURLislaunched()
-        throws Exception
-    {
+    public void MacysNetURLislaunched() throws Exception {
         FetchExampleTable.sendInputActions(gbldriver, null);
     }
 
     @When("user logged in as Admin user")
-    public void userloggedinasAdminuser()
-        throws Exception
-    {
+    public void userloggedinasAdminuser() throws Exception {
         FetchExampleTable.sendInputActions(gbldriver, null);
     }
 
     @Then("MacysNet home page should be displayed")
-    public void MacysNethomepageshouldbedisplayed()
-        throws Exception
-    {
+    public void MacysNethomepageshouldbedisplayed() throws Exception {
         FetchExampleTable.sendInputActions(gbldriver, null);
     }
 
     @Then("a new link called Request Freight Movement should be displayed above Document Library on MacysNet Home Page")
-    public void anewlinkcalledRequestFreightMovementshouldbedisplayedaboveDocumentLibraryonMacysNetHomePage()
-        throws Exception
-    {
+    public void anewlinkcalledRequestFreightMovementshouldbedisplayedaboveDocumentLibraryonMacysNetHomePage() throws Exception {
         FetchExampleTable.sendInputActions(gbldriver, null);
     }
 
     @When("user logged in as Vendor user")
-    public void userloggedinasVendoruser()
-        throws Exception
-    {
+    public void userloggedinasVendoruser() throws Exception {
         FetchExampleTable.sendInputActions(gbldriver, null);
     }
 
     @Then("a new link called Request Freight Movement should not be displayed above Document Library on MacysNet Home Page")
-    public void anewlinkcalledRequestFreightMovementshouldnotbedisplayedaboveDocumentLibraryonMacysNetHomePage()
-        throws Exception
-    {
+    public void anewlinkcalledRequestFreightMovementshouldnotbedisplayedaboveDocumentLibraryonMacysNetHomePage() throws Exception {
         FetchExampleTable.sendInputActions(gbldriver, null);
     }
-
 }

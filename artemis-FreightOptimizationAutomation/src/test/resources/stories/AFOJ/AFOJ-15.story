@@ -27,8 +27,9 @@ Then MacysNet home page should be displayed
 And a new link called Request Freight Movement should be displayed above Document Library on MacysNet Home Page
 
 Examples:
-|MacysNet_URL               |
-|http://dev.macysnet.com/AP/| 
+|MacysNet_URL             |
+|http://qa.macysnet.com/AP|
+
 Scenario: Verify new link "Request Freight Movement" is not displayed above Document Library on MacysNet Home Page when logged in as Vendor user
 
 Meta:
@@ -47,5 +48,5 @@ Then MacysNet home page should be displayed
 And a new link called Request Freight Movement should not be displayed above Document Library on MacysNet Home Page
 
 Examples:
-|MacysNet_URL               |
-|http://dev.macysnet.com/AP/| 
+|MacysNet_URL             |
+|http://qa.macysnet.com/AP|

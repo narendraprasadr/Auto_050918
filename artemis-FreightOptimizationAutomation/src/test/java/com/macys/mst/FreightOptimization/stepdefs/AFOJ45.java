@@ -30,28 +30,14 @@ public class AFOJ45 {
         WebDriverListener.EnvMap.put((Thread.currentThread().getId()), obj);
     }
 
-    @Given("Login to MacysNet application as Admin user")
-    public void LogintoMacysNetapplicationasAdminuser()
+    @Given("Admin user is on freight movement page")
+    public void Adminuserisonfreightmovementpage()
         throws Exception
     {
         FetchExampleTable.sendInputActions(gbldriver, null);
     }
 
-    @When("click the link Freight Movement Request")
-    public void clickthelinkFreightMovementRequest()
-        throws Exception
-    {
-        FetchExampleTable.sendInputActions(gbldriver, null);
-    }
-
-    @Then("take me to the page Freight Movement Request")
-    public void takemetothepageFreightMovementRequest()
-        throws Exception
-    {
-        FetchExampleTable.sendInputActions(gbldriver, null);
-    }
-
-    @Then("select DC to DC radio button")
+    @When("select DC to DC radio button")
     public void selectDCtoDCradiobutton()
         throws Exception
     {

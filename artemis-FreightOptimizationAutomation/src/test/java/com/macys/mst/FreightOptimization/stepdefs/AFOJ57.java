@@ -30,28 +30,14 @@ public class AFOJ57 {
         WebDriverListener.EnvMap.put((Thread.currentThread().getId()), obj);
     }
 
-    @Given("Login to MacysNet application as Admin user")
-    public void LogintoMacysNetapplicationasAdminuser()
+    @Given("Admin user is on freight movement page")
+    public void Adminuserisonfreightmovementpage()
         throws Exception
     {
         FetchExampleTable.sendInputActions(gbldriver, null);
     }
 
-    @When("click the link Freight Movement Request")
-    public void clickthelinkFreightMovementRequest()
-        throws Exception
-    {
-        FetchExampleTable.sendInputActions(gbldriver, null);
-    }
-
-    @Then("take me to the page Freight Movement Request")
-    public void takemetothepageFreightMovementRequest()
-        throws Exception
-    {
-        FetchExampleTable.sendInputActions(gbldriver, null);
-    }
-
-    @Then("select DCTODC radio button")
+    @When("select DCTODC radio button")
     public void selectDCTODCradiobutton()
         throws Exception
     {
@@ -81,6 +67,20 @@ public class AFOJ57 {
 
     @Then("user enter invalid SCAC Code")
     public void userenterinvalidSCACCode()
+        throws Exception
+    {
+        FetchExampleTable.sendInputActions(gbldriver, null);
+    }
+
+    @Then("validate the service code")
+    public void validatetheservicecode()
+        throws Exception
+    {
+        FetchExampleTable.sendInputActions(gbldriver, null);
+    }
+
+    @Then("close freight movement page")
+    public void closefreightmovementpage()
         throws Exception
     {
         FetchExampleTable.sendInputActions(gbldriver, null);

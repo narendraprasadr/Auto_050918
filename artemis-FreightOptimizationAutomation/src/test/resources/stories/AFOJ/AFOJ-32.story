@@ -23,22 +23,3 @@ When Admin user selects DC to DC radio button
 Then validate the MandatoryFields in DC To DC Pick Up Request page
 Then validate the OptionalFields in DC To DC Pick Up Request page
 Then validate fields DefaultValue
-
-Examples:
-|MacysNet_URL               |
-|http://dev.macysnet.com/AP/|
-
-Scenario:Retrieve data for all the fields in the DC to DC page
-
-Meta:
-@acceptance
-@id AFOJ-32-SC015
-@productName Macy'sNET
-@moduleName Additional Freight Optimization
-@automatedBy BH05412_Praveenkumar
-
-Given Admin user is on freight movement page and select DC To DC
-
-Examples:
-|MacysNet_URL               |
-|http://dev.macysnet.com/AP/|

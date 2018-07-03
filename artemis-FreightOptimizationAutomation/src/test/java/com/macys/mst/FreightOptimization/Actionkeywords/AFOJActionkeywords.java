@@ -36,35 +36,53 @@ import com.macys.mst.artemis.selenium.actions.SeleniumElements;
 
 
 
+
 public class AFOJActionkeywords {
-	SeUiContextBase objSeUiContextBase= new SeUiContextBase();
+	static SeUiContextBase objSeUiContextBase= new SeUiContextBase();
 	public static Logger logger = Logger.getLogger(FreightOptimization.class.getName());
-	
+	static int loginCount=0;
+	public static String userType,struserTypes=null;
 	static SeleniumElements objSeleniumElements=new SeleniumElements();
 	
-    public void Macysnet_Login(String struserType) {
+    public static void Macysnet_Login(WebDriver lcldriver,String struserType) {
 
 		try {
+			if(verify_LoginUser(struserType)) {
 			
-			String userId;
+			SeUiContextBase.gotourl(lcldriver, Constants.loginUrl);
+			SeUiContextBase.Maximize_Browser_Window(lcldriver);
+			struserTypes=struserType;
+			StepDetail.addDetail("MacysNET login page is displayed", true);
+			assertTrue("MacysNET login page", true);
+			logger.info("MacysNET login page is displayed ");
+			System.out.println(struserType);
+			
 			if (struserType.equals("Admin"))
-				userId=FileConfig.getInstance().getStringConfigValue("cyberark.userIDAdmin"); 
+				userType=FileConfig.getInstance().getStringConfigValue("cyberark.userIDAdmin"); 
+				
 			else
-				userId=FileConfig.getInstance().getStringConfigValue("cyberark.userIDOther"); 
+				userType=FileConfig.getInstance().getStringConfigValue("cyberark.userIDOther"); 
+			System.out.println(userType);
 			
 			String cyberarksafe=FileConfig.getInstance().getStringConfigValue("cyberark.safe"); 
             String cyberarkappid=FileConfig.getInstance().getStringConfigValue("cyberark.appid");             
             String passwordobj=FileConfig.getInstance().getStringConfigValue("cyberark.pwdobjectid");            
             String password=GetPasswordCyberArk.getpassword(cyberarksafe,cyberarkappid, passwordobj);
             
-			objSeUiContextBase.sendkeys(LoginPage.username,userId);
+            WebElement element=lcldriver.findElement(By.xpath(General.get_Locator("txa_Login_Username")));
+			objSeUiContextBase.sendkeys(element,userType);
 			assertTrue("MTO Username entered successfully", true);
-			objSeUiContextBase.sendkeys(LoginPage.password,password);
+			element=lcldriver.findElement(By.xpath(General.get_Locator("txa_Login_Password")));
+			objSeUiContextBase.sendkeys(element,password);
 			assertTrue("Password entered successfully", true);
-			SeUiContextBase.Capture_Page_Screenshot(General.driver, Constants.scnshotPassPath +"LoginScreen"+General.getTimeStamp()+".jpg");
+			SeUiContextBase.Capture_Page_Screenshot(lcldriver, Constants.scnshotPassPath +"LoginScreen"+General.getTimeStamp()+".jpg");
 			StepDetail.addDetail("username" + ":" + "Password", true);
+			element=lcldriver.findElement(By.xpath(General.get_Locator("btn_Login_Login")));
+			element.click();
 			assertTrue("submitted successfully", true);
 			logger.info("Login to Macy'sNET application successfully");
+			}
+			Thread.sleep(4000);
 
 		} catch (Exception e) {
 
@@ -74,6 +92,18 @@ public class AFOJActionkeywords {
 		}
 	}
 	
+    public static boolean verify_LoginUser(String struserType) {  
+    	System.out.println(struserType+struserTypes+loginCount);
+    if(loginCount==0) {
+		
+		loginCount++;
+		return true;
+	}else if(loginCount>0 && struserTypes.equals(struserType)) {
+		return false;
+	}else {
+		return true;
+	}
+    }
 	/***********************************************************************************************************************************************************
 	 * 'Method name : Verify_Text_Length_Should_Be 
 	 * 'Project name:FreightOptimizationAutomation 
@@ -358,14 +388,22 @@ public class AFOJActionkeywords {
 	  }
 	public static void Switch_Window(WebDriver lcldriver,String strdata ) {
 		  logger.info("Inside Project Action --> Switch_Window ");
+		  String []datacopy=null;
+		  int n=0;
 		  try
 		  {
+			  if(strdata.contains(","))
+			  {
+				  datacopy=strdata.split(",");
+				  n=Integer.parseInt(datacopy[0]);  
+			  }
+			  else
+			  {
+				  n=Integer.parseInt(strdata);
+			  }
 			  ArrayList<String> newTab = new ArrayList<String>(lcldriver.getWindowHandles());
-			  
-			    int n=Integer.parseInt(strdata);
-				  lcldriver.switchTo().window(newTab.get(n));
-				  
-		  
+			  lcldriver.switchTo().window(newTab.get(n));
+			  logger.info("Inside Project Action --> Successfully Switch To Window ");
 			 
 		  }catch(Exception e)
 		  {
