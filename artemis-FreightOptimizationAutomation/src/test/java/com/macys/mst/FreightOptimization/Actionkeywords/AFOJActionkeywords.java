@@ -3,19 +3,22 @@ package com.macys.mst.FreightOptimization.Actionkeywords;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+import org.json.simple.JSONObject;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import java.util.Date; 
+import java.util.HashMap;
 
+import java.util.Map;
 import com.macys.mst.FreightOptimization.config.Constants;
 import com.macys.mst.FreightOptimization.db.app.AppDBMethods;
 import com.macys.mst.FreightOptimization.db.app.DBMethods;
@@ -31,8 +34,13 @@ import com.macys.mst.artemis.customexceptions.SeleniumNonFatalException;
 import com.macys.mst.artemis.db.DBConnections;
 import com.macys.mst.artemis.db.DBUtils;
 import com.macys.mst.artemis.reports.StepDetail;
+import com.macys.mst.artemis.rest.RestUtilities;
 import com.macys.mst.artemis.selenium.SeUiContextBase;
 import com.macys.mst.artemis.selenium.actions.SeleniumElements;
+
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 
 
 
@@ -43,13 +51,16 @@ public class AFOJActionkeywords {
 	static int loginCount=0;
 	public static String userType,struserTypes=null;
 	static SeleniumElements objSeleniumElements=new SeleniumElements();
+	public static RequestSpecification request = RestAssured.given();
+	public static JSONObject requestJSON=new JSONObject();
+	public static Response response ;
 	
     public static void Macysnet_Login(WebDriver lcldriver,String struserType) {
 
 		try {
 			if(verify_LoginUser(struserType)) {
 			
-			SeUiContextBase.gotourl(lcldriver, Constants.loginUrl);
+			SeUiContextBase.gotourl(lcldriver, (FileConfig.getInstance().getStringConfigValue("MacysNet.URL")));
 			SeUiContextBase.Maximize_Browser_Window(lcldriver);
 			struserTypes=struserType;
 			StepDetail.addDetail("MacysNET login page is displayed", true);
@@ -58,15 +69,14 @@ public class AFOJActionkeywords {
 			System.out.println(struserType);
 			
 			if (struserType.equals("Admin"))
-				userType=FileConfig.getInstance().getStringConfigValue("cyberark.userIDAdmin"); 
+				userType=FileConfig.getInstance().getStringConfigValue("MacysNet.userIDAdmin"); 
 				
 			else
-				userType=FileConfig.getInstance().getStringConfigValue("cyberark.userIDOther"); 
-			System.out.println(userType);
-			
-			String cyberarksafe=FileConfig.getInstance().getStringConfigValue("cyberark.safe"); 
-            String cyberarkappid=FileConfig.getInstance().getStringConfigValue("cyberark.appid");             
-            String passwordobj=FileConfig.getInstance().getStringConfigValue("cyberark.pwdobjectid");            
+				userType=FileConfig.getInstance().getStringConfigValue("MacysNet.userIDOther"); 
+					
+			String cyberarksafe=FileConfig.getInstance().getStringConfigValue("MacysNet.safe"); 
+            String cyberarkappid=FileConfig.getInstance().getStringConfigValue("MacysNet.appid");             
+            String passwordobj=FileConfig.getInstance().getStringConfigValue("MacysNet.pwdobjectid");            
             String password=GetPasswordCyberArk.getpassword(cyberarksafe,cyberarkappid, passwordobj);
             
             WebElement element=lcldriver.findElement(By.xpath(General.get_Locator("txa_Login_Username")));
@@ -93,7 +103,7 @@ public class AFOJActionkeywords {
 	}
 	
     public static boolean verify_LoginUser(String struserType) {  
-    	System.out.println(struserType+struserTypes+loginCount);
+    	
     if(loginCount==0) {
 		
 		loginCount++;
@@ -305,13 +315,13 @@ public class AFOJActionkeywords {
 			  
 			  
 			  int runtimeindex=Integer.parseInt(dataArrayCopy[1]);
-			   Thread.sleep(2000);
+			   Thread.sleep(1000);
 			  WebElement element=  lcldriver.findElement(By.xpath("(.//*[@placeholder='Looking for'])["+runtimeindex+"]"));
 			  if(element.isDisplayed())
 			  {
 			  element.sendKeys(dataArrayCopy[0]);
 			  }
-				  Thread.sleep(4000);
+				  Thread.sleep(2000);
 				  List<WebElement> element1=lcldriver.findElements(By.xpath(".//span[@class='jqx-listitem-state-normal jqx-item jqx-rc-all']"));
 		    		logger.info("The element size: "+element1.size());
 		    		for(int j=0;j<element1.size();j++) {
@@ -323,7 +333,7 @@ public class AFOJActionkeywords {
 		    			}
 		    		}
 				  Assert.assertTrue(true, "Drop down selected successfully");
-				  Thread.sleep(5000);
+				  
 				  
 			  logger.info("Action select_SingleDropDown_Value is Successful");
 				 Assert.assertTrue(true, "Action select_SingleDropDown_Value is Successful");
@@ -341,7 +351,6 @@ public class AFOJActionkeywords {
 		  try
 		  {
 			  Thread.sleep(2000);
-			  System.out.println(locString+"--->");
 			  WebElement element=lcldriver.findElement(By.xpath(General.get_Locator(locString)));
 			  SeUiContextBase.Wait_Until_Element_Is_Visible(lcldriver, element);
 			  String value=element.getText();
@@ -373,7 +382,7 @@ public class AFOJActionkeywords {
 	    try
 	    {
 	      logger.info(String.format("Selecting frame '%s'.", new Object[] { locator }));
-	     
+	      
 	      lcldriver.switchTo().frame(locator);
 	      logger.info("Action switch_Frame is Successful");
 	      StepDetail.addDetail(String.format("switch_Frame is successful.",new Object[0]), true);
@@ -472,4 +481,132 @@ public class AFOJActionkeywords {
 			}
 			
 		}
+	 public static void validateServicePostResponseCode(String serviceURL,String expectedCode,String field, String value) {
+	  	  logger.info("Inside Project Action --> validateServicePostResponseCode, String serviceURL,String field, String value,String expectedCode ");
+	  	  try
+	  	  
+	  	    {
+	  	
+	  		  
+	  		Map<String, Object> requestMap = new HashMap<String, Object>();
+	  		Map<String, Object> tempHaspMap = new HashMap<String, Object>();
+	  		String field1=null;
+	  		
+	  		JSONObject tempsubJSON=new JSONObject();
+	  		if (value.contains("-")){
+	  			String arrayOfKeyValue [] = value.split("-");
+	  			JSONObject tempJSON=new JSONObject();
+	  			for(String str :arrayOfKeyValue) {
+	  				
+	  				if (str.contains("=")){
+	  					
+	  					String arrayOfKeyValue1 [] = str.split("=");
+	  					for(String str1 :arrayOfKeyValue1) {
+	  						if (str1.contains(",")){
+	  							String arrayOfKeyValue2 [] = str1.split(",");
+	  							
+	  							for(String str2 :arrayOfKeyValue2) {
+	  								
+	  								String keyValue[] = str2.split(":");
+	  								//keyvalue[0] - key, keyvalue[1] - value
+	  								tempJSON.put(keyValue[0], keyValue[1]);
+	  							}
+	  							
+	  							
+	  						}
+	  						else {
+	  							field1 = str1;
+	  						}
+	  						
+	  						tempsubJSON.put(field1, tempJSON);	
+	  					}
+	  				}
+	  				else {
+	  					
+	  					if (str.contains(",")){
+	  						
+	  						String arrayOfKeyValue3 [] = str.split(",");
+	  						
+	  						for(String str3 :arrayOfKeyValue3) {
+	  							
+	  							String keyValue[] = str3.split(":");
+	  							//keyvalue[0] - key, keyvalue[1] - value
+	  							tempsubJSON.put(keyValue[0], keyValue[1]);
+	  						}
+	  						
+	  						
+	  					}
+	  					else {
+	  						String keyValue[] = str.split(":");
+	  						//keyvalue[0] - key, keyvalue[1] - value
+	  						tempsubJSON.put(keyValue[0], keyValue[1]);
+	  					}
+	  				}
+	  			}
+	  		}
+	  		requestJSON.put(field, tempsubJSON);
+	  		//AFOJRestServices.request.body(AFOJRestServices.requestJSON.toJSONString());
+	  		
+	  		request.body(AFOJRestServices.requestJSON.toJSONString());
+			response = RestUtilities.postRequestAndReturnResponse(serviceURL, requestJSON.toString());
+			
+			int statusCode = response.getStatusCode();
+			System.out.println(statusCode);
+			int expected=Integer.parseInt(expectedCode);
+			Assert.assertEquals(expected,statusCode);
+			logger.info("Action validateServicePostResponseCode Pass !");
+	  	      //return statusCode;
+	  	    }
+	  	    catch (Exception e)
+	  	    {
+	  	      e.printStackTrace();
+	  	      logger.info("Action validateServicePostResponseCode failed !");
+	  	      //StepDetail.addDetail(String.format("Verify_Text_Length_Should_Be is NOT successful.", new Object[0]), false);
+	  	      throw new SeleniumNonFatalException(" Action -> validateServicePostResponseCode : could not be completed!");
+	  	    }
+	  	}
+	 public static void validate_Default_Value_Should_Be(WebDriver lclDriver, String locString,String Values) {
+			logger.info("Inside Project Action --> validate_Default_Value_Should_Be ");
+			String appValue=null;
+			String [] dataArrayCopy = null;
+			try
+			{
+				
+				  if (Values.contains(",")) {
+				      dataArrayCopy = Values.split(",");
+				       }
+				  		Thread.sleep(2000);
+						
+				  			WebElement ele=lclDriver.findElement(By.xpath(General.get_Locator(locString)));
+						   	appValue=SeleniumElements.Get_Element_Attribute(ele, dataArrayCopy[1]);
+					if(dataArrayCopy[0].contains("/")|| appValue.contains("/"))
+					{
+						   	Date formatter = new SimpleDateFormat("MM/dd/yyyy").parse(appValue);  
+						    formatter.parse(dataArrayCopy[0]);
+					  }
+					   if(appValue.trim().equalsIgnoreCase(dataArrayCopy[0].trim()))
+					   {
+						   SeUiContextBase.Capture_Page_Screenshot(lclDriver, Constants.scnshotPassPath +"validate_Default_Value_Should_Be_"+General.getTimeStamp()+".jpg");
+						   logger.info("Expected is "+dataArrayCopy[0]+" value and found value is "+appValue);
+						   assertTrue("Expected is "+dataArrayCopy[0]+" value and found value is "+appValue, true);
+						  
+						   
+					   }
+					   else
+					   {
+						   SeUiContextBase.Capture_Page_Screenshot(lclDriver, Constants.scnshotFailPath +"validate_Default_Value_Should_Be_Fail_"+General.getTimeStamp()+".jpg");
+						   logger.error("Expected is "+dataArrayCopy[0]+" value But found value is "+appValue);
+							 assertFalse("Expected is "+dataArrayCopy[0]+" value But found value is "+appValue,true);
+					   }
+					   
+				
+			}catch(Exception e)
+			{
+				SeUiContextBase.Capture_Page_Screenshot(lclDriver, Constants.scnshotFailPath +"validate_Default_Value_Should_Be_Fail_"+General.getTimeStamp()+".jpg");
+				 logger.error("Expected is "+dataArrayCopy[0]+" value But found value is "+appValue);
+				 assertFalse("Expected is "+dataArrayCopy[0]+" value But found value is "+appValue,true);
+			}
+		}
+	
+
 }

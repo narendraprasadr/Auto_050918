@@ -1,18 +1,28 @@
-AFOJ-8 story
-Scenario: (11) Validate the DC addresses from FLO listed in alphabetical order and allow the user to select a single address
+AFOJ-8 CRC Source Origin address elements from existing DC addresses in FLO for dropdown
+
+Meta:
+@issue AFOJ-8
+
+Narrative:
+In order to clearly define the Origin address elements for CRC outbound shipments
+As a MTO colleague managing shipping
+I want to source Origin addresses elements from FLO for the dropdown on the new Freight Movement Request screen
+
+
+Scenario:(1)Validate the DC addresses from FLO listed in alphabetical order and allow the user to select a single address
 
 Meta:
 @acceptance
-@id AFOJ-8-SC011
+@id AFOJ-8-SC001
 @productName Macy'sNET
 @moduleName Additional Freight Optimization
-@automatedBy BH05412_Praveenkumar
+@automatedBy BH00446_Sriram
 					 
-Scenario: 
-Given Login to MacysNet application as Admin user
-When click the link Freight Movement Request
-Then take me to the page Freight Movement Request
+Given Admin user is on freight movement page
 When select CRC/RTV radio button
-When select the origin address
-Then provide DC addresses in alphabetical order
-Then allow the user to select a single address
+Then Verify All the Origin address are populated
+And Verify user to select a single origin address
+
+Examples:
+|Service_URL                                                           |
+|http://lp000xstrs0002:8355/api/platform_msp/v1/shipping/retrieveAllDCs|

@@ -1,16 +1,34 @@
-AFOJ-10 story
-Scenario: (12) Validate text box called Driver Notes that allows the user to input data when selecting the RTV radio button
+AFOJ-10 CRC Ability to capture Driver Notes
+
+Meta:
+@issue AFOJ-10
+
+Narrative:
+
+In order to communicate Driver Notes to the driver
+
+As a MTO colleague managing shipping
+
+I want to the ability to capture Driver Notes
+
+Scenario: (01) Validate text box called Driver Notes that allows the user to input data when selecting the RTV radio button
 
 Meta:
 @acceptance
-@id AFOJ-10-SC012
+@id AFOJ-10-SC001
 @productName Macy'sNET
-@moduleName Additional Freight Optimization
-@automatedBy BH05412_Praveenkumar
+@moduleName FreightMovementRequest
+@automatedBy 
 					 
-Scenario: 
-Given Login to MacysNet application as Admin user
-When click the link Freight Movement Request
-Then take me to the page Freight Movement Request
-When select CRC/RTV radio button
-Then provide a free form text box called Driver Notes that allows the user to input data
+Given Admin user is on freight movement page
+When select DCTODC radio button
+Then validate a free form text box called Driver Notes that allows the user to input data
+And verify the maximum text length of characters accepted is 128.
+
+Examples:
+|InputText                                                                                                                                     |AcceptedText                                                                                                                    |
+|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW               |WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW |
+|                                                                                                                                              |                                                                                                                                |
+|A                                                                                                                                             |A                                                                                                                               |
+|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|
+|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW W               |WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW W |

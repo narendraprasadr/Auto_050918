@@ -72,15 +72,8 @@ public class AFOJ57 {
         FetchExampleTable.sendInputActions(gbldriver, null);
     }
 
-    @Then("validate the service code")
-    public void validatetheservicecode()
-        throws Exception
-    {
-        FetchExampleTable.sendInputActions(gbldriver, null);
-    }
-
-    @Then("close freight movement page")
-    public void closefreightmovementpage()
+    @Then("validate the service with params")
+    public void validatetheservicewithparams()
         throws Exception
     {
         FetchExampleTable.sendInputActions(gbldriver, null);

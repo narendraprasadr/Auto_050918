@@ -6,6 +6,7 @@ import java.util.Map;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.WebDriver;
 import com.macys.mst.FreightOptimization.Actionkeywords.AFOJActionkeywords;
+import com.macys.mst.FreightOptimization.config.Constants;
 import com.macys.mst.FreightOptimization.utils.General;
 import com.macys.mst.artemis.kdddriver.ExecuteAction;
 import com.macys.mst.artemis.kdddriver.KDDdriverMap;
@@ -70,8 +71,8 @@ public class MacysNetKBDDriver extends KDDdriverMap{
 	         put("Switch_Window" , new ExecuteAction(){public void executeAction(){AFOJActionkeywords.Switch_Window(LclDriver, data);}});
 	         put("select_Date" , new ExecuteAction(){public void executeAction(){AFOJActionkeywords.select_Date(LclDriver, object, data);}});
 	         put("Login_Application" , new ExecuteAction(){public void executeAction(){AFOJActionkeywords.Macysnet_Login(LclDriver,data);}});
-	       //  put("waitToLoadElement" , new ExecuteAction(){public void executeAction(){General.waitToLoadElement(LclDriver,object);}});
-	         
+	         put("validateServicePostResponseCode" , new ExecuteAction(){public void executeAction(){AFOJActionkeywords.validateServicePostResponseCode(Constants.serviceURL,Constants.expectedCode,Constants.field, Constants.values);}});
+	         put("validate_Default_Value_Should_Be" , new ExecuteAction(){public void executeAction(){AFOJActionkeywords.validate_Default_Value_Should_Be(LclDriver,object, data);}});
 
 	      }};													
 	       return actionsKeywords;

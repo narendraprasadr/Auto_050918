@@ -21,14 +21,10 @@ Meta:
 @ModuleName FreightMovementRequest
 @automatedBy BH00446 Sriram
 
-Given MacysNet URL is launched
-When user logged in as Admin user
+Given user logged in as Admin user
 Then MacysNet home page should be displayed
 And a new link called Request Freight Movement should be displayed above Document Library on MacysNet Home Page
 
-Examples:
-|MacysNet_URL             |
-|http://qa.macysnet.com/AP|
 
 Scenario: Verify new link "Request Freight Movement" is not displayed above Document Library on MacysNet Home Page when logged in as Vendor user
 
@@ -42,11 +38,7 @@ Meta:
 @ModuleName FreightMovementRequest
 @automatedBy BH00446 Sriram
 
-Given MacysNet URL is launched
-When user logged in as Vendor user
+Given user logged in as Vendor user
 Then MacysNet home page should be displayed
 And a new link called Request Freight Movement should not be displayed above Document Library on MacysNet Home Page
 
-Examples:
-|MacysNet_URL             |
-|http://qa.macysnet.com/AP|
