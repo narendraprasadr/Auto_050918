@@ -66,17 +66,20 @@ public class AFOJActionkeywords {
 			StepDetail.addDetail("MacysNET login page is displayed", true);
 			assertTrue("MacysNET login page", true);
 			logger.info("MacysNET login page is displayed ");
-			System.out.println(struserType);
 			
-			if (struserType.equals("Admin"))
-				userType=FileConfig.getInstance().getStringConfigValue("MacysNet.userIDAdmin"); 
-				
-			else
-				userType=FileConfig.getInstance().getStringConfigValue("MacysNet.userIDOther"); 
+			String passwordobj=null;
+			if (struserType.equals("Admin")) {
+				userType=FileConfig.getInstance().getStringConfigValue("MacysNet.Admin.userId"); 
+			 passwordobj=FileConfig.getInstance().getStringConfigValue("MacysNet.Admin.pwdobjectid");  
+			}
+			else {
+				userType=FileConfig.getInstance().getStringConfigValue("MacysNet.vendor.userId"); 
+			 passwordobj=FileConfig.getInstance().getStringConfigValue("MacysNet.vendor.pwdobjectid");
+			}
 					
-			String cyberarksafe=FileConfig.getInstance().getStringConfigValue("MacysNet.safe"); 
-            String cyberarkappid=FileConfig.getInstance().getStringConfigValue("MacysNet.appid");             
-            String passwordobj=FileConfig.getInstance().getStringConfigValue("MacysNet.pwdobjectid");            
+			String cyberarksafe=FileConfig.getInstance().getStringConfigValue("cyberark.safe"); 
+            String cyberarkappid=FileConfig.getInstance().getStringConfigValue("cyberark.appid");             
+                    
             String password=GetPasswordCyberArk.getpassword(cyberarksafe,cyberarkappid, passwordobj);
             
             WebElement element=lcldriver.findElement(By.xpath(General.get_Locator("txa_Login_Username")));

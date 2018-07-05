@@ -11,18 +11,18 @@ As a MTO colleague managing shipping
 
 I want to the ability to capture minimum required data
 
-Scenario: (4) Enter data for all the fields in the CRC/RTV page
+Scenario: (1) Enter data for all the fields in the CRC/RTV page
 
 Meta:
 @acceptance
-@id AFOJ-7-SC004
+@id AFOJ-7-SC001
 @productName Macy'sNET
 @moduleName FreightMovementRequest
 @automatedBy 
 					 
 
-Given Login to MacysNet application as Admin user
-When click the link Freight Movement Request
-Then take me to the page Freight Movement Request
-When select CRC/RTV radio button
-Then enter data for all the fields in CRC/RTV page
+Given Admin user is on freight movement page
+When Admin user selects CRC/RTV radio button
+Then validate the MandatoryFields in CRC/RTV Pick Up Request page
+Then validate the OptionalFields in CRC/RTV Pick Up Request page
+Then validate fields DefaultValue

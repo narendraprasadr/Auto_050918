@@ -6,23 +6,20 @@
 		<cyberark>
 			<safe>PSV-FS-WMS-AutoTest-Q</safe>
 			<appid>WMS_Q</appid>
-			<userIDAdmin>roint3</userIDAdmin>
-			<userIDOther>roint1</userIDOther>
-			<pwdobjectid>Misc-Macys-Application-Passive-roint3</pwdobjectid>
-            <pwdobjectidvendor>Misc-Macys-Application-Passive-MNETQAROINT1</pwdobjectidvendor>
-			
+					
 		</cyberark>
-		
+				
 		<MacysNet>
-			<safe>PSV-FS-WMS-AutoTest-Q</safe>
-			<appid>WMS_Q</appid>
-			<URL>http://qa.macysnet.com/AP/</URL>
-			<userIDAdmin>roint3</userIDAdmin>
-			<userIDOther>roint1</userIDOther>
-			<pwdobjectid>Misc-Macys-Application-Passive-roint3</pwdobjectid>
-            <pwdobjectidvendor>Misc-Macys-Application-Passive-MNETQAROINT1</pwdobjectidvendor>
-			
-		</MacysNet>
+		   <URL>http://qa.macysnet.com/AP/</URL>
+		  <Admin>
+				<userId>roint3</userId>
+				 <pwdobjectid> Misc-Macys-Application-Passive-roint3</pwdobjectid>
+		 </Admin>
+		   <vendor>
+			   <userId> roint1</userId>
+			   <pwdobjectid> Misc-Macys-Application-Passive-roint3</pwdobjectid>
+			 </vendor>
+	    </MacysNet>
 
 		<activespace>
 			<server>
