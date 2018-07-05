@@ -3,22 +3,25 @@ package com.macys.mst.FreightOptimization.Actionkeywords;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import org.json.simple.JSONObject;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+
 import java.util.Date; 
 import java.util.HashMap;
-
 import java.util.Map;
+
 import com.macys.mst.FreightOptimization.config.Constants;
 import com.macys.mst.FreightOptimization.db.app.AppDBMethods;
 import com.macys.mst.FreightOptimization.db.app.DBMethods;
@@ -37,6 +40,7 @@ import com.macys.mst.artemis.reports.StepDetail;
 import com.macys.mst.artemis.rest.RestUtilities;
 import com.macys.mst.artemis.selenium.SeUiContextBase;
 import com.macys.mst.artemis.selenium.actions.SeleniumElements;
+import com.macys.mst.artemis.selenium.actions.SeleniumWait;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -354,28 +358,50 @@ public class AFOJActionkeywords {
 		  try
 		  {
 			  Thread.sleep(2000);
-			  WebElement element=lcldriver.findElement(By.xpath(General.get_Locator(locString)));
-			  SeUiContextBase.Wait_Until_Element_Is_Visible(lcldriver, element);
+			  
+			  WebElement element=objSeleniumElements.Get_Webelement(lcldriver, locString);
+			//		  lcldriver.findElement(By.xpath(General.get_Locator(locString)));
+			  SeleniumWait.Fluent_Wait_Until_Element_Visible(lcldriver, element, 30L);
+			  
+			  //SeUiContextBase.Wait_Until_Element_Is_Visible(lcldriver, element);
 			  String value=element.getText();
-		 if(value.contains(strdata))
-			 {
+			  if(value.contains(strdata)){
 				 logger.info(value+" message displayed");
 				 Assert.assertTrue(true, value+" message displayed");
-				 
-			 }
-			 else
-			 {
+			  }else{
 				 logger.info(value+" message displayed");
 				 Assert.assertFalse(true, value+" Incorrect message displayed");
-				 
 			 }
-			  
-			 
 		  }catch(Exception e)
 		  {
 			  e.printStackTrace();
 		      logger.info("Action validate_Text failed !");
 		      throw new SeleniumNonFatalException(" Action -> validate_Text : could not be completed!");
+		  }
+	}
+	
+	public static void validate_date_Time_values(WebDriver lcldriver,String locString,String text ) {
+		  logger.info("Inside AFOJ Project Action --> validate_date_Time_values ");
+		  try{
+			  WebElement element=objSeleniumElements.Get_Webelement(lcldriver, locString);
+			  SeleniumWait.Fluent_Wait_Until_Element_Visible(lcldriver, element, 30L);
+			  String value = element.getAttribute("value");
+			  if(value.contains(text)){
+	        	  Assert.assertTrue(true, String.format("Element %s text matches text %s", new Object[]{element, text}));
+	        	  logger.info(String.format("Element %s text matches text %s => OK", new Object[]{element, text}));
+		          StepDetail.addDetail(String.format("Element %s text matches text %s", new Object[]{element, text}), true);
+		          logger.info("AFOJ Action-> validate_date_Time_values is Successful");
+	          	}
+	          else{
+	        	  Assert.assertTrue(false, String.format("Element text should match text \'%s\', but its text was %s.", new Object[]{text, value}));
+	              logger.info(String.format("Element text should match text \'%s\', but its text was %s.", new Object[]{text, value}));
+	              StepDetail.addDetail(String.format("Element text should match text \'%s\', but its text was %s.", new Object[]{text, value}), false);
+	              throw new SeleniumNonFatalException(String.format("Element text should match text \'%s\', but its text was %s.", new Object[]{text, value}));
+	          	}
+		  }catch(Exception e){
+			  e.printStackTrace();
+		      logger.info("Action validate_Text failed !");
+		      throw new SeleniumNonFatalException("AFOJ Action -> validate_date_Time_values : could not be completed!");
 		  }
 	}
 	

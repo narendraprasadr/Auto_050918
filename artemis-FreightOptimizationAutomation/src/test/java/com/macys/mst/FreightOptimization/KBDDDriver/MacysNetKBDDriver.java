@@ -73,6 +73,8 @@ public class MacysNetKBDDriver extends KDDdriverMap{
 	         put("Login_Application" , new ExecuteAction(){public void executeAction(){AFOJActionkeywords.Macysnet_Login(LclDriver,data);}});
 	         put("validateServicePostResponseCode" , new ExecuteAction(){public void executeAction(){AFOJActionkeywords.validateServicePostResponseCode(Constants.serviceURL,Constants.expectedCode,Constants.field, Constants.values);}});
 	         put("validate_Default_Value_Should_Be" , new ExecuteAction(){public void executeAction(){AFOJActionkeywords.validate_Default_Value_Should_Be(LclDriver,object, data);}});
+	         put("AFOJ_validate_date_Time_values" , new ExecuteAction(){public void executeAction(){AFOJActionkeywords.validate_date_Time_values(LclDriver,object, data);}});
+
 
 	      }};													
 	       return actionsKeywords;
