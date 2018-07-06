@@ -5,6 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -45,6 +47,7 @@ import com.macys.mst.artemis.selenium.actions.SeleniumWait;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import l.a.a.ge;
 
 
 
@@ -62,6 +65,7 @@ public class AFOJActionkeywords {
     public static void Macysnet_Login(WebDriver lcldriver,String struserType) {
 
 		try {
+			General.Close_Window(lcldriver);
 			if(verify_LoginUser(struserType)) {
 			
 			SeUiContextBase.gotourl(lcldriver, (FileConfig.getInstance().getStringConfigValue("MacysNet.URL")));
@@ -85,16 +89,18 @@ public class AFOJActionkeywords {
             String cyberarkappid=FileConfig.getInstance().getStringConfigValue("cyberark.appid");             
                     
             String password=GetPasswordCyberArk.getpassword(cyberarksafe,cyberarkappid, passwordobj);
-            
-            WebElement element=lcldriver.findElement(By.xpath(General.get_Locator("txa_Login_Username")));
+            WebElement element=objSeleniumElements.Get_Webelement(lcldriver, "txa_Login_Username");
+            //WebElement element=lcldriver.findElement(By.xpath(General.get_Locator("txa_Login_Username")));
 			objSeUiContextBase.sendkeys(element,userType);
 			assertTrue("MTO Username entered successfully", true);
-			element=lcldriver.findElement(By.xpath(General.get_Locator("txa_Login_Password")));
+			element=objSeleniumElements.Get_Webelement(lcldriver, "txa_Login_Password");
+			//element=lcldriver.findElement(By.xpath(General.get_Locator("txa_Login_Password")));
 			objSeUiContextBase.sendkeys(element,password);
 			assertTrue("Password entered successfully", true);
 			SeUiContextBase.Capture_Page_Screenshot(lcldriver, Constants.scnshotPassPath +"LoginScreen"+General.getTimeStamp()+".jpg");
 			StepDetail.addDetail("username" + ":" + "Password", true);
-			element=lcldriver.findElement(By.xpath(General.get_Locator("btn_Login_Login")));
+			element=objSeleniumElements.Get_Webelement(lcldriver, "btn_Login_Login");
+			//element=lcldriver.findElement(By.xpath(General.get_Locator("btn_Login_Login")));
 			element.click();
 			assertTrue("submitted successfully", true);
 			logger.info("Login to Macy'sNET application successfully");
@@ -383,6 +389,11 @@ public class AFOJActionkeywords {
 	public static void validate_date_Time_values(WebDriver lcldriver,String locString,String text ) {
 		  logger.info("Inside AFOJ Project Action --> validate_date_Time_values ");
 		  try{
+			  if (text.equalsIgnoreCase("currentdate")) {
+				  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("M/d/yyyy");  
+				   LocalDateTime now = LocalDateTime.now();  
+				   text= dtf.format(now);
+			}
 			  WebElement element=objSeleniumElements.Get_Webelement(lcldriver, locString);
 			  SeleniumWait.Fluent_Wait_Until_Element_Visible(lcldriver, element, 30L);
 			  String value = element.getAttribute("value");

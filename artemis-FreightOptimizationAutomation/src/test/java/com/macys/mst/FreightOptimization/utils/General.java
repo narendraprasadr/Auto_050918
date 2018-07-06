@@ -30,9 +30,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.macys.mst.FreightOptimization.config.Constants;
 import com.macys.mst.FreightOptimization.stepdefs.FreightOptimization;
+import com.macys.mst.artemis.customexceptions.SeleniumNonFatalException;
 import com.macys.mst.artemis.kdddriver.ObjectRepositoryMap;
 import com.macys.mst.artemis.selenium.LocalDriverManager;
 import com.macys.mst.artemis.selenium.SeUiContextBase;
+
 
 
 
@@ -246,6 +248,31 @@ public class General {
 			throw (e);
 		}
 	}
-
+	public static void Close_Window(WebDriver lcldriver) {
+		  logger.info("Inside Project Action --> Close Window ");
+		  String []datacopy=null;
+		  int n=0;
+		  try
+		  {
+			    ArrayList<String> newTab = new ArrayList<String>(lcldriver.getWindowHandles());
+	  
+			   if (newTab.size() >1)
+			   { 
+				   System.out.println(newTab.size()+"pass");
+			  lcldriver.switchTo().window(newTab.get(1));
+			  lcldriver.close();
+			  lcldriver.switchTo().window(newTab.get(0));
+			  logger.info("Inside Project Action --> Close Window ");
+				  // }
+			   }
+			   
+		  }catch(Exception e)
+		  {
+			  e.printStackTrace();
+		      logger.info("Action Close Window");
+		      throw new SeleniumNonFatalException(" Action ->Close Window");
+		  }
+	}
+	
 	
 }

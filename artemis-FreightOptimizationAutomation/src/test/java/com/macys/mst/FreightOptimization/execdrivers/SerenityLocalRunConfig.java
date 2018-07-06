@@ -3,9 +3,11 @@ package com.macys.mst.FreightOptimization.execdrivers;
 import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.InstanceStepsFactory;
 
+import com.macys.mst.FreightOptimization.stepdefs.AFOJ38;
 import com.macys.mst.artemis.serenityJbehaveLocal.SerenityLocalTestRunner;
-//import com.macys.mst.FreightOptimization.stepdefs.AFOJ101;
-//import com.macys.mst.FreightOptimization.stepdefs.AFOJ8;
+import com.macys.mst.FreightOptimization.stepdefs.AFOJ10;
+import com.macys.mst.FreightOptimization.stepdefs.AFOJ8;
+import com.macys.mst.FreightOptimization.stepdefs.AFOJ7;
 import com.macys.mst.FreightOptimization.stepdefs.AFOJ15;
 import com.macys.mst.FreightOptimization.stepdefs.AFOJ35;
 import com.macys.mst.FreightOptimization.stepdefs.AFOJ17;
@@ -32,7 +34,14 @@ public class SerenityLocalRunConfig extends SerenityLocalTestRunner {
 		        ,new AFOJ45()
 		        ,new AFOJ57()
 		        ,new AFOJ59()
+		        ,new AFOJ7()
+		        ,new AFOJ8()
+		        ,new AFOJ10()
+		        ,new AFOJ38()
 				//new AFOJ35(),new AFOJ34(),new FreightOptimization(),new AFOJRestServices()
 		);
-	}	
+	}
+	
+	
+   
 }
