@@ -34,6 +34,8 @@ import com.macys.mst.artemis.customexceptions.SeleniumNonFatalException;
 import com.macys.mst.artemis.kdddriver.ObjectRepositoryMap;
 import com.macys.mst.artemis.selenium.LocalDriverManager;
 import com.macys.mst.artemis.selenium.SeUiContextBase;
+import com.macys.mst.artemis.selenium.actions.SeleniumElements;
+import com.macys.mst.artemis.selenium.actions.SeleniumWait;
 
 
 
@@ -42,13 +44,15 @@ public class General {
 
 	public static WebDriver driver = LocalDriverManager.getInstance().getDriver();
 	public static Logger logger = Logger.getLogger(FreightOptimization.class.getName());
+	static SeleniumElements objSeleniumElements=new SeleniumElements();
+	static SeleniumWait objSeleniumWait=new SeleniumWait();
 	public static List<String> multivalues = new ArrayList<String>();
 	static SeUiContextBase objSeUiContextBase= new SeUiContextBase();
 	public static Map<String, List<String>> UIvalues = new HashMap<String, List<String>>();
 	/***********************************************************************************************************************************************************
 	 * 'Method name : waitToLoadElement 'Project name :
 	 * FreightOptimizationAutomation 'Description : This method is to wait until the element load
-	 * 'Developer : Sriram 'Reviewed By : 'Created On : May 2018 
+	 * 'Developer : Sriram 'Reviewed By : 'Created On : May 2018
 	 ************************************************************************************************************************************************************/
 	public static void waitToLoadElement(WebElement weleElementName) throws Exception {
 
@@ -173,20 +177,20 @@ public class General {
 			e.printStackTrace();
 
 		}
-	}	
+	}
 
 	/***********************************************************************************************************************************************************
 	 * 'Method name  : getUIDropdownValue
 	 * 'Project name : FreightOptimizationAutomation
-	 * 'Description  : This method is to get DropDown value from UI in List 
-	 * 'Developer    : Sriram 
-	 * 'Reviewed By  : 
+	 * 'Description  : This method is to get DropDown value from UI in List
+	 * 'Developer    : Sriram
+	 * 'Reviewed By  :
 	 * 'Created On   : June 2018
 	 ************************************************************************************************************************************************************/
 	public static List<String> getUIDropdownValue(WebDriver lcldriver, String locString, String locIndex) throws Exception {
 		try {
-			
-			
+
+
 			  JavascriptExecutor js=(JavascriptExecutor)lcldriver;
 			  js.executeScript("window.scrollBy(0,100)");
 			  Thread.sleep(2000);
@@ -196,23 +200,22 @@ public class General {
 		      {
 			for (int j = 1; j <=7; j++)
 		      {
-			   
+
 				if (lcldriver.findElements(By.xpath(get_Locator(locString)+"["+j+"]")).size()!= 0) {
+				//if (objSeleniumElements.Get_Webelements(lcldriver, locString+"["+j+"]").size()!= 0) {
 				String str1 =  lcldriver.findElement(By.xpath(get_Locator(locString)+"["+j+"]")).getText();
 		        cellData.add(str1);
 				}
 		       }
-			
+
 			if (lcldriver.findElement(By.xpath("(//*[contains(@id,'jqxScrollAreaDownverticalScrollBarinnerListBoxjqxDropDownList')])["+locIndex+"]")).getSize().getHeight()!= 0) {
 				lcldriver.findElement(By.xpath("(//*[contains(@id,'jqxScrollAreaDownverticalScrollBarinnerListBoxjqxDropDownList')])["+locIndex+"]")).click();
 				runloop=1;
-			}	
-			Thread.sleep(2000);
-			 
-			
-		   }
+			}
+			objSeleniumWait.Set_Selenium_Timeout(lcldriver, 2);
+		 }
 			logger.info("Action getUIDropdownValue is Successful");
-			System.out.println(cellData.toString());
+			//System.out.println(cellData.toString());
 			return cellData;
 		} catch (Exception e) {
 			//Log.error("Failed to click on Dropdown "+element);
@@ -220,26 +223,26 @@ public class General {
 			throw (e);
 		}
 	}
-	
-	
+
+
 	/***********************************************************************************************************************************************************
 	 * 'Method name  : getUIDropdownValue
 	 * 'Project name : FreightOptimizationAutomation
-	 * 'Description  : This method is to get DropDown value from UI in List 
-	 * 'Developer    : Sriram 
-	 * 'Reviewed By  : 
+	 * 'Description  : This method is to get DropDown value from UI in List
+	 * 'Developer    : Sriram
+	 * 'Reviewed By  :
 	 * 'Created On   : June 2018
-	 * @return 
+	 * @return
 	 ************************************************************************************************************************************************************/
 	public static String  get_Locator( String locString) throws Exception {
-		try {	
+		try {
 	ObjectRepositoryMap orm = new ObjectRepositoryMap("ObjectRepositoryMap.properties");
     String locator = orm.properties.getProperty(locString);
     String locatorType = locator.split(":", 2)[0].trim();
     //logger.info(locatorType);
     String locatorValue = locator.split(":", 2)[1].trim();
     //logger.info(locatorValue);
-    
+
     return locatorValue;
 		}
 		catch (Exception e) {
@@ -255,9 +258,9 @@ public class General {
 		  try
 		  {
 			    ArrayList<String> newTab = new ArrayList<String>(lcldriver.getWindowHandles());
-	  
+
 			   if (newTab.size() >1)
-			   { 
+			   {
 				   System.out.println(newTab.size()+"pass");
 			  lcldriver.switchTo().window(newTab.get(1));
 			  lcldriver.close();
@@ -265,7 +268,7 @@ public class General {
 			  logger.info("Inside Project Action --> Close Window ");
 				  // }
 			   }
-			   
+
 		  }catch(Exception e)
 		  {
 			  e.printStackTrace();
@@ -273,6 +276,6 @@ public class General {
 		      throw new SeleniumNonFatalException(" Action ->Close Window");
 		  }
 	}
-	
-	
+
+
 }
