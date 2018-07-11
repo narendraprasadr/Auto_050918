@@ -1,25 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <document>
-
-	<config type="testConfig" name="smoke">
-
+	<config type="testConfig" name="AFOJ">
 		<stories>
-			<story>ART-68</story>
+			  <story>AFOJ-7</story>
+			  <story>AFOJ-8</story>
+			  <story>AFOJ-10</story>
+			  <story>AFOJ-15</story>
+			  <story>AFOJ-17</story>
+			  <story>AFOJ-32</story>
+			  <story>AFOJ-34</story>
+			  <story>AFOJ-35</story>
+			  <story>AFOJ-37</story>
+			  <story>AFOJ-38</story>
+			  <story>AFOJ-45</story>
+			  <story>AFOJ-46</story>
+			  <story>AFOJ-57</story>
+			  <story>AFOJ-59</story>
 		</stories>
 
 		<datasetupstoryscenario>
-			<ss storyname="ART-9" scenarioname="ART9-SC01" />
 		</datasetupstoryscenario>
 
 		<datasetupscenarioiteration>
-			<ssi storyname="ART-9" scenarioname="ART9-SC01" itrnum="2" />
 		</datasetupscenarioiteration>
 
 		<metafiltetrs>
-			<metafiltetrFLag>N</metafiltetrFLag>
-			<metafiltetr>+regression , +acceptance </metafiltetr>
-			<!-- <metafiltetr>+@id ART9-SC03 </metafiltetr> -->
+			<metafiltetrFLag>Y</metafiltetrFLag>
+			 <metafiltetr>+regression , +acceptance </metafiltetr> 
+			
 		</metafiltetrs>
 
 		<datasetupflag>
@@ -41,43 +50,32 @@
 			<facilityAliasId>44</facilityAliasId>
 			<prodStatInInv>71</prodStatInInv>
 		</testData>
-
+	<jirareportstab>QA_Test</jirareportstab>
+	
 	</config>
-
-	<config type="testConfig" name="QA">
+	<config type="testConfig" name="VPCM">
 
 		<stories>
-			<!--	 <story>VPCM-8</story>  -->
-			  
-			  
-			  
-			  <story>AFOJ-7</story>
-			  <story>AFOJ-8</story>
-			  <story>AFOJ-10</story>
-			  <story>AFOJ-15</story>
-			  <story>AFOJ-17</story>
-			  <story>AFOJ-32</story>
-			  <story>AFOJ-34</story>
-			  <story>AFOJ-35</story>
-			  <story>AFOJ-37</story>
-			  <story>AFOJ-38</story>
-			  <story>AFOJ-45</story>
-			  <story>AFOJ-57</story>
-			  <story>AFOJ-59</story>
-			  
-			  
-			  
-		<!--	   <story>VPCM-14</story>  -->
-		<!--		  <story>VPCM-30</story>   -->
+			  <story>VPCM-8</story>
+<!-- 			  <story>AFOJ-8</story> -->
+<!-- 			  <story>AFOJ-10</story> -->
+<!-- 			  <story>AFOJ-15</story> -->
+<!-- 			  <story>AFOJ-17</story> -->
+<!-- 			  <story>AFOJ-32</story> -->
+<!-- 			  <story>AFOJ-34</story> -->
+<!-- 			  <story>AFOJ-35</story> -->
+<!-- 			  <story>AFOJ-37</story> -->
+<!-- 			  <story>AFOJ-38</story> -->
+<!-- 			  <story>AFOJ-45</story> -->
+<!-- 			  <story>AFOJ-57</story> -->
+<!-- 			  <story>AFOJ-59</story> -->
 			  
 		</stories>
 
 		<datasetupstoryscenario>
-			<ss storyname="ART-9" scenarioname="ART9-SC01" />
 		</datasetupstoryscenario>
 
 		<datasetupscenarioiteration>
-			<ssi storyname="ART-9" scenarioname="ART9-SC01" itrnum="2" />
 		</datasetupscenarioiteration>
 
 		<metafiltetrs>
