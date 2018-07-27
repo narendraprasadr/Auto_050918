@@ -10,10 +10,11 @@ import com.macys.mst.artemis.selenium.WebDriverListener;
 import org.jbehave.core.annotations.BeforeStory;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
+import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.WebDriver;
 
-public class AFOJ15 {
+public class AFOJ68 {
 
     private ExamplesTable actionstable;
     private List tablemaprows;
@@ -29,36 +30,50 @@ public class AFOJ15 {
         WebDriverListener.EnvMap.put((Thread.currentThread().getId()), obj);
     }
 
-    @Given("user logged in as Admin user")
-    public void userloggedinasAdminuser()
+    @Given("Admin user is on freight movement page")
+    public void Adminuserisonfreightmovementpage()
         throws Exception
     {
         FetchExampleTable.sendInputActions(gbldriver, null);
     }
 
-    @Then("MacysNet home page should be displayed")
-    public void MacysNethomepageshouldbedisplayed()
+    @When("Admin user selects Non-Retail radio button")
+    public void AdminuserselectsNonRetailradiobutton()
         throws Exception
     {
         FetchExampleTable.sendInputActions(gbldriver, null);
     }
 
-    @Then("a new link called Request Freight Movement should be displayed above Document Library on MacysNet Home Page")
-    public void anewlinkcalledRequestFreightMovementshouldbedisplayedaboveDocumentLibraryonMacysNetHomePage()
+    @Then("user enter all mandatory fields")
+    public void userenterallmandatoryfields()
         throws Exception
     {
         FetchExampleTable.sendInputActions(gbldriver, null);
     }
 
-    @Given("user logged in as Vendor user")
-    public void userloggedinasVendoruser()
+    @Then("click on submit button")
+    public void clickonsubmitbutton()
         throws Exception
     {
         FetchExampleTable.sendInputActions(gbldriver, null);
     }
 
-    @Then("a new link called Request Freight Movement should not be displayed above Document Library on MacysNet Home Page")
-    public void anewlinkcalledRequestFreightMovementshouldnotbedisplayedaboveDocumentLibraryonMacysNetHomePage()
+    @Then("validate all the fields are cleared on Non-Retail Request page")
+    public void validateallthefieldsareclearedonNonRetailRequestpage()
+        throws Exception
+    {
+        FetchExampleTable.sendInputActions(gbldriver, null);
+    }
+
+    @Then("user enter invalid SCAC Code")
+    public void userenterinvalidSCACCode()
+        throws Exception
+    {
+        FetchExampleTable.sendInputActions(gbldriver, null);
+    }
+
+    @Then("validate the service with params")
+    public void validatetheservicewithparams()
         throws Exception
     {
         FetchExampleTable.sendInputActions(gbldriver, null);

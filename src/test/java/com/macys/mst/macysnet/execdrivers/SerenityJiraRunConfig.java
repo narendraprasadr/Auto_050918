@@ -14,11 +14,9 @@ import com.macys.mst.macysnet.stepdefs.AFOJ37;
 import com.macys.mst.macysnet.stepdefs.AFOJ38;
 import com.macys.mst.macysnet.stepdefs.AFOJ45;
 import com.macys.mst.macysnet.stepdefs.AFOJ57;
-import com.macys.mst.macysnet.stepdefs.AFOJ59;
 import com.macys.mst.macysnet.stepdefs.AFOJ7;
 import com.macys.mst.macysnet.stepdefs.AFOJ8;
 import com.macys.mst.macysnet.stepdefs.AFOJRestServices;
-import com.macys.mst.macysnet.stepdefs.FreightOptimization;
 
 public class SerenityJiraRunConfig extends SerenityJiraTestRunner {
 
@@ -33,11 +31,12 @@ public class SerenityJiraRunConfig extends SerenityJiraTestRunner {
 			   ,new AFOJ37()
 			   ,new AFOJ45()
 			   ,new AFOJ57()
-			   ,new AFOJ59()
+			   ///,new AFOJ59()
 			   ,new AFOJ7()
 		       ,new AFOJ8()
 		       ,new AFOJ10()
 		       ,new AFOJ38()
+		       ,new AFOJRestServices()
 		);
 	}
 

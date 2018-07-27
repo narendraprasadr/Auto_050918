@@ -10,7 +10,7 @@
 		</cyberark>
 				
 		<MacysNet>
-		   <URL>http://qa.macysnet.com/AP/</URL>
+		   <URL>http://dev.macysnet.com/AP/</URL>
 		  <Admin>
 				<userId>roint3</userId>
 				 <pwdobjectid> Misc-Macys-Application-Passive-roint3</pwdobjectid>
@@ -116,7 +116,8 @@
 			  </driver>       
 			  <MA000XVSQL22>
 			      <name>fdsnetwebuser</name>
-			      <pwdobjectid>Database-Macys-Passive-SQLServer-MA000XVSQL22-fdsnetwebuser</pwdobjectid>               <connecturi>jdbc:sqlserver://MA000XVSQL22:1433;DatabaseName=WebCache</connecturi>
+			      <pwdobjectid>Database-Macys-Passive-SQLServer-MA000XVSQL22-fdsnetwebuser</pwdobjectid>     
+			       <connecturi>jdbc:sqlserver://MA000XVSQL22:1433;DatabaseName=WebCache</connecturi>
 			  </MA000XVSQL22>                   
 			</sqlserver>
                   

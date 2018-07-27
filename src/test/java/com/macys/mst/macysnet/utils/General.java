@@ -34,6 +34,7 @@ import com.macys.mst.artemis.selenium.LocalDriverManager;
 import com.macys.mst.artemis.selenium.SeUiContextBase;
 import com.macys.mst.artemis.selenium.actions.SeleniumElements;
 import com.macys.mst.artemis.selenium.actions.SeleniumWait;
+import com.macys.mst.macysnet.Actionkeywords.AFOJActionkeywords;
 import com.macys.mst.macysnet.config.Constants;
 import com.macys.mst.macysnet.stepdefs.FreightOptimization;
 
@@ -58,6 +59,7 @@ public class General {
 
 		try {
 			WebDriverWait webWait = new WebDriverWait(General.driver, 30);
+
 			webWait.withTimeout(10, TimeUnit.SECONDS);
 			webWait.pollingEvery(5, TimeUnit.MILLISECONDS);
 			webWait.until(ExpectedConditions.visibilityOf(weleElementName));
@@ -276,6 +278,61 @@ public class General {
 		      throw new SeleniumNonFatalException(" Action ->Close Window");
 		  }
 	}
+	/***********************************************************************************************************************************************************
+	 * 'Method name  : getUIDropdownValue
+	 * 'Project name : FreightOptimizationAutomation
+	 * 'Description  : This method is to get DropDown value from UI in List for Specific vendor
+	 * 'Developer    : Praveen
+	 * 'Reviewed By  :
+	 * 'Created On   : June 2018
+	 ************************************************************************************************************************************************************/
+	public static List<String> getUIDropdownValueForSpecificVendor(WebDriver lcldriver, String locString,String strdata) throws Exception {
+		try {
+			List<String> cellData=new ArrayList<String>();
+			List<String> cellData1=new ArrayList<String>();
 
+
+
+			WebElement element = AFOJActionkeywords.objSeleniumElements.Get_Webelement(lcldriver, locString);
+
+
+		  boolean isEleDisp=element.isDisplayed();
+		  if(isEleDisp==true)
+		  {
+			  element.sendKeys(strdata);
+			  Thread.sleep(3000);
+			  List<WebElement> elements=lcldriver.findElements(By.cssSelector(".Select, .Select div, .Select input, .Select span"));
+			  int size=elements.size();
+
+			  for(int i=0;i<size;i++)
+			  {
+				  String data=elements.get(i).getText();
+				  if(data.isEmpty()||data.contains("Select..."))
+				  {
+
+				  }
+				  else
+				  {
+
+				  cellData.add(data);
+				  }
+			  }
+
+			  Thread.sleep(5000);
+			  cellData1.addAll(cellData.subList(3, cellData.size()));
+
+
+		  }
+
+
+			logger.info("Action getUIDropdownValue is Successful");
+
+			return cellData.subList(3, cellData.size());
+		} catch (Exception e) {
+
+			logger.info("Action getUIDropdownValue failed !");
+			throw (e);
+		}
+	}
 
 }

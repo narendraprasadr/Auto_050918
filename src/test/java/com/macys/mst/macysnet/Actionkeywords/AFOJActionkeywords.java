@@ -18,6 +18,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -49,7 +50,7 @@ public class AFOJActionkeywords {
 	public static Logger logger = Logger.getLogger(FreightOptimization.class.getName());
 	static int loginCount = 0;
 	public static String userType, struserTypes = null;
-	static SeleniumElements objSeleniumElements = new SeleniumElements();
+	public static SeleniumElements objSeleniumElements = new SeleniumElements();
 	//static SeleniumWait objSeleniumWait = new SeleniumWait();
 	public static RequestSpecification request = RestAssured.given();
 	public static JSONObject requestJSON = new JSONObject();
@@ -104,7 +105,7 @@ public class AFOJActionkeywords {
 				assertTrue("submitted successfully", true);
 				logger.info("Login to Macy'sNET application successfully");
 			}
-			Thread.sleep(4000);
+			Thread.sleep(2000);
 			//objSeleniumWait.Set_Selenium_Timeout(lcldriver, 4);
 
 		} catch (Exception e) {
@@ -177,7 +178,7 @@ public class AFOJActionkeywords {
 	 * validation dropdown list with rest services 'Developer : Sriram 'Reviewed By
 	 * : 'Created On : June 2018
 	 ************************************************************************************************************************************************************/
-	public static void verify_Dropdownlist_Matches_With_RESTService(WebDriver lcldriver, String locString,
+	/*public static void verify_Dropdownlist_Matches_With_RESTService(WebDriver lcldriver, String locString,
 			String serviceURL, String strvalue) {
 		logger.info("Inside Project Action --> verify_Dropdownlist_Matches_With_RESTService ");
 		try {
@@ -186,8 +187,8 @@ public class AFOJActionkeywords {
 				dataArrayCopy = serviceURL.split(",");
 			}
 			AFOJRestServices.Restvalues = RestServicesUtils.getListOfValues(dataArrayCopy[0], dataArrayCopy[1]);
-			List<String> cellData = General.getUIDropdownValue(lcldriver, locString, dataArrayCopy[2]);
-			List<String> srResult = AFOJRestServices.Restvalues.get(dataArrayCopy[1]);
+			List<String> cellData = General.getUIDropdownValue(lcldriver, locString, dataArrayCopy[1]);
+			List<String> srResult = AFOJRestServices.Restvalues.get(dataArrayCopy[0]);
 			Set<String> hs = new HashSet<>();
 			hs.addAll(cellData);
 			cellData.clear();
@@ -211,7 +212,73 @@ public class AFOJActionkeywords {
 					" Action -> verify_Dropdownlist_Matches_With_RESTService : could not be completed!");
 		}
 
-	}
+	}*/
+
+	public static void verify_Dropdownlist_Matches_With_RESTService (WebDriver lcldriver,String locString,String serviceURL,String strvalue) {
+		  logger.info("Inside Project Action --> verify_Dropdownlist_Matches_With_RESTService ");
+		  List<String> cellData= new ArrayList<String>();
+		  List<String> srResult= new ArrayList<String>();
+		  try
+		   {
+			  String [] dataArrayCopy = null;
+			  if (serviceURL.contains(",")) {
+			      dataArrayCopy = serviceURL.split(",");
+			       }
+			  //Restvalues=RestServicesUtils.getListOfValues(strURL,strcolName,strvalue);
+			  System.out.println(dataArrayCopy.length);
+			  //
+			  if(dataArrayCopy.length==3)
+			  {
+				  AFOJRestServices.Restvalues=RestServicesUtils.getListOfValues(dataArrayCopy[0],dataArrayCopy[1],dataArrayCopy[1]);
+				  srResult=AFOJRestServices.Restvalues.get(dataArrayCopy[1]);
+				  //System.out.println(dataArrayCopy[3] + "is Null");
+				  cellData=General.getUIDropdownValue(lcldriver,locString,dataArrayCopy[2]);
+				  Set<String> hs = new HashSet<>();
+				  hs.addAll(cellData);
+				  cellData.clear();
+				  cellData.addAll(hs);
+
+			  }
+			  else
+
+			  {String serURL="http://lp000xstrs0002:8355/api/platform_msp/v1/shipping/getVendorsByKeyPhraseAndServiceType";
+			  String vendorName="/nr-origin?qv=quark";
+			  String strValue="title";
+				  AFOJRestServices.Restvalues=RestServicesUtils.getListOfValues(dataArrayCopy[0],dataArrayCopy[1],dataArrayCopy[2]);
+				  System.out.println(dataArrayCopy[4] + " is displayed");
+				  cellData =General.getUIDropdownValueForSpecificVendor(lcldriver,locString,dataArrayCopy[4]);
+				  srResult=AFOJRestServices.Restvalues.get(dataArrayCopy[2]);
+			  }
+
+			  System.out.println( "The Service Result is : "+srResult);
+			  Set<String> hs = new HashSet<>();
+			  hs.addAll(cellData);
+			  cellData.clear();
+			  cellData.addAll(hs);
+			  System.out.println( "The UI Result is : "+cellData);
+			  Collections.sort(cellData);
+			  Collections.sort(srResult);
+
+			  Assert.assertTrue(srResult.equals(cellData));
+			 if (cellData.equals(srResult)) {
+				logger.info("Rest service and UI value are same");
+				 Assert.assertTrue(true, "Action verify_Dropdownlist_Matches_With_RESTService is Successful");
+			  } else {
+				logger.info("Rest service and UI value is not same");
+				Assert.assertTrue(false, "Action verify_Dropdownlist_Matches_With_RESTService is not Successful");
+			  }
+
+		    }
+		    catch (Exception e)
+		    {
+		      e.printStackTrace();
+		      logger.info("Action verify_Dropdownlist_Matches_With_RESTService failed !");
+		      throw new SeleniumNonFatalException(" Action -> verify_Dropdownlist_Matches_With_RESTService : could not be completed!");
+		    }
+
+
+		}
+
 
 	/***********************************************************************************************************************************************************
 	 * 'Method name : select_MultiDropDown_Value 'Project
@@ -306,42 +373,64 @@ public class AFOJActionkeywords {
 	 ************************************************************************************************************************************************************/
 	public static void select_SingleDropDown_Value(WebDriver lcldriver, String locString, String strdata) {
 		logger.info("Inside Project Action --> select_SingleDropDown_Value ");
-		try {
-			String[] dataArrayCopy = null;
-			if (strdata.contains(",")) {
-				dataArrayCopy = strdata.split(",");
-			}
+		try
+		   {
+			  //System.out.println(locString);
+			  String[] dataArrayCopy = null;
+			  if (strdata.contains(",")) {
+			      dataArrayCopy = strdata.split(",");
+			      int runtimeindex=Integer.parseInt(dataArrayCopy[1]);
+				   Thread.sleep(1000);
+				  WebElement element=  lcldriver.findElement(By.xpath("(.//*[@placeholder='Looking for'])["+runtimeindex+"]"));
+				  if(element.isDisplayed())
+				  {
+				  element.sendKeys(dataArrayCopy[0]);
+				  }
+					  Thread.sleep(2000);
+					  List<WebElement> element1=lcldriver.findElements(By.xpath(".//span[@class='jqx-listitem-state-normal jqx-item jqx-rc-all']"));
+			    		logger.info("The element size: "+element1.size());
+			    		for(int j=0;j<element1.size();j++) {
+			    			String val=element1.get(j).getText();
+			    			if(val.contains(dataArrayCopy[0]))
+			    			{
+			    				element1.get(j).click();
+			    				logger.info(dataArrayCopy[0]+ " is selected successfully");
+			    			}
+			    		}
+			       }
+			  else
+			  {		WebElement element = objSeleniumElements.Get_Webelement(lcldriver, locString);
+			  		//element1.sendKeys("NIKE");
 
-			int runtimeindex = Integer.parseInt(dataArrayCopy[1]);
-			//objSeleniumWait.Set_Selenium_Timeout(lcldriver, 1);
-			Thread.sleep(2000);
-			WebElement element = lcldriver
-					.findElement(By.xpath("(.//*[@placeholder='Looking for'])[" + runtimeindex + "]"));
-			if (element.isDisplayed()) {
-				element.sendKeys(dataArrayCopy[0]);
-			}
-			Thread.sleep(2000);
-			//objSeleniumWait.Set_Selenium_Timeout(lcldriver, 2);
-			List<WebElement> element1 = lcldriver
-					.findElements(By.xpath(".//span[@class='jqx-listitem-state-normal jqx-item jqx-rc-all']"));
-			logger.info("The element size: " + element1.size());
-			for (int j = 0; j < element1.size(); j++) {
-				String val = element1.get(j).getText();
-				if (val.contains(dataArrayCopy[0])) {
-					element1.get(j).click();
-					logger.info(dataArrayCopy[0] + " is selected successfully");
-				}
-			}
-			Assert.assertTrue(true, "Drop down selected successfully");
+				  //WebElement element=lcldriver.findElement(By.xpath("//*[@id='react-select-2--value']/div[2]/div"));
+				  boolean isEleDisp=element.isDisplayed();
+				  System.out.println(element.getText());
+				  System.out.println(isEleDisp);
+				  if(isEleDisp==true)
+				  {
+					  //Thread.sleep(2000);
+					  // element.click();
+					  element.sendKeys(strdata);
+					  Thread.sleep(3000);
 
-			logger.info("Action select_SingleDropDown_Value is Successful");
-			Assert.assertTrue(true, "Action select_SingleDropDown_Value is Successful");
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.info("Action select_SingleDropDown_Value failed !");
-			throw new SeleniumNonFatalException(" Action -> select_SingleDropDown_Value : could not be completed!");
-		}
-	}
+					  element.sendKeys(Keys.TAB);
+
+				  }
+			  }
+
+
+				  Assert.assertTrue(true, "Drop down selected successfully");
+
+
+			  logger.info("Action select_SingleDropDown_Value is Successful");
+				 Assert.assertTrue(true, "Action select_SingleDropDown_Value is Successful");
+		   }
+		    catch (Exception e)
+		    {
+		      e.printStackTrace();
+		      logger.info("Action select_SingleDropDown_Value failed !");
+		      throw new SeleniumNonFatalException(" Action -> select_SingleDropDown_Value : could not be completed!");
+		    }	}
 	/***********************************************************************************************************************************************************
 	 * 'Method name : validate_Text 'Project name : FreightOptimizationAutomation
 	 * 'Description : This method is to verify given text is present in UI 'Developer :
@@ -652,5 +741,23 @@ public class AFOJActionkeywords {
 			assertFalse("Expected is " + dataArrayCopy[0] + " value But found value is " + appValue, true);
 		}
 	}
+
+	/***********************************************************************************************************************************************************
+	 * 'Method name : validate_Default_Value_Should_Be 'Project name : FreightOptimizationAutomation
+	 * 'Description : This method is to validate  'Developer :
+	 * Praveen 'Reviewed By : 'Created On : May 2018
+	 ************************************************************************************************************************************************************/
+
+	public static void AFOJ_InputData(WebDriver lclDriver,String strOrigin) {
+		try {
+			WebElement element;
+			if(!strOrigin.isEmpty() ) {
+			element = objSeleniumElements.Get_Webelement(lclDriver, "txt_CRCRTV_OriginName");
+			objSeUiContextBase.sendkeys(element, strOrigin);
+			}
+		}
+	 catch (Exception e) {
+	}
+}
 
 }
