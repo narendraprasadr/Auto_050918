@@ -78,7 +78,9 @@ public class RestServicesUtils {
 			List<String> bodylist = new ArrayList<String>();
 			RestAssured.baseURI = strpath;
 			RequestSpecification request = RestAssured.given();
-			Response response = request.get(strName);
+			//Response response = request.get(strName);
+
+			Response response = request.get();
 			if (getValue.contains(",")) {
 
 
@@ -159,6 +161,10 @@ public class RestServicesUtils {
 	Map<String, Object> requestMap = new HashMap<String, Object>();
 	Map<String, Object> tempHaspMap = new HashMap<String, Object>();
 	String field1=null;
+	//String keyValue[] = str2.split(":");  String keyValue[] = str1.split(":",2);
+	//String keyValue[] = str3.split(":"); 
+	//String keyValue[] = str.split(":");  
+
 
 	JSONObject tempsubJSON=new JSONObject();
 	if (value.contains("-")){
@@ -174,10 +180,15 @@ public class RestServicesUtils {
 						String arrayOfKeyValue2 [] = str1.split(",");
 
 						for(String str2 :arrayOfKeyValue2) {
-
+							//String keyValue[] = str1.split(":",2);
 							String keyValue[] = str2.split(":");
+
+							if(keyValue[0].equalsIgnoreCase("pickuptime")) {
+								keyValue[1]=keyValue[1]+":"+keyValue[2];
+							}
 							//keyvalue[0] - key, keyvalue[1] - value
 							tempJSON.put(keyValue[0], keyValue[1]);
+
 						}
 
 
@@ -197,6 +208,7 @@ public class RestServicesUtils {
 					for(String str3 :arrayOfKeyValue3) {
 
 						String keyValue[] = str3.split(":");
+						//String keyValue[] = str3.split(":",2);
 						//keyvalue[0] - key, keyvalue[1] - value
 						tempsubJSON.put(keyValue[0], keyValue[1]);
 					}
@@ -204,6 +216,7 @@ public class RestServicesUtils {
 
 				}
 				else {
+					//String keyValue[] = str.split(":",2);
 					String keyValue[] = str.split(":");
 					//keyvalue[0] - key, keyvalue[1] - value
 					tempsubJSON.put(keyValue[0], keyValue[1]);
@@ -211,6 +224,8 @@ public class RestServicesUtils {
 			}
 		}
 	}
+	System.out.println("");
+
 	AFOJRestServices.requestJSON.put(field, tempsubJSON);
 	//AFOJRestServices.request.body(AFOJRestServices.requestJSON.toJSONString());
 

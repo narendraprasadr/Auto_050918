@@ -187,7 +187,7 @@ public class AFOJActionkeywords {
 				dataArrayCopy = serviceURL.split(",");
 			}
 			AFOJRestServices.Restvalues = RestServicesUtils.getListOfValues(dataArrayCopy[0], dataArrayCopy[1]);
-			List<String> cellData = General.getUIDropdownValue(lcldriver, locString, dataArrayCopy[1]);
+			List<String> cellData = General.getUIDropdownValue(lcldriver, locString, dataArrayCopy[2]);
 			List<String> srResult = AFOJRestServices.Restvalues.get(dataArrayCopy[0]);
 			Set<String> hs = new HashSet<>();
 			hs.addAll(cellData);
@@ -552,24 +552,46 @@ public class AFOJActionkeywords {
 		 * sriram 'Reviewed By : 'Created On : May 2018
 		 ************************************************************************************************************************************************************/
 
-	public static void Verify_Value_inDatabase(String strcode, String colValue) throws Exception {
+	public static void Verify_Value_inDatabase(String colValue, String strcode) throws Exception {
 
 		try {
 			if (!strcode.isEmpty()) {
-
 				String strname = null;
+				String strcomper=null;
+				AppDBMethods.connection = DBConnections.getinstance("db.Oracle", "LFCBIZ01DB").dbConnection();
+				if(colValue.contains(",")) {
+
+					for(String subString: colValue.split(",")) {
+						String temparr[]=subString.split("/");
+
+						if (colValue.equalsIgnoreCase("SCACCode")) {
+							strname = SQLConstants.Select.SCACCode;
+						}
+						else {
+							strname=SQLConstants.Select.query.replace("#fieldName", temparr[1]).replace("#tableName",  temparr[0]).replace("#conditionFieldName",strcode).replace("#value",AFOJRestServices.shipmentNum);
+							strcomper=temparr[2];
+							System.out.println(strcomper);
+						}
+
+
+
+				/*String strname = null;
 				if (colValue.equalsIgnoreCase("SCACCode")) {
 					strname = SQLConstants.Select.SCACCode;
 				}
+				else {
+					strname=SQLConstants.Select.query.replace("#fieldName", fieldName).replace("#tableName", tableName).replace("#conditionFieldName",conditonFieldName).replace("#value",Constants.colValue);
+				}*/
 
-				AppDBMethods.connection = DBConnections.getinstance("db.Oracle", "LFCBIZ01DB").dbConnection();
-				String strsql = strname.replace("#strcode", strcode);
+
+				//String strsql = strname.replace("#strcode", strcode);
 				/// System.out.println(strsql);
 
-				String dbvalues = DBUtils.getDBValueInString(AppDBMethods.connection, strsql);
+				String dbvalues = DBUtils.getDBValueInString(AppDBMethods.connection, strname);
 				// System.out.println(dbvalues+"--"+strsql);
-				DBConnections.closeDBConnection(AppDBMethods.connection);
-				if (dbvalues.equalsIgnoreCase(strcode)) {
+
+
+				if (dbvalues.equalsIgnoreCase(strcomper)) {
 					logger.info(dbvalues + " message displayed");
 					Assert.assertTrue(true, dbvalues + " message displayed");
 
@@ -577,6 +599,9 @@ public class AFOJActionkeywords {
 					logger.info(strcode + " message displayed");
 					Assert.assertFalse(true, strcode + " Incorrect message displayed");
 
+				}
+					}
+					DBConnections.closeDBConnection(AppDBMethods.connection);
 				}
 			}
 		} catch (Exception e) {

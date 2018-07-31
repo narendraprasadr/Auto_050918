@@ -5,7 +5,7 @@
          <tem:passwordWSRequest>
             <tem:AppID>WMS_Q</tem:AppID>
             <tem:Safe>PSV-FS-WMS-AutoTest-Q</tem:Safe>
-            <tem:Object>Database-Macys-Passive-OracleDatabase-LFCBIZ01DB-FARCVM1</tem:Object>
+            <tem:Object>Misc-Macys-Application-Passive-artemisuser</tem:Object>
          </tem:passwordWSRequest>
       </tem:GetPassword>
    </soap:Body>

@@ -209,8 +209,7 @@ public class General {
 		        cellData.add(str1);
 				}
 		       }
-
-			if (lcldriver.findElement(By.xpath("(//*[contains(@id,'jqxScrollAreaDownverticalScrollBarinnerListBoxjqxDropDownList')])["+locIndex+"]")).getSize().getHeight()!= 0) {
+			if (lcldriver.findElement(By.xpath("(//*[contains(@id,'jqxScrollAreaDownverticalScrollBarinnerListBoxjqxDropDownList')])["+locIndex+"]")).getSize().getHeight()>2) {
 				lcldriver.findElement(By.xpath("(//*[contains(@id,'jqxScrollAreaDownverticalScrollBarinnerListBoxjqxDropDownList')])["+locIndex+"]")).click();
 				runloop=1;
 			}

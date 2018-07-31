@@ -44,6 +44,7 @@ public class AFOJRestServices {
 	public static RequestSpecification request = RestAssured.given();
 	public static JSONObject requestJSON=new JSONObject();
 	public static Response response ;
+	public static String shipmentNum ;
 
 	 public Long TestNGThreadID = Thread.currentThread().getId();
 	 public static Logger logger = Logger.getLogger(FreightOptimization.class.getName());
@@ -233,7 +234,16 @@ public class AFOJRestServices {
 
 
 			int statusCode = response.getStatusCode();
-			System.out.println(statusCode);
+			String successCode = response.getBody().asString();
+			if(successCode.contains(",")) {
+				String temparr[]=successCode.split(",");
+				String strtemp[]= temparr[1].split(":");
+				shipmentNum=strtemp[1].replace("\"", " ");
+				shipmentNum=shipmentNum.trim();
+
+
+			}
+			System.out.println(statusCode+shipmentNum);
 			Assert.assertEquals( num,statusCode);
 
 
@@ -250,7 +260,7 @@ public static void verifyDatabaseStatus(@Named("SCACCode")String strcode,String 
 
 		try {
 
-
+			System.out.println("eneter");
 			AFOJActionkeywords.Verify_Value_inDatabase(strcode,strcloumn);
 
 

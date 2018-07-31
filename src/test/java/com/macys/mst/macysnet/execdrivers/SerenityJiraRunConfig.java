@@ -4,6 +4,7 @@ import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.InstanceStepsFactory;
 
 import com.macys.mst.artemis.serenityJbehaveJira.SerenityJiraTestRunner;
+import com.macys.mst.macysnet.stepdefs.AFOJ;
 import com.macys.mst.macysnet.stepdefs.AFOJ10;
 import com.macys.mst.macysnet.stepdefs.AFOJ15;
 import com.macys.mst.macysnet.stepdefs.AFOJ17;
@@ -31,7 +32,7 @@ public class SerenityJiraRunConfig extends SerenityJiraTestRunner {
 			   ,new AFOJ37()
 			   ,new AFOJ45()
 			   ,new AFOJ57()
-			   ///,new AFOJ59()
+			   ,new AFOJ()
 			   ,new AFOJ7()
 		       ,new AFOJ8()
 		       ,new AFOJ10()

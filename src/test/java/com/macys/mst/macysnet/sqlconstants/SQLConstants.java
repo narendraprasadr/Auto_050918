@@ -52,6 +52,8 @@ public interface SQLConstants {
 
 		public static final String query = "select #fieldName from #tableName where #conditionFieldName ='#value'";
 
+		//public static final String SCACCode  = "Select VND_CARR_SCAC from vendor where VND_CARR_SCAC ='#strcode'";
+
 
 
 
