@@ -20,8 +20,8 @@
 			<groupId>com.macys.mst</groupId> 
 			<artifactId>artemis</artifactId> 
 			<version>0.1.21</version>
-			<scope>system</scope>
-			<systemPath>C:\\artemis-FreightOptimizationAutomation\\libs\\artemis-0.1.21.jar</systemPath>
+			<!-- <scope>system</scope>
+			<systemPath>C:\\artemis-FreightOptimizationAutomation\\libs\\artemis-0.1.21.jar</systemPath> -->
 		</dependency>
 
 		<dependency>

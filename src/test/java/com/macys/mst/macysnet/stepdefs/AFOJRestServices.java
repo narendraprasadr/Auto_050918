@@ -1,5 +1,9 @@
 package com.macys.mst.macysnet.stepdefs;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -311,5 +315,99 @@ public static void verifyDatabaseStatus(@Named("SCACCode")String strcode,String 
 
 	}
 
+
+@Given("$strquery table exist in $strDBType data base")
+public static void verifyColumnsExistsInDataBase(String strDBType,String strquery) throws Exception {
+	try {
+		String strsql=null;
+		if (strquery.equalsIgnoreCase("SPCL_RTE_RQST")) {
+			strsql=SQLConstants.Select.SPCL_RTE_RQST;
+			}
+			else if(strquery.equalsIgnoreCase("SPCL_RTE_RQST_LBL")) {
+			strsql=SQLConstants.Select.SPCL_RTE_RQST_LBL;
+			}
+		DBMethods.verifyColumnsExistsInDataBase(strDBType,strsql);
+
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	}
+
+
+@Then("validate new $strColumnName column is contains $strcompervalue for SPCL_RTE_NBR 200 is added in $strquery $strDBType table")
+public void Validate200inDatabase(String strDBType,String strquery,String strColumnName,String strcompervalue ) throws Exception {
+	String result=DBMethods.getTestResultSet(strDBType, SQLConstants.Select.SPCL_RTE_RQST,strColumnName);
+	if (result.equalsIgnoreCase(strcompervalue)) {
+		System.out.println("Given columns is exist in data base");
+		logger.info(result+" is displayed in data base");
+		assertTrue(result+" is displayed in data base", true);
+				}
+	else {
+		logger.info(strcompervalue+" is not displayed in data base");
+		assertFalse(strcompervalue+" is not displayed in data base", true);
+	}
+
+}
+@Then("validate new $strColumnName have maximum $strcompervalue for SPCL_RTE_NBR 200 is added in $strquery $strDBType table")
+public void Validate5inDatabase(String strDBType,String strquery,String strColumnName,String strcompervalue ) throws Exception {
+	String result=DBMethods.getTestResultSet(strDBType, SQLConstants.Select.SPCL_RTE_RQST_LBL,strColumnName);
+	if (result.equalsIgnoreCase(strcompervalue)) {
+		System.out.println("Given columns is exist in data base");
+		logger.info(result+" is displayed in data base");
+		assertTrue(result+" is displayed in data base", true);
+				}
+	else {
+		logger.info(strcompervalue+" is not displayed in data base");
+		assertFalse(strcompervalue+" is not displayed in data base", true);
+	}
+
+}
+
+
+@Then("Validate $strcompervalue is diplayed in $strColumnName column in $strquery $strDBType table")
+public void ValidateDriverNote(@Named("strcompervalue")String strcompervalue,String strDBType,String strquery,String strColumnName ) throws Exception {
+	try {
+		String resultSet = null;
+		String tempSet="";
+		String result=DBMethods.getTestResultSet("oracle", SQLConstants.Select.SPCL_RTE_RQST_LBL,"max(lbl_nbr)");
+		int colnum=Integer.parseInt(result);
+
+		DBMethods.connect_DataBase("db.Oracle","LFCBIZ01DB");
+		AppDBMethods.connection = DBConnections.getinstance("db.Oracle","LFCBIZ01DB").dbConnection();
+		ResultSet rs = AppDBMethods.dashBoardResultSet(SQLConstants.Select.USER_TEXT);
+
+			//for(int i=1;i<=colnum;i++) {
+				while (rs.next()) {
+				//resultSet = rs.ge
+				resultSet = rs.getString(1);
+				/*resultSet = rs.getString(3);
+				resultSet = rs.getString(4);
+				resultSet = rs.getString(5);*/
+
+				tempSet=tempSet+resultSet;
+				}
+		//	}
+
+				System.out.println(strcompervalue);
+		if (tempSet.equalsIgnoreCase(strcompervalue)) {
+			System.out.println("Given columns is exist in data base");
+			logger.info(result+" is displayed in data base");
+			assertTrue(result+" is displayed in data base", true);
+					}
+		else {
+			logger.info(strcompervalue+" is not displayed in data base");
+			assertFalse(strcompervalue+" is not displayed in data base", true);
+		}
+
+
+	}
+	catch (Exception e1) {
+		//StepDetail.addDetail("Oracle DB Connection NOT Successfull", false);
+		assertFalse("Oracle DB Connection  NOT successful",true);
+
+	}
+
+
+}
 }
 

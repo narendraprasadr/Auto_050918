@@ -4,8 +4,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
@@ -22,7 +20,6 @@ import org.junit.Assert;
 
 import com.macys.mst.artemis.db.DBConnections;
 import com.macys.mst.artemis.db.DBUtils;
-import com.macys.mst.macysnet.config.Constants;
 
 public class DBMethods {
 
@@ -357,53 +354,82 @@ public class DBMethods {
 
 	}*/
 
-	public static void getTestResultSet(String query) throws Exception {
-		ResultSet resultSet = null;
-		PreparedStatement preparedStatement = null;
+	public static String getTestResultSet(String strDBType,String strquery,String strColumnName) throws Exception {
+		String resultSet = null;
+
 			try {
-				/*Constants.vendorNames.clear();
-				Constants.dbColValue=null;*/
-				Class.forName(Constants.driver);
-				oracleConnection=DriverManager.getConnection(Constants.uri, Constants.username, Constants.password);
-				preparedStatement = oracleConnection.prepareStatement(query);
-				resultSet = preparedStatement.executeQuery();
-				//StepDetail.addDetail("Oracle DB Connection Successfull", true);
-				assertTrue("Oracle DB Connection  successful",true);
-				while(resultSet.next())
-				{
-					System.out.println(resultSet.getString(1));
+				String strDBName=null,strDBUserName=null,strsql=null;
+				if (strDBType.equalsIgnoreCase("SQL")) {
+					strDBName="db.sqlserver";
+					strDBUserName="MA000XVSQL22";
+
+				}
+				else if (strDBType.equalsIgnoreCase("oracle")) {
+					strDBName="db.Oracle";
+					strDBUserName="LFCBIZ01DB";
+
+				}
+				DBMethods.connect_DataBase(strDBName,strDBUserName);
+				AppDBMethods.connection = DBConnections.getinstance(strDBName,strDBUserName).dbConnection();
+				ResultSet rs = AppDBMethods.dashBoardResultSet(strquery);
+				ResultSetMetaData md = rs.getMetaData();
+				int columns = md.getColumnCount();
+				if (rs.next()) {
+					String strTemp=null;
+					for (int i = 1; i <= columns; ++i) {
+					strTemp=columnsNameReplace(md.getColumnName(i));
+
+
+					if(strColumnName.equalsIgnoreCase(strTemp)) {
+						resultSet=rs.getString(i);
+					}
+
+
+
 				}
 
-				/*while(resultSet.next())
-				{
-					//System.out.println(resultSet.getString(1));
-					Constants.vendorNames.add(resultSet.getString(1));
-					Constants.dbColValue=resultSet.getString(1);
-					StepDetail.addDetail(Constants.dbColValue + " added succesfully", true);
-					assertTrue(Constants.dbColValue + " added succesfully", true);
 
-				}*/
-				//assertTrue(Constants.dbColValue + " added succesfully", true);
-				//System.out.println(resultSet);
-
-				/*System.out.println(Constants.vendorNames);
-
-				for(int i=0; i<Constants.vendorNames.size();i++) {
-
-					System.out.println("The vendor name is : "+Constants.vendorNames.get(i));
-				}*/
-
-			} catch (Exception e1) {
+			}
+				//DBConnections.closeDBConnection(AppDBMethods.connection);
+			}catch (Exception e1) {
 				//StepDetail.addDetail("Oracle DB Connection NOT Successfull", false);
 				assertFalse("Oracle DB Connection  NOT successful",true);
 
 			}
+			return resultSet;
 
 
 
 
 	}
 
+
+	public static void verifyColumnsExistsInDataBase(String strDBType,String strquery) throws Exception {
+
+		try {
+			String strDBName=null,strDBUserName=null,strsql=null;
+			if (strDBType.equalsIgnoreCase("SQL")) {
+				strDBName="db.sqlserver";
+				strDBUserName="MA000XVSQL22";
+
+			}
+			else if (strDBType.equalsIgnoreCase("oracle")) {
+				strDBName="db.Oracle";
+				strDBUserName="LFCBIZ01DB";
+
+			}
+			DBMethods.connect_DataBase(strDBName,strDBUserName);
+			AppDBMethods.connection = DBConnections.getinstance(strDBName,strDBUserName).dbConnection();
+
+			DBMethods.verifyColumnsExists(strquery);
+			DBConnections.closeDBConnection(AppDBMethods.connection);
+			System.out.println(DBConnections.isDBConnectionOpen(AppDBMethods.connection)+"after");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+
+	}
 }
 
 
