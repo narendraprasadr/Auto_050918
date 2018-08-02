@@ -364,8 +364,8 @@ public void Validate5inDatabase(String strDBType,String strquery,String strColum
 }
 
 
-@Then("Validate $strcompervalue is diplayed in $strColumnName column in $strquery $strDBType table")
-public void ValidateDriverNote(@Named("strcompervalue")String strcompervalue,String strDBType,String strquery,String strColumnName ) throws Exception {
+@Then("Validate $strcompervalue is diplayed $FB_NUMBER in $strColumnName column in $strquery $strDBType table")
+public void ValidateDriverNote(@Named("strcompervalue")String strcompervalue,@Named("FB_NUMBER")String FB_NUMBER,String strDBType,String strquery,String strColumnName ) throws Exception {
 	try {
 		String resultSet = null;
 		String tempSet="";
@@ -374,7 +374,8 @@ public void ValidateDriverNote(@Named("strcompervalue")String strcompervalue,Str
 
 		DBMethods.connect_DataBase("db.Oracle","LFCBIZ01DB");
 		AppDBMethods.connection = DBConnections.getinstance("db.Oracle","LFCBIZ01DB").dbConnection();
-		ResultSet rs = AppDBMethods.dashBoardResultSet(SQLConstants.Select.USER_TEXT);
+	String	strsql=SQLConstants.Select.USER_TEXT.replace("#FBNumber",FB_NUMBER);
+		ResultSet rs = AppDBMethods.dashBoardResultSet(strsql);
 
 			//for(int i=1;i<=colnum;i++) {
 				while (rs.next()) {
@@ -388,7 +389,7 @@ public void ValidateDriverNote(@Named("strcompervalue")String strcompervalue,Str
 				}
 		//	}
 
-				System.out.println(strcompervalue);
+		if(!tempSet.isEmpty()) {
 		if (tempSet.equalsIgnoreCase(strcompervalue)) {
 			System.out.println("Given columns is exist in data base");
 			logger.info(result+" is displayed in data base");
@@ -398,7 +399,7 @@ public void ValidateDriverNote(@Named("strcompervalue")String strcompervalue,Str
 			logger.info(strcompervalue+" is not displayed in data base");
 			assertFalse(strcompervalue+" is not displayed in data base", true);
 		}
-
+		}
 
 	}
 	catch (Exception e1) {

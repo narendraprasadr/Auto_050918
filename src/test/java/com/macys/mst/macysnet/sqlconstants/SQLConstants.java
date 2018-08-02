@@ -57,7 +57,7 @@ public interface SQLConstants {
 
 		public static final String SPCL_RTE_RQST  = "select SPCL_DESC,SPCL_RTE_NBR from SPCL_RTE_RQST where SPCL_RTE_NBR=200";
 		public static final String SPCL_RTE_RQST_LBL  = "select max(lbl_nbr) from SPCL_RTE_RQST_LBL  where SPCL_RTE_NBR=200";
-		public static final String USER_TEXT  = "select USER_TEXT from SHPMT_SPCL_RTE_RQST  where fb_nbr = 10000964";
+		public static final String USER_TEXT  = "select USER_TEXT from SHPMT_SPCL_RTE_RQST  where fb_nbr = #FBNumber";
 
 	}
 
