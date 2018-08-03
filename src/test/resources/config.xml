@@ -4,7 +4,7 @@
 	<config type="testConfig" name="AFOJ">
 		<stories>
 			 <!--  <story>MnetJDAIntegration</story> -->
-			  <story>AFOJ-135</story>
+			  <story>AFOJ-99</story>
 			  <!--<story>AFOJ-8</story>
 			  <story>AFOJ-10</story>
 			  <story>AFOJ-15</story>
