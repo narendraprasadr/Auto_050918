@@ -183,12 +183,26 @@ public class RestServicesUtils {
 							//String keyValue[] = str1.split(":",2);
 							String keyValue[] = str2.split(":");
 
-							if(keyValue[0].equalsIgnoreCase("pickuptime")) {
+							if(keyValue[0].equalsIgnoreCase("pickupDate")||keyValue[0].equalsIgnoreCase("requestedPickupDate")) {
+							if(keyValue[1].equalsIgnoreCase("currenttime")) {
+//syso
+								keyValue[1]=General.time_stamp_API()+" 04:30 PM";
+
+							}else if(keyValue[1].equalsIgnoreCase("requestedcurrenttime")) {
+
+								keyValue[1]=keyValue[1]=General.time_stamp_API()+" 06:30 PM";
+							}else {
 								keyValue[1]=keyValue[1]+":"+keyValue[2];
 							}
-							//keyvalue[0] - key, keyvalue[1] - value
-							tempJSON.put(keyValue[0], keyValue[1]);
 
+							}
+							if (keyValue.length==1) {
+								tempJSON.put(keyValue[0], "");
+							}
+							else{
+
+							tempJSON.put(keyValue[0], keyValue[1]);
+							}
 						}
 
 

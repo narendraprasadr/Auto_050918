@@ -238,13 +238,26 @@ public class AFOJRestServices {
 
 
 			int statusCode = response.getStatusCode();
+
 			String successCode = response.getBody().asString();
+
+
 			if(successCode.contains(",")) {
+				if(successCode.contains("errorCode")) {
+					String temparr[]=successCode.split("message");
+					temparr[1]= temparr[1].replace(":"," ");
+					temparr[1]= temparr[1].replace("\""," ");
+					temparr[1]= temparr[1].replace("}]}}"," ");
+
+					shipmentNum=temparr[1].trim();
+				}
+				else {
+				System.out.println(response.getContentType());
 				String temparr[]=successCode.split(",");
 				String strtemp[]= temparr[1].split(":");
 				shipmentNum=strtemp[1].replace("\"", " ");
 				shipmentNum=shipmentNum.trim();
-
+				}
 
 			}
 			System.out.println(statusCode+shipmentNum);
@@ -258,7 +271,49 @@ public class AFOJRestServices {
 
 
 	}
+	@Then("Verify $ErrorMSG error message and return code is $returnCode")
+	public static void verifyResponseStatusanderroeMSG(@Named("ErrorMSG")String ErrorMSG,@Named("numStatuscode")int num) throws Exception {
 
+		try {
+
+
+			int statusCode = response.getStatusCode();
+
+			String successCode = response.getBody().asString();
+
+
+			if(successCode.contains(",")) {
+				if(successCode.contains("errorCode")) {
+					String temparr[]=successCode.split("message");
+					temparr[1]= temparr[1].replace(":"," ");
+					temparr[1]= temparr[1].replace("\""," ");
+					temparr[1]= temparr[1].replace("}]}}"," ");
+					if(ErrorMSG.equalsIgnoreCase(temparr[1].trim())) {
+						logger.info(ErrorMSG+" error message is displayed");
+						Assert.assertTrue(ErrorMSG+" error message is displayed",true);
+					}
+					logger.info(ErrorMSG+" error message is displayed");
+				}
+				else {
+				System.out.println(response.getContentType());
+				String temparr[]=successCode.split(",");
+				String strtemp[]= temparr[1].split(":");
+				shipmentNum=strtemp[1].replace("\"", " ");
+				shipmentNum=shipmentNum.trim();
+				}
+
+			}
+			System.out.println(statusCode+shipmentNum);
+			Assert.assertEquals( num,statusCode);
+
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+
+	}
 	@Then("Validate $SCACCode is refected in Database $SCACCode column")
 public static void verifyDatabaseStatus(@Named("SCACCode")String strcode,String strcloumn) throws Exception {
 
@@ -409,6 +464,18 @@ public void ValidateDriverNote(@Named("strcompervalue")String strcompervalue,@Na
 	}
 
 
+}
+
+@Then("Verify $RetrieveShipmentURL REST service return code is $returnCode")
+public static void VerifyResponsesCodesIs(@Named("RetrieveShipmentURL")String RetrieveShipmentURL,@Named("returnCode")String returnCode) throws Exception {
+	String username = System.getProperty("user.name");
+	serviceURL=RetrieveShipmentURL+username.toUpperCase()+"/"+shipmentNum;
+	RestServicesUtils.putStatusCode(serviceURL);
+}
+
+@Then("get values from rest service for $strvalue")
+public void postExistingbodyvalue(String strvalue) throws Exception {
+	Restvalues=RestServicesUtils.getListOfValues(serviceURL,strvalue);
 }
 }
 

@@ -563,6 +563,12 @@ public class AFOJActionkeywords {
 
 					for(String subString: colValue.split(",")) {
 						String temparr[]=subString.split("/");
+						if(temparr[2].equalsIgnoreCase("pickupdate")) {
+							String str[]=General.time_stamp_API().split("/");
+
+							temparr[2]=str[2]+"-"+str[0]+"-"+str[1]+" 16:30:00";
+
+						}
 
 						if (colValue.equalsIgnoreCase("SCACCode")) {
 							strname = SQLConstants.Select.SCACCode;

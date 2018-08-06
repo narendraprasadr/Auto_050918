@@ -6,7 +6,10 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -334,4 +337,29 @@ public class General {
 		}
 	}
 
-}
+	public static String time_stamp_API () {
+		  logger.info("Inside Project Action --> time_stamp_API ");
+		   String dt;
+		  try
+		  {
+			  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+			   LocalDateTime now = LocalDateTime.now();
+			    dt = dtf.format(now);
+				  SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+				  Calendar c = Calendar.getInstance();
+				  c.setTime(sdf.parse(dt));
+				  c.add(Calendar.DATE, 1);
+				  dt = sdf.format(c.getTime());
+
+			   }
+
+		 catch(Exception e)
+		  {
+			  e.printStackTrace();
+		      logger.info("Action time_stamp_API");
+		      throw new SeleniumNonFatalException(" Action -> time_stamp_API");
+		  }
+
+		return dt;
+	}
+	}
