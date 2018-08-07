@@ -332,25 +332,7 @@ public static void verifyDatabaseStatus(@Named("SCACCode")String strcode,String 
 	}
 
 
-	@Then("Verify REST service return code is $returnCode for $serviceUrl and for $VendorName")
-	public static void verifyResponseStatus(@Named("returnCode")int num,String RestURL,String VendorName) throws Exception {
-
-		try {
-
-			serviceURL=RestURL+VendorName;
-			RestServicesUtils.putStatusCode(serviceURL);
-			response=RestAssured.get(serviceURL);
-			System.out.println("response         "+response);
-			//int statusCode = response.getStatusCode();
-			//System.out.println(statusCode);
-			Assert.assertEquals(200,response.getStatusCode());
-			} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-
-	}
-@When("Vnd_name column exists get data from ALL DC")
+	@When("Vnd_name column exists get data from ALL DC")
 	public static void verifyResponseStatus() throws Exception {
 
 		try {
@@ -473,9 +455,70 @@ public static void VerifyResponsesCodesIs(@Named("RetrieveShipmentURL")String Re
 	RestServicesUtils.putStatusCode(serviceURL);
 }
 
-@Then("get values from rest service for $strvalue")
+/*@Then("get values from rest service for $strvalue")
 public void postExistingbodyvalue(String strvalue) throws Exception {
 	Restvalues=RestServicesUtils.getListOfValues(serviceURL,strvalue);
+}*/
+@Then("Verify REST service return code is $returnCode for $serviceUrl and for $VendorName")
+public static void verifyResponseStatus(@Named("returnCode")int num,String RestURL,String VendorName) throws Exception {
+
+	try {
+		Thread.sleep(3000);
+		serviceURL=RestURL+VendorName;
+		RestServicesUtils.putStatusCode(serviceURL);
+		response=RestAssured.get(serviceURL);
+		System.out.println("response "+response);
+		//int statusCode = response.getStatusCode();
+		//System.out.println(statusCode);
+		Assert.assertEquals(200,response.getStatusCode());
+		} catch (Exception e) {
+		e.printStackTrace();
+	}
+
+
 }
+@Then("get $Restvalues from rest service and compare with database $dbvalue")
+
+public void compareRestWithDB(@Named("Restvalues")String strRestValue,@Named("dbvalue")String strdbvalue) throws Exception {
+	/*serviceURL="http://lp000xstrs0002:8355/api/platform_msp/v1/shipping/getExistingShipment/"+VendorName;
+	RestServicesUtils.putStatusCode(serviceURL);
+	response=RestAssured.get(serviceURL);
+	System.out.println("response "+response);*/
+
+	if (strRestValue.contains(",")) {
+		String subDBString[]=strdbvalue.split(",");
+		String subSRString[]=strRestValue.split(",");
+
+		for(int i=0;i<subSRString.length;i++ ){
+
+			String resultSR=RestServicesUtils.getValuesAsString(serviceURL,subSRString[i]);
+
+			System.out.println("SRValue"+i+"--"+resultSR);
+			String subofDBString[]=subDBString[i].split(":");
+
+			String sqlValue=DBMethods.get_SQLValue(subofDBString[0]);
+			if(subofDBString[1].equalsIgnoreCase("shipment")) {
+				sqlValue=sqlValue.replace("#runtime", shipmentNum);
+			}
+			else {
+				sqlValue=sqlValue.replace("#runtime", subofDBString[1]);
+			}
+			System.out.println("sql quer"+sqlValue);
+			String resultDB=DBMethods.getTestResultSet("oracle",sqlValue,"");
+			System.out.println(resultDB);
+			if (resultDB.trim().equalsIgnoreCase(resultSR.trim())) {
+				System.out.println("Given columns is exist in data base");
+				logger.info(resultDB+" is displayed in data base");
+				assertTrue(resultDB+" is displayed in data base", true);
+						}
+			else {
+				logger.info(resultDB+" is not displayed in data base"+resultSR+"is displayed");
+				assertFalse(resultDB+" is not displayed in data base", true);
+			}
+		}
+	}
 }
+
+}//end class
+
 

@@ -27,6 +27,7 @@ Examples:
 |serviceUrl                                                                          |run|returnCode|field                |value                                                                                                                                                             																																																									                                          																																	   |ColumnName     																 |
 |http://lp000xstrs0002:8355/api/platform_msp/v1/shipping/postOutboundShipmentRequest |1  |200       |ShipmentRequestSubmit|userID:BH00446,screenShipmentType:DCTODC,originVendorID:0,originAddrSeqID:0,originLocationID:7,destVendorID:0,destAddrSeqID:0,destLocationID:3-loadInformation=freightOptionID:99,carrierTypeID:1,trailerClassTypeID:90,trailerNumber:,scac:,pieceCount:10,pieceCountInPallets:true,weightLbs:150,cubicFeet:410,pickupDate:currenttime,requestedPickupDate:requestedcurrenttime,driverNotes:I'maratherlongwindeddriversomynotesherearelikelytoexceedthe128charlimit.Anyway...hereismylifestory.Iwasbornin1945 wasanexceptionalchild andgraduatedfirstinmyclass.,dropLive:Drop,ra:RA3|fb/FB_PKUP_TS/pickupDate,fb/CARRIER_TYP_NBR/1,fb/FB_WEIGHT/150,fb/FB_CUBE/410|
 
+
 Scenario: REST service call by passing only the mandatory fields required for DC to DC submit request validate requested date '%s' cannot be earlier than pickupDate '%s'
 
 Meta:

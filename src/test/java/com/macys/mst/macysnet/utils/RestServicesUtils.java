@@ -245,5 +245,31 @@ public class RestServicesUtils {
 
 
 	}
+	/***********************************************************************************************************************************************************
+	 * 'Method name : getValuesAsString 'Project name :
+	 * FreightOptimizationAutomation 'Description : This method is to get value as string
+	 * 'Developer : Sriram 'Reviewed By : 'Created On : June 2018
+	 ************************************************************************************************************************************************************/
+	public static String getValuesAsString(String strpath,String getValue) throws Exception {
+
+		try {
+			String resultMap =null;
+			RestAssured.baseURI = strpath;
+			RequestSpecification request = RestAssured.given();
+			//Response response = request.get(strName);
+
+			Response response = request.get();
+			resultMap = response.jsonPath().getString(getValue);
+			logger.info("request value is  : " + resultMap);
+			return  resultMap;
+
+		} catch (Exception e) {
+
+			Assert.assertFalse("Response is null or response code is !=200 ",true);
+			return  null;
+
+
+		}
+	}
 
 }

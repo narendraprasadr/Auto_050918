@@ -20,6 +20,7 @@ import org.junit.Assert;
 
 import com.macys.mst.artemis.db.DBConnections;
 import com.macys.mst.artemis.db.DBUtils;
+import com.macys.mst.artemis.kdddriver.ObjectRepositoryMap;
 
 public class DBMethods {
 
@@ -373,6 +374,7 @@ public class DBMethods {
 				AppDBMethods.connection = DBConnections.getinstance(strDBName,strDBUserName).dbConnection();
 				ResultSet rs = AppDBMethods.dashBoardResultSet(strquery);
 				ResultSetMetaData md = rs.getMetaData();
+				if(!strColumnName.isEmpty()) {
 				int columns = md.getColumnCount();
 				if (rs.next()) {
 					String strTemp=null;
@@ -390,6 +392,12 @@ public class DBMethods {
 
 
 			}
+				}
+				else {if (rs.next()) {
+					resultSet=rs.getString(1);
+					}
+
+				}
 				//DBConnections.closeDBConnection(AppDBMethods.connection);
 			}catch (Exception e1) {
 				//StepDetail.addDetail("Oracle DB Connection NOT Successfull", false);
@@ -430,7 +438,38 @@ public class DBMethods {
 
 
 	}
-}
+
+	/***********************************************************************************************************************************************************
+	 * 'Method name  : getUIDropdownValue
+	 * 'Project name : FreightOptimizationAutomation
+	 * 'Description  : This method is to get DropDown value from UI in List
+	 * 'Developer    : Sriram
+	 * 'Reviewed By  :
+	 * 'Created On   : June 2018
+	 * @return
+	 ************************************************************************************************************************************************************/
+	public static String  get_SQLValue( String sqlString) throws Exception {
+		try {
+	ObjectRepositoryMap sqlorm = new ObjectRepositoryMap("SQLRepository.properties");
+    String locator = sqlorm.properties.getProperty(sqlString);
+    String locatorType = locator.split(":", 2)[0].trim();
+    //logger.info(locatorType);
+    //String locatorValue = locator.split(":", 2)[1].trim();
+    //logger.info(locatorValue);
+
+    return locatorType;
+		}
+		catch (Exception e) {
+			System.out.println(e);
+
+			//Log.error("Failed to click on Dropdown "+element);
+			logger.info("Action get_Locator failed !");
+			throw (e);
+		}
+	}
+
+
+}//end class
 
 
 
