@@ -26,13 +26,7 @@
           <id>artifactory-snapshot</id>
             <name>mst-snapshots</name>
             <url>http://artifactory/artifactory/libs-release-local</url>
-           <!-- <url>http://artifactory/artifactory/libs-snapshot-local</url>   -->
 		</repository>
-		<!--repository>
-		  <id>mvnRepository</id>
-		  <name>MavenRepository</name>
-		  <url>http://mvnrepository.com</url>
-		</repository-->
 	</repositories>
       <pluginRepositories>
         <pluginRepository>

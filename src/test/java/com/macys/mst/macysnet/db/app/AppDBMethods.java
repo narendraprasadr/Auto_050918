@@ -23,7 +23,7 @@ import com.macys.mst.artemis.reports.StepDetail;
 public class AppDBMethods {
 
 	private static Logger logger = Logger.getLogger(AppDBMethods.class.getName());
-	public static Connection connection=null; //= DBConnections.getinstance("db", "appuser").dbConnection();
+	public static Connection connection=DBConnections.getinstance("db.Oracle","LFNDQA").dbConnection(); //= DBConnections.getinstance("db", "appuser").dbConnection();
 
 	public static void getTestResultSet() throws Exception {
 

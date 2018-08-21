@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,7 +21,6 @@ import org.junit.Assert;
 
 import com.macys.mst.artemis.db.DBConnections;
 import com.macys.mst.artemis.db.DBUtils;
-import com.macys.mst.artemis.kdddriver.ObjectRepositoryMap;
 
 public class DBMethods {
 
@@ -51,17 +51,7 @@ public class DBMethods {
 
 		logger.info("Query Is : "+query);
 		try {
-			/*ArrayList<String> strlistValue = new ArrayList<>();
-			if (strColumnname.contains(",")) {
-
-				for(String subString: strColumnname.split(",")){
-					strlistValue.add(subString);
-					}
-			}
-			else {
-
-				strlistValue.add(strColumnname);
-			} */
+			
 			ResultSet result_Set = AppDBMethods.dashBoardResultSet(query);
 			if (result_Set.next()) {
 				System.out.println("Given columns is exist in data base");
@@ -81,6 +71,118 @@ public class DBMethods {
 	}
 
 	public static Map<String, List<String>> getDBValueInHashMap (Connection con,String query) {
+		logger.info("Query Is : "+query);
+		Map<String, List<String>>resultMap =new HashMap<String, List<String>>();
+		ResultSet rs = null;
+		Statement stmt = null;
+		try {
+
+			
+			//rs = DBUtils.getresultset(con,query);
+			stmt = con.createStatement();
+		      
+		     rs= stmt.executeQuery(query);
+			//System.out.println(rs);
+			String strTemp=null;
+			if(rs!=null)
+			{
+		
+
+			ResultSetMetaData md = rs.getMetaData();
+			int columns = md.getColumnCount();
+			while(rs.next())
+			{
+			
+				for (int i = 1; i <= columns; ++i) {
+					//System.out.println(md.getColumnName(i));
+
+					strTemp=columnsNameReplace(md.getColumnName(i));
+					strTemp = strTemp.toLowerCase();
+					List<String> cellData =new ArrayList<String>();
+					//List<Object> objCellData =new ArrayList<Object>();
+
+					if(resultMap.containsKey(strTemp)) {
+						cellData=resultMap.get(strTemp);
+					}
+					if(rs.getObject(i)!=null)
+					{
+						cellData.add(rs.getString(i).trim());
+					}/*else {
+						cellData.add("0");
+					}*/
+					//System.out.println("Object As values ...+"+strTemp+"--"+cellData.toString());
+					resultMap.put(strTemp, cellData);
+				}
+
+
+			}
+			getDate(resultMap,"transduedate");
+			getDate(resultMap,"checkdate");
+			
+			/*if(resultMap.containsKey("transduedate")) {
+				List<String> cellData2 =new ArrayList<String>();
+				List<String> cellData3 =new ArrayList<String>();
+				 cellData2=resultMap.get("transduedate");
+				 for(int i=0;i<cellData2.size();i++) {
+				      
+					 String [] arrOfStr = cellData2.get(i).split(" ");
+					 cellData3.add(arrOfStr[0].trim());
+				      
+				      }
+				 resultMap.put("transduedate", cellData3);
+				
+			}else if(resultMap.containsKey("checkdate")) {
+				List<String> cellData2 =new ArrayList<String>();
+				List<String> cellData3 =new ArrayList<String>();
+				 cellData2=resultMap.get("checkdate");
+				 for(int i=0;i<cellData2.size();i++) {
+				      
+					 String [] arrOfStr = cellData2.get(i).split(" ");
+					 cellData3.add(arrOfStr[0].trim());
+				      
+				      }
+				 resultMap.put("checkdate", cellData3);
+				
+			}
+			else {
+				
+			}*/
+
+			return resultMap;
+			}
+		} catch (Exception exception) {
+			logger.info("the Db values exception is " + exception.getMessage());
+		}
+		return resultMap;
+
+	}
+	public static Map<String, List<String>> getDate(Map<String, List<String>>resultDate,String date)
+			{
+		Map<String, List<String>>resultMap =new HashMap<String, List<String>>();
+		try {
+			
+				
+			if(resultDate.containsKey(date)) {
+				List<String> cellData2 =new ArrayList<String>();
+				List<String> cellData3 =new ArrayList<String>();
+				 cellData2=resultDate.get(date);
+				 for(int i=0;i<cellData2.size();i++) {
+				      
+					 String [] arrOfStr = cellData2.get(i).split(" ");
+					 cellData3.add(arrOfStr[0].trim());
+				      
+				      }
+				 resultDate.put(date, cellData3);
+			}
+					
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultDate;
+		
+	}
+//test
+	public static Map<String, List<Object>> testGetDBValueInHashMap (Connection con,String query) {
 
 		logger.info("Query Is : "+query);
 		try {
@@ -89,19 +191,25 @@ public class DBMethods {
 			rs = DBUtils.getresultset(con,query);
 			if(rs!=null)
 			{
-			Map<String, List<String>>resultMap =new HashMap<String, List<String>>();
+			Map<String, List<Object>>resultMap =new HashMap<String, List<Object>>();
 
 			ResultSetMetaData md = rs.getMetaData();
 			int columns = md.getColumnCount();
 			while(rs.next())
 			{
 				String strTemp=null;
+				
 				for (int i = 1; i <= columns; ++i) {
 
-					strTemp=columnsNameReplace(md.getColumnName(i));
-
-					List<String> cellData =new ArrayList<String>();
+					strTemp=columnsNameReplace(md.getColumnName(i)).toLowerCase();
+					System.out.println("DB value is:"+strTemp);
+					List<Object> cellData =new ArrayList<Object>();
+					
 					//List<Object> objCellData =new ArrayList<Object>();
+					if(strTemp.equalsIgnoreCase("LONG_DESC"))
+					{
+					strTemp="desc";	
+					}
 
 					if(resultMap.containsKey(strTemp)) {
 						cellData=resultMap.get(strTemp);
@@ -126,25 +234,67 @@ public class DBMethods {
 
 	}
 
-
-	public static boolean validateServiceResponseWithDBResponse(Map<String, List<String>> serviceResponse, Map<String, List<String>> dbResponse) {
+	public static boolean validateServiceResponseWithDBResponse(Map<String, List<Object>> serviceResponse, Map<String, List<Object>> dbResponse) {
 		boolean isMatched = false;
 
 
 
 		for (String key : serviceResponse.keySet()) {
-			//logger.info("ServiceValue: " + serviceResponse.get(key)
-				//	+ ", DB Value: " + dbResponse.get(key));
-			//isMatched = isMatched && serviceResponse.get(key).equals(dbResponse.get(key));
-			//System.out.println(key+"step3");
-			//System.out.println(dbResponse.keySet().toString()+"step4");
-			////if (isMatched == false) {
-			//	logger.info("Values Mismatch");
-			//} else {
+						List<Object> dbResultInt=new ArrayList<Object>();
+				List<Object> srResult=serviceResponse.get(key);
+				List<Object> dbResult=dbResponse.get(key);
+				Set<Object> hs = new HashSet<>();
+				dbResult.removeAll(Arrays.asList("  ",""));
+				dbResult.removeAll(Arrays.asList(" ",""));
+				srResult.removeAll(Arrays.asList(" ",""));
+						//logger.info("Values Matched");
+				System.out.println("srREsult:"+key+".."+srResult.toString());
+				System.out.println("dbREsult:"+key+".."+dbResult.toString());
+
+				
+				int dbRes=dbResult.size();
+				int reResult=srResult.size();
+				
+
+			if (dbRes==reResult) {
+				for(int i=0;i<dbRes;i++)
+				{
+					Object dataBaseRes=dbResult.get(i);
+					Object restsreviceRes=srResult.get(i);
+					if(String.valueOf(dataBaseRes).equals(String.valueOf(restsreviceRes)))
+					{
+						System.out.println(String.valueOf(dataBaseRes)+" DB element and Rest element is matched "+String.valueOf(restsreviceRes));
+						logger.info(String.valueOf(dataBaseRes)+" DB element and Rest element is matched "+String.valueOf(restsreviceRes));
+						Assert.assertTrue("Rest service and data base value are same",true);
+					}
+					else
+					{
+						System.out.println(String.valueOf(dataBaseRes)+" DB element and Rest element is not matched "+String.valueOf(restsreviceRes));
+					logger.info("Rest service and data base value is not same");
+						
+					}}}
+					
+					else
+					{
+						System.out.println("Size is not matched");
+						logger.info("Size is not same");
+					}
+			
+		}
+
+		return isMatched;
+	}
+	public static boolean testValidateServiceResponseWithDBResponse(Map<String, List<Object>> restvalues, Map<String, List<Object>> dBresultMap) {
+		boolean isMatched = false;
+
+
+
+		for (String key : restvalues.keySet()) {
+			
 
 				List<Integer> dbResultInt=new ArrayList<Integer>();
-				List<String> srResult=serviceResponse.get(key);
-				List<String> dbResult=dbResponse.get(key);
+				List<Object> srResult=restvalues.get(key);
+				List<Object> dbResult=dBresultMap.get(key);
 				Set<String> hs = new HashSet<>();
 				dbResult.removeAll(Arrays.asList("  ",""));
 				dbResult.removeAll(Arrays.asList(" ",""));
@@ -184,7 +334,7 @@ public class DBMethods {
 				//Assert.assertTrue(dbResult.equals(srResult));
 				//System.out.println("successfulyy"+dbResult.equals(srResult));
 
-				if(dbResult != null && srResult != null && (dbResult.size() == srResult.size())){
+				/*if(dbResult != null && srResult != null && (dbResult.size() == srResult.size())){
 					dbResult.removeAll(srResult);
 				    if(dbResult.isEmpty()){
 				    	isMatched = true;
@@ -199,16 +349,16 @@ public class DBMethods {
 				{
 					isMatched = false;
 					logger.info(key+"Rest service and data base value is not same");
-				}
+				}*/
 
-			/*if (dbResult.equals(srResult)) {
+			if (dbResult.equals(srResult)) {
 				logger.info("Rest service and data base value are same");
 				Assert.assertTrue("Rest service and data base value are same",true);
 			} else {
 				logger.info("Rest service and data base value is not same");
-				//Assert.assertFalse("Rest service and data base value is not same ",true);
+				assertFalse("Rest service and data base value is not same ",true);
 			}
-			//}*/
+			//}
 		}
 
 		return isMatched;
@@ -245,7 +395,17 @@ public class DBMethods {
 			strname="FreightLoadOptions.trailerClassTypes.key";
 		} else if(strname.equalsIgnoreCase("trlr_class_name")) {
 			strname="FreightLoadOptions.trailerClassTypes.value";
+		}else if(strname.equalsIgnoreCase("long_desc")) {
+			strname="desc";
+		}else if(strname.equalsIgnoreCase("invoiceStatus")) {
+			strname="invoiceStatus";
+		}else if(strname.equalsIgnoreCase("transgrossamt")) {
+			strname="transGrossAmt";
 		}
+		else if(strname.equalsIgnoreCase("invoicenbr")) {
+			strname="invoicenbr";
+		}
+		
 			//System.out.println(strname+"---00");
 		return strname;
 		}
@@ -374,7 +534,6 @@ public class DBMethods {
 				AppDBMethods.connection = DBConnections.getinstance(strDBName,strDBUserName).dbConnection();
 				ResultSet rs = AppDBMethods.dashBoardResultSet(strquery);
 				ResultSetMetaData md = rs.getMetaData();
-				if(!strColumnName.isEmpty()) {
 				int columns = md.getColumnCount();
 				if (rs.next()) {
 					String strTemp=null;
@@ -392,12 +551,6 @@ public class DBMethods {
 
 
 			}
-				}
-				else {if (rs.next()) {
-					resultSet=rs.getString(1);
-					}
-
-				}
 				//DBConnections.closeDBConnection(AppDBMethods.connection);
 			}catch (Exception e1) {
 				//StepDetail.addDetail("Oracle DB Connection NOT Successfull", false);
@@ -438,38 +591,7 @@ public class DBMethods {
 
 
 	}
-
-	/***********************************************************************************************************************************************************
-	 * 'Method name  : getUIDropdownValue
-	 * 'Project name : FreightOptimizationAutomation
-	 * 'Description  : This method is to get DropDown value from UI in List
-	 * 'Developer    : Sriram
-	 * 'Reviewed By  :
-	 * 'Created On   : June 2018
-	 * @return
-	 ************************************************************************************************************************************************************/
-	public static String  get_SQLValue( String sqlString) throws Exception {
-		try {
-	ObjectRepositoryMap sqlorm = new ObjectRepositoryMap("SQLRepository.properties");
-    String locator = sqlorm.properties.getProperty(sqlString);
-    String locatorType = locator.split(":", 2)[0].trim();
-    //logger.info(locatorType);
-    //String locatorValue = locator.split(":", 2)[1].trim();
-    //logger.info(locatorValue);
-
-    return locatorType;
-		}
-		catch (Exception e) {
-			System.out.println(e);
-
-			//Log.error("Failed to click on Dropdown "+element);
-			logger.info("Action get_Locator failed !");
-			throw (e);
-		}
-	}
-
-
-}//end class
+}
 
 
 

@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <document>
-	<config type="testConfig" name="AFOJ">
+	<config type="testConfig" name="MIS">
 		<stories>
 			 <!--  <story>MnetJDAIntegration</story> -->
-			  <story>AFOJ-99</story>
-			  <!--<story>AFOJ-8</story>
-			  <story>AFOJ-10</story>
-			  <story>AFOJ-15</story>
-			  <story>AFOJ-17</story>
-			  <story>AFOJ-32</story>
-			  <story>AFOJ-34</story>
-			  <story>AFOJ-35</story>
-			  <story>AFOJ-37</story>
-			  <story>AFOJ-38</story>
-			  <story>AFOJ-45</story>
-			  <story>AFOJ-46</story>
-			  <story>AFOJ-57</story>
-			  <story>AFOJ-59</story>-->
+			  <story>MIS-21</story>
+			  <story>MIS-22</story>
+			  <story>MIS-26</story>
+			  <story>MIS-28</story>
+			  <story>MIS-32</story>
+			
 		</stories>
 
 		<datasetupstoryscenario>
@@ -27,7 +19,7 @@
 		</datasetupscenarioiteration>
 
 		<metafiltetrs>
-			<metafiltetrFLag>Y</metafiltetrFLag>
+			<metafiltetrFLag>N</metafiltetrFLag>
 			 <metafiltetr>+regression , +acceptance </metafiltetr> 
 			
 		</metafiltetrs>
@@ -54,46 +46,4 @@
 	<jirareportstab>QA_Test</jirareportstab>
 	
 	</config>
-	<config type="testConfig" name="VPCM">
-
-		<stories>
-			  <story>AFOJ-10</story>
-			  		  
-		</stories>
-
-		<datasetupstoryscenario>
-		</datasetupstoryscenario>
-
-		<datasetupscenarioiteration>
-		</datasetupscenarioiteration>
-
-		<metafiltetrs>
-			<metafiltetrFLag>Y</metafiltetrFLag>
-			 <metafiltetr>+regression , +acceptance </metafiltetr> 
-			
-		</metafiltetrs>
-
-		<datasetupflag>
-			<suitelevel>N</suitelevel>
-			<storylevel>N</storylevel>
-			<storyscenariolevel>N</storyscenariolevel>
-			<storyscenarioiterationlevel>N</storyscenarioiterationlevel>
-		</datasetupflag>
-
-		<testdatainputtables>
-			<tablename>AUTO_DATA_INPUT</tablename>
-		</testdatainputtables>
-		<testdataoutputtables>
-			<tablename>AUTO_DATA_OUTPUT</tablename>
-		</testdataoutputtables>
-
-		<testData>
-			<orderPrefix />
-			<facilityAliasId>44</facilityAliasId>
-			<prodStatInInv>71</prodStatInInv>
-		</testData>
-	<jirareportstab>QA_Test</jirareportstab>
-	
-	</config>
-
 </document>

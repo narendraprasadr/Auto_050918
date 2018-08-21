@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.macys.mst.macysnet</groupId>
   <artifactId>MacysnetAutomation</artifactId>
-  <version>0.0.1-AFOJ</version>
+  <version>0.0.1-MIS</version>
   <properties>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
@@ -20,9 +20,17 @@
 			<groupId>com.macys.mst</groupId> 
 			<artifactId>artemis</artifactId> 
 			<version>0.1.21</version>
-			<!-- <scope>system</scope>
-			<systemPath>C:\\artemis-FreightOptimizationAutomation\\libs\\artemis-0.1.21.jar</systemPath> -->
+			<scope>system</scope>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/sqljdbc4 -->
+		<dependency>
+		    <groupId>com.microsoft.sqlserver</groupId>
+		    <artifactId>sqljdbc4</artifactId>
+		    <version>4.0</version>
+		    <scope>test</scope>
+		</dependency>
+		
 
 		<dependency>
 			<groupId>com.jbehaveforjira</groupId>
@@ -30,16 +38,12 @@
 			<version>1.1.1</version>
 		</dependency>
 		
-			<!-- <dependency>
-		 <groupId>com.sikulix</groupId>
-		    <artifactId>sikulixapi</artifactId>
-		    <version>1.1.2</version>
-		   <scope>system</scope>
-			<systemPath>C:/Users/BH00446/sikuli/sikulixapi.jar</systemPath> 
-		</dependency> -->
-		
-		
-
+		 <dependency>
+			 <groupId>com.sikulix</groupId>
+			    <artifactId>sikulixapi</artifactId>
+			    <version>1.1.2</version>
+			   <scope>system</scope>
+		</dependency>  
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
@@ -67,16 +71,13 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
 		</dependency>
-		<!--  <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-api</artifactId> 
-			<version>1.7.21</version> </dependency> -->
-			
+		
 		<dependency>
 			<groupId>com.sun</groupId>
 			<artifactId>tools</artifactId>
-			<version>1.8.0_165</version>
+			<version>1.8.0_73</version>
 			<scope>system</scope>
-			<!--<systemPath>C:/Program Files/Java/jdk1.8.0_73/lib/tools.jar</systemPath>-->
-			 <systemPath>${env.JAVA_HOME}/lib/tools.jar</systemPath> 
+			<systemPath>${env.JAVA_HOME}/lib/tools.jar</systemPath> 
 		</dependency>
 
 		<dependency>
@@ -84,12 +85,6 @@
 			<artifactId>testng</artifactId>
 			<version>6.11</version>
 		</dependency>
-
-		<!-- <dependency> <groupId>io.appium</groupId> <artifactId>java-client</artifactId> 
-			<version>5.0.0-BETA9</version> </dependency> <dependency> <groupId>org.seleniumhq.selenium</groupId> 
-			<artifactId>selenium-java</artifactId> <version>3.3.1</version> </dependency> 
-			<dependency> <groupId>junit</groupId> <artifactId>junit</artifactId> <version>4.11</version> 
-			</dependency> -->
 			
 	</dependencies>
 
@@ -332,4 +327,5 @@
 			</build>
 		</profile>
 	</profiles>
+	<name>MISAutomation</name>
 </project>

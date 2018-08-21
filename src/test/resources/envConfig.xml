@@ -117,7 +117,7 @@
 			  <MA000XVSQL22>
 			      <name>fdsnetwebuser</name>
 			      <pwdobjectid>Database-Macys-Passive-SQLServer-MA000XVSQL22-fdsnetwebuser</pwdobjectid>     
-			       <connecturi>jdbc:sqlserver://MA000XVSQL22:1433;DatabaseName=WebCache</connecturi>
+			       <connecturi>jdbc:sqlserver://MA000XVSQL22:1433;DatabaseName=FDSNet</connecturi>
 			  </MA000XVSQL22>                   
 			</sqlserver>
                   
@@ -128,11 +128,15 @@
 			     <classname>oracle.jdbc.driver.OracleDriver</classname>
 			  </driver>
 			  <LFCBIZ01DB>
-			     <name>FARCVM1</name>     
-			       <pwdobjectid>Database-Macys-Passive-OracleDatabase-LFCBIZ01DB-FARCVM1      
-			       </pwdobjectid>
-			<connecturi>jdbc:oracle:thin:@//LFCBIZ01DB.federated.fds:1521/LFCBIZ01 </connecturi>
-			    </LFCBIZ01DB>
+			    	<name>FARCVM1</name>     
+			    	<pwdobjectid>Database-Macys-Passive-OracleDatabase-LFCBIZ01DB-FARCVM1</pwdobjectid>
+					<connecturi>jdbc:oracle:thin:@//LFCBIZ01DB.federated.fds:1521/LFCBIZ01</connecturi>
+			  </LFCBIZ01DB>
+			  <LFNDQA>
+			     	<name>MNETQA</name>     
+			       	<pwdobjectid>Database-Macys-Passive-OracleDatabase-LFNDQA-MNETQA</pwdobjectid>
+					<connecturi>jdbc:oracle:thin:@//LFNDDB.federated.fds:1511/LFND</connecturi>
+			  </LFNDQA>
 			</Oracle>
 			
 			
