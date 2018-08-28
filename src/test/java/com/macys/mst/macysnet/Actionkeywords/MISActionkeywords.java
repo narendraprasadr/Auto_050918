@@ -65,6 +65,8 @@ public class MISActionkeywords {
 	public static String serviceurl = null;
 	public static Map<String, List<String>> Restvalues = new HashMap<String, List<String>>();
 	public static Map<String, List<String>> DBresultMap = new HashMap<String, List<String>>();
+	public static ArrayList<Invoice> serviceObjList = new ArrayList<>();
+	public static ArrayList<Invoice> databaseObjList = new ArrayList<>();
 
 	/***********************************************************************************************************************************************************
 	 * 'Method name : Macysnet_Login 'Project name : Macys Infrastructure Stability
@@ -348,7 +350,7 @@ public class MISActionkeywords {
 	 * 'Developer : Sivanarumugam 'Reviewed By : 'Created On : August 2018
 	 ************************************************************************************************************************************************************/
 
-	public static void Get_Values_From_Service(String getValue) throws Exception {
+	/*public static void Get_Values_From_Service(String getValue) throws Exception {
 		logger.info("Inside Action --> Get_Values_From_Service ");
 		try {
 			logger.info("The Service URL is: " + serviceurl);
@@ -421,8 +423,64 @@ public class MISActionkeywords {
 					String.format("Get_Values_From_Service NOT successful. ", new Object[0]));
 
 		}
-	}
+	}*/
+	public static void Get_Values_From_Service(String getValue) throws Exception {
+		logger.info("Inside Action --> Get_Values_From_Service ");
+		try {
+			logger.info("The Service URL is: " + serviceurl);
+			logger.info("The input is: " + getValue);
+			RestAssured.baseURI = serviceurl;
+			RequestSpecification request = RestAssured.given();
+			Response response = request.get(serviceurl);
+			System.out.println(response.asString());
+			String responseBody=response.asString();
+			
+			String[] datacopy1 = null;
+			String[] datacopy2 = null;
+			String[] datacopy3 = null;		
+				
+				datacopy1 = responseBody.split("},");			
+			
+				for(int i=0;i<datacopy1.length;i++) {			    
+					    
+					  datacopy2 = datacopy1[i].split(",");
+					  
+					  String[] myStringArray = new String[datacopy2.length];
+					for(int j=0;j<datacopy2.length;j++) {	
+				
+					datacopy3 = datacopy2[j].split(":");
+					
+					String s = datacopy3[1].replaceAll("\"", "");	
+					
+					if(s.contains("-")) {
+						
+						s = s.substring(0, s.length() - 3);
+						
+					}else if(s.contains("}") && s.contains("]") ) {
+						
+						s = s.substring(0, s.length() - 2);
+						
+					}
+					
+					myStringArray[j] =s;
+			
+					}		
+						
+					serviceObjList=com.macys.mst.macysnet.Actionkeywords.Invoice.addValues(myStringArray[0], myStringArray[1], myStringArray[2], myStringArray[3], myStringArray[4], myStringArray[5], myStringArray[6], myStringArray[7], myStringArray[8], myStringArray[9],myStringArray[10], myStringArray[11], myStringArray[12]);
+					}
+					
+			
+			logger.info("request value is  : " + serviceObjList);
+			assertTrue("Service values are stored successfully", true);
 
+		} catch (Exception e) {
+			 	e.printStackTrace();
+			 	StepDetail.addDetail(String.format("Service values are not stored successfully", new Object[0]), false);
+			 	throw new SeleniumNonFatalException(String.format("Get_Values_From_Service NOT successful. ", new Object[0]));
+			//return null;
+
+		}
+	}
 	/***********************************************************************************************************************************************************
 	 * 'Method name : Get_Values_From_Database 'Project name : Macys Infrastructure
 	 * Stability 'Description : This method is to Get the values from Database
@@ -445,8 +503,14 @@ public class MISActionkeywords {
 
 			strsql = (String) SQLConstants.Select.class.getField(query).get(fields);
 			DBresultMap = DBMethods.getDBValueInHashMap(connection, strsql);
-			logger.info(" Restvalues    :" + Restvalues);
-			logger.info(" DBresultMap   :" + DBresultMap);
+			System.out.println("SERVICE =========== START =============  VALUES");
+			Invoice.printValuesServiceList(serviceObjList);
+			System.out.println("SERVICE =========== END =============  VALUES");
+			System.out.println("DATABASE =========== START =============  VALUES");
+			Invoice.printValuesServiceList(databaseObjList);
+			System.out.println("DATABASE =========== END =============  VALUES");
+			/*logger.info(" Restvalues    :" + Restvalues);
+			logger.info(" DBresultMap   :" + DBresultMap);*/
 			DBConnections.closeDBConnection(connection);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -467,7 +531,8 @@ public class MISActionkeywords {
 		logger.info("Inside Action --> Compare_Service_And_Database ");
 		try {
 
-			boolean isMatched = RestServicesUtils.validateServiceResponseWithDBResponse(Restvalues, DBresultMap);
+			//boolean isMatched = RestServicesUtils.validateServiceResponseWithDBResponse(Restvalues, DBresultMap);
+			boolean isMatched = RestServicesUtils.validateServiceResponseWithDBResponse(serviceObjList,databaseObjList);
 
 			if (isMatched) {
 				StepDetail.addDetail("Service and Data base value are same", true);

@@ -21,6 +21,7 @@ import org.junit.Assert;
 
 import com.macys.mst.artemis.db.DBConnections;
 import com.macys.mst.artemis.db.DBUtils;
+import com.macys.mst.macysnet.Actionkeywords.MISActionkeywords;
 
 public class DBMethods {
 
@@ -93,6 +94,7 @@ public class DBMethods {
 			while(rs.next())
 			{
 			
+				MISActionkeywords.databaseObjList=com.macys.mst.macysnet.Actionkeywords.Invoice.addValues(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13));
 				for (int i = 1; i <= columns; ++i) {
 					//System.out.println(md.getColumnName(i));
 

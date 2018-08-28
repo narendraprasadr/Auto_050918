@@ -4,12 +4,7 @@
 	<config type="testConfig" name="MIS">
 		<stories>
 			 <!--  <story>MnetJDAIntegration</story> -->
-			  <story>MIS-21</story>
-			  <story>MIS-22</story>
-			  <story>MIS-26</story>
-			  <story>MIS-28</story>
-			  <story>MIS-32</story>
-			
+			  <story>MIS-8</story>
 		</stories>
 
 		<datasetupstoryscenario>

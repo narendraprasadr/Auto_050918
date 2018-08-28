@@ -101,11 +101,7 @@ public class MIS {
 		FetchExampleTable.sendInputActions(gbldriver, null);
 	}
 
-	@When("user enter the Account no <accountNo>, check no <checkNo> and click on submit button")
-	public static void userentertheAccountnoaccountNochecknoinvoiceNoandclickonsubmitbutton() {
-		FetchExampleTable.sendInputActions(gbldriver, null);
-	}
-
+	
 	@Then("validate the results of Check Detail screen")
 	public static void validatetheresultsofCheckDetailscreen() {
 		FetchExampleTable.sendInputActions(gbldriver, null);

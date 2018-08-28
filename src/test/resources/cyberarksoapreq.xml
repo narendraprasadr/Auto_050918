@@ -3,9 +3,9 @@
    <soap:Body>
       <tem:GetPassword>
          <tem:passwordWSRequest>
-            <tem:AppID>WMS_TEST</tem:AppID>
-            <tem:Safe>PSV-FS-WMS-AutoTest-G</tem:Safe>
-            <tem:Object>Misc-Macys-Application-Passive-jirawms</tem:Object>
+            <tem:AppID>WMS_Q</tem:AppID>
+            <tem:Safe>PSV-FS-WMS-AutoTest-Q</tem:Safe>
+            <tem:Object>Misc-Macys-Application-Passive-artemisuser</tem:Object>
             <tem:Object>Database-Macys-Passive-OracleDatabase-LFNDQA-MNETQA</tem:Object>
          </tem:passwordWSRequest>
       </tem:GetPassword>
