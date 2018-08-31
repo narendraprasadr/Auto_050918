@@ -22,6 +22,10 @@ public class Constants {
 
 	public static String loginUrl="http://dev.macysnet.com/AP/";
 
+	public static String driver = "oracle.jdbc.driver.OracleDriver";
+	public static String uri = "jdbc:sqlserver://MT000XBSQL105;instanceName=INST1;DatabaseName=FDSNet";
+	public static String username = "fdsnetwebuser";
+	public static String password ="m96xrt";
 	public static String colValue =null;
 	public static JavascriptExecutor jse= null;
 

@@ -21,7 +21,11 @@ import org.junit.Assert;
 
 import com.macys.mst.artemis.db.DBConnections;
 import com.macys.mst.artemis.db.DBUtils;
+import com.macys.mst.macysnet.MISObjects.Invoice;
+import com.macys.mst.macysnet.MISObjects.InvoicesUI;
 import com.macys.mst.macysnet.Actionkeywords.MISActionkeywords;
+
+import l.a.a.b.db;
 
 public class DBMethods {
 
@@ -74,10 +78,12 @@ public class DBMethods {
 	public static Map<String, List<String>> getDBValueInHashMap (Connection con,String query) {
 		logger.info("Query Is : "+query);
 		Map<String, List<String>>resultMap =new HashMap<String, List<String>>();
+		List<String> dbList = new ArrayList<String>();
 		ResultSet rs = null;
 		Statement stmt = null;
 		try {
 
+			//ArrayList<Invoice> invoiceDB=new ArrayList<Invoice>();
 			
 			//rs = DBUtils.getresultset(con,query);
 			stmt = con.createStatement();
@@ -93,64 +99,48 @@ public class DBMethods {
 			int columns = md.getColumnCount();
 			while(rs.next())
 			{
-			
-				MISActionkeywords.databaseObjList=com.macys.mst.macysnet.Actionkeywords.Invoice.addValues(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13));
+				//MISActionkeywords.databaseObjList=com.macys.mst.macysnet.Actionkeywords.Invoice.addValues(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13));
+				//MISActionkeywords.databaseObjList.add(new Invoice(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13)));
+				
 				for (int i = 1; i <= columns; ++i) {
 					//System.out.println(md.getColumnName(i));
-
-					strTemp=columnsNameReplace(md.getColumnName(i));
+					
+					//dbList.add(rs.getString(i).trim());
+					/*strTemp=columnsNameReplace(md.getColumnName(i));
 					strTemp = strTemp.toLowerCase();
-					List<String> cellData =new ArrayList<String>();
+					List<String> cellData =new ArrayList<String>();*/
 					//List<Object> objCellData =new ArrayList<Object>();
 
-					if(resultMap.containsKey(strTemp)) {
+/*					if(resultMap.containsKey(strTemp)) {
 						cellData=resultMap.get(strTemp);
 					}
-					if(rs.getObject(i)!=null)
+*/					if(rs.getObject(i)!=null)
 					{
-						cellData.add(rs.getString(i).trim());
+//						cellData.add(rs.getString(i).trim());
+						dbList.add(rs.getString(i).trim());
+						
 					}/*else {
 						cellData.add("0");
 					}*/
 					//System.out.println("Object As values ...+"+strTemp+"--"+cellData.toString());
-					resultMap.put(strTemp, cellData);
+//					resultMap.put(strTemp, cellData);
+				
 				}
+				MISActionkeywords.databaseObjList.add(new Invoice(dbList));
+				//MISActionkeywords.UIdatabaseObjList.add(new InvoicesUI(dbList));
 
 
 			}
+			/*for(int i=0;i<dbList.size(); i++)
+			{
+			MISActionkeywords.databaseObjList.add(new Invoice(dbList));
+			}*/
+			
+			
 			getDate(resultMap,"transduedate");
 			getDate(resultMap,"checkdate");
 			
-			/*if(resultMap.containsKey("transduedate")) {
-				List<String> cellData2 =new ArrayList<String>();
-				List<String> cellData3 =new ArrayList<String>();
-				 cellData2=resultMap.get("transduedate");
-				 for(int i=0;i<cellData2.size();i++) {
-				      
-					 String [] arrOfStr = cellData2.get(i).split(" ");
-					 cellData3.add(arrOfStr[0].trim());
-				      
-				      }
-				 resultMap.put("transduedate", cellData3);
-				
-			}else if(resultMap.containsKey("checkdate")) {
-				List<String> cellData2 =new ArrayList<String>();
-				List<String> cellData3 =new ArrayList<String>();
-				 cellData2=resultMap.get("checkdate");
-				 for(int i=0;i<cellData2.size();i++) {
-				      
-					 String [] arrOfStr = cellData2.get(i).split(" ");
-					 cellData3.add(arrOfStr[0].trim());
-				      
-				      }
-				 resultMap.put("checkdate", cellData3);
-				
-			}
-			else {
-				
-			}*/
-
-			return resultMap;
+				return resultMap;
 			}
 		} catch (Exception exception) {
 			logger.info("the Db values exception is " + exception.getMessage());
@@ -367,7 +357,7 @@ public class DBMethods {
 	}
 
 
-	public static String columnsNameReplace (String strname) {
+	public static String columnsNameReplace1 (String strname) {
 		//locationID,address1,address2,city,state,country,zipCode
 		//loc_nbr, addr_line_1,addr_line_2,city,st_code,ntn_code,zip_code
 
@@ -592,6 +582,52 @@ public class DBMethods {
 		}
 
 
+	}
+
+
+	public static String columnsNameReplace (String strname) {
+	//locationID,address1,address2,city,state,country,zipCode
+	//loc_nbr, addr_line_1,addr_line_2,city,st_code,ntn_code,zip_code
+	
+	if (strname.equalsIgnoreCase("loc_nbr")) {
+		strname="locationID";
+	} else if(strname.equalsIgnoreCase("addr_line_1")) {
+		strname="address1";
+	} else if(strname.equalsIgnoreCase("addr_line_2")) {
+		strname="address2";
+	} else if(strname.equalsIgnoreCase("city")) {
+		strname="city";
+	} else if(strname.equalsIgnoreCase("st_code")) {
+		strname="state";
+	} else if(strname.equalsIgnoreCase("ntn_code")) {
+		strname="country";
+	} else if(strname.equalsIgnoreCase("zip_code")) {
+		strname="zipCode";
+	} else if(strname.equalsIgnoreCase("frgt_typ_nbr")) {
+		strname="FreightLoadOptions.freightOptions.key";
+	} else if(strname.equalsIgnoreCase("frgt_typ_desc")) {
+		strname="FreightLoadOptions.freightOptions.value";
+	} else if(strname.equalsIgnoreCase("carrier_typ_nbr")) {
+		strname="FreightLoadOptions.carrierTypes.key";
+	} else if(strname.equalsIgnoreCase("carr_grp_desc")) {
+		strname="FreightLoadOptions.carrierTypes.value";
+	} else if(strname.equalsIgnoreCase("trlr_class_nbr")) {
+		strname="FreightLoadOptions.trailerClassTypes.key";
+	} else if(strname.equalsIgnoreCase("trlr_class_name")) {
+		strname="FreightLoadOptions.trailerClassTypes.value";
+	}else if(strname.equalsIgnoreCase("long_desc")) {
+		strname="desc";
+	}else if(strname.equalsIgnoreCase("invoiceStatus")) {
+		strname="invoiceStatus";
+	}else if(strname.equalsIgnoreCase("transgrossamt")) {
+		strname="transGrossAmt";
+	}
+	else if(strname.equalsIgnoreCase("invoicenbr")) {
+		strname="invoicenbr";
+	}
+	
+		//System.out.println(strname+"---00");
+	return strname;
 	}
 }
 

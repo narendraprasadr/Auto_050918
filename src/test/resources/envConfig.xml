@@ -16,7 +16,7 @@
 				 <pwdobjectid> Misc-Macys-Application-Passive-roint3</pwdobjectid>
 		 </Admin>
 		   <vendor>
-			   <userId> roint1</userId>
+			   <userId>roint3</userId>
 			   <pwdobjectid> Misc-Macys-Application-Passive-roint3</pwdobjectid>
 			 </vendor>
 	    </MacysNet>
@@ -118,7 +118,12 @@
 			      <name>fdsnetwebuser</name>
 			      <pwdobjectid>Database-Macys-Passive-SQLServer-MA000XVSQL22-fdsnetwebuser</pwdobjectid>     
 			       <connecturi>jdbc:sqlserver://MA000XVSQL22:1433;DatabaseName=FDSNet</connecturi>
-			  </MA000XVSQL22>                   
+			  </MA000XVSQL22>
+       		   <MT000XBSQL105>
+			      <name>fdsnetwebuser</name>
+			      <pwdobjectid>Database-Macys-Passive-SQLServer-MT000XBSQL105inst1-fdsnetwebuser</pwdobjectid>     
+			       <connecturi>jdbc:sqlserver://MT000XBSQL105;instanceName=INST1;DatabaseName=FDSNet</connecturi>
+			  </MT000XBSQL105>                   
 			</sqlserver>
                   
 			
@@ -132,6 +137,7 @@
 			    	<pwdobjectid>Database-Macys-Passive-OracleDatabase-LFCBIZ01DB-FARCVM1</pwdobjectid>
 					<connecturi>jdbc:oracle:thin:@//LFCBIZ01DB.federated.fds:1521/LFCBIZ01</connecturi>
 			  </LFCBIZ01DB>
+						
 			  <LFNDQA>
 			     	<name>MNETQA</name>     
 			       	<pwdobjectid>Database-Macys-Passive-OracleDatabase-LFNDQA-MNETQA</pwdobjectid>

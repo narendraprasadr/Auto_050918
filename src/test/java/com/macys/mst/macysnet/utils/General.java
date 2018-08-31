@@ -51,8 +51,8 @@ public class General {
 	public static Map<String, List<String>> UIvalues = new HashMap<String, List<String>>();
 	/***********************************************************************************************************************************************************
 	 * 'Method name : waitToLoadElement 'Project name :
-	 * Macys Infrastructure Stability 'Description : This method is to wait until the element load
-	 * 'Developer : Sivanarumugam 'Reviewed By : 'Created On : May 2018
+	 * FreightOptimizationAutomation 'Description : This method is to wait until the element load
+	 * 'Developer : Sriram 'Reviewed By : 'Created On : May 2018
 	 ************************************************************************************************************************************************************/
 	public static void waitToLoadElement(WebElement weleElementName) throws Exception {
 
@@ -65,6 +65,162 @@ public class General {
 			Assert.assertTrue(true);
 		} catch (Exception e) {
 
+		}
+	}
+
+	/***********************************************************************************************************************************************************
+	 * 'Method name : selectDropdownValue 'Project name :
+	 * FreightOptimizationAutomation 'Description : This method is to perform the
+	 * action to select DropDown value 'Developer : Sriram 'Reviewed By : 'Created
+	 * On : May 2018
+	 ************************************************************************************************************************************************************/
+	public static void selectDropdownValue(WebElement weleElementName, String strOption) throws Exception {
+		try {
+			General.waitToLoadElement(weleElementName);
+
+			weleElementName.click();
+			// General.waitforpagetoload();
+			Select sel = new Select(weleElementName);
+			sel.selectByVisibleText(strOption);
+			// General.passScreenShot(option+" selected in dropdown Successfully");
+			Assert.assertTrue(true);
+		} catch (Exception e) {
+			// Log.error("Failed to click on Dropdown "+element);
+			// General.failScreenShot(option+" not selected in dropdown");
+			throw (e);
+		}
+	}
+
+	/***********************************************************************************************************************************************************
+	 * 'Method name : getTimeStamp 'Project name : FreightOptimizationAutomation
+	 * 'Description : This method is to return time 'Developer : Sriram 'Reviewed By
+	 * : 'Created On : May 2018
+	 ************************************************************************************************************************************************************/
+	public static String getTimeStamp() {
+		Date now = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("mmddYYYYhhmm");
+		String time = dateFormat.format(now);
+		return time;
+	}
+
+	/***********************************************************************************************************************************************************
+	 * 'Method name : userDetails 'Project name : FreightOptimizationAutomation
+	 * 'Description : This method is to get uername and password from excel
+	 * 'Developer : Sriram 'Reviewed By : 'Created On : May 2018
+	 ************************************************************************************************************************************************************/
+	public static String[] userDetails(String strUserType) throws Exception {
+
+		try {
+
+			String strUserDetails[] = new String[2];
+			File objInputFile = new File(Constants.dataFilePath);
+			FileInputStream objFS = new FileInputStream(objInputFile);
+			Workbook wb = null;
+			wb = new XSSFWorkbook(objFS);
+			Sheet sheet = wb.getSheet("Login");
+			int rowCount = sheet.getLastRowNum() - sheet.getFirstRowNum();
+			for (int i = 0; i < rowCount + 1; i++) {
+				Row row = sheet.getRow(i);
+				for (int j = 0; j < row.getLastCellNum(); j++) {
+					if (row.getCell(j).getStringCellValue().equals(strUserType)) {
+						strUserDetails[0] = row.getCell(j + 1).getStringCellValue();
+						strUserDetails[1] = row.getCell(j + 2).getStringCellValue();
+
+						return strUserDetails;
+					}
+				}
+			}
+
+		} catch (Exception e) {
+
+			assertFalse("Failed To login", true);
+		}
+		return null;
+
+	}
+
+	/***********************************************************************************************************************************************************
+	 * 'Method name : isHyperLink 'Project name : FreightOptimizationAutomation
+	 * 'Description : This method is to vaildate given element is link are not
+	 * 'Developer : Sriram 'Reviewed By : 'Created On : May 2018
+	 ************************************************************************************************************************************************************/
+	public static boolean isHyperLink(WebElement weleElementName, String strlinkname) throws Exception {
+
+		try {
+
+			General.waitToLoadElement(weleElementName);
+			String tagName = weleElementName.getTagName();
+			if (tagName.contains("a")) {
+				logger.info(strlinkname + " link is displayed");
+				Assert.assertTrue(true);
+				return true;
+			} else {
+				logger.info(strlinkname + " link is not displayed");
+				Assert.assertTrue(false);
+				return false;
+			}
+
+		} catch (Exception e) {
+			throw (e);
+		}
+	}
+
+	public static void multipleValues(ExamplesTable fieldValues) {
+		try {
+			multivalues.clear();
+			for (Map<String, String> row : fieldValues.getRows()) {
+				String values = row.get("MandatoryFields");
+				multivalues.add(values);
+			}
+			assertTrue("Multiple values are added", true);
+		} catch (Exception e) {
+			assertFalse("Multiple values are not added", true);
+			e.printStackTrace();
+
+		}
+	}
+
+	/***********************************************************************************************************************************************************
+	 * 'Method name  : getUIDropdownValue
+	 * 'Project name : FreightOptimizationAutomation
+	 * 'Description  : This method is to get DropDown value from UI in List
+	 * 'Developer    : Sriram
+	 * 'Reviewed By  :
+	 * 'Created On   : June 2018
+	 ************************************************************************************************************************************************************/
+	public static List<String> getUIDropdownValue(WebDriver lcldriver, String locString, String locIndex) throws Exception {
+		try {
+
+
+			  JavascriptExecutor js=(JavascriptExecutor)lcldriver;
+			  js.executeScript("window.scrollBy(0,100)");
+			  Thread.sleep(2000);
+			List<String> cellData =new ArrayList<String>();
+			int runloop=1;
+			for (; runloop <=2 ; runloop++)
+		      {
+			for (int j = 1; j <=7; j++)
+		      {
+
+				if (lcldriver.findElements(By.xpath(get_Locator(locString)+"["+j+"]")).size()!= 0) {
+				//if (objSeleniumElements.Get_Webelements(lcldriver, locString+"["+j+"]").size()!= 0) {
+				String str1 =  lcldriver.findElement(By.xpath(get_Locator(locString)+"["+j+"]")).getText();
+		        cellData.add(str1);
+				}
+		       }
+			if (lcldriver.findElement(By.xpath("(//*[contains(@id,'jqxScrollAreaDownverticalScrollBarinnerListBoxjqxDropDownList')])["+locIndex+"]")).getSize().getHeight()>2) {
+				lcldriver.findElement(By.xpath("(//*[contains(@id,'jqxScrollAreaDownverticalScrollBarinnerListBoxjqxDropDownList')])["+locIndex+"]")).click();
+				runloop=1;
+			}
+			objSeleniumWait.Set_Selenium_Timeout(lcldriver, 2);
+		 }
+			logger.info("Action getUIDropdownValue is Successful");
+			//System.out.println(cellData.toString());
+			return cellData;
+		} catch (Exception e) {
+			//Log.error("Failed to click on Dropdown "+element);
+			logger.info("Action getUIDropdownValue failed !");
+			throw (e);
 		}
 	}
 
@@ -95,47 +251,6 @@ public class General {
 			throw (e);
 		}
 	}
-	/***********************************************************************************************************************************************************
-	 * 'Method name : getTimeStamp 'Project name : Macys Infrastructure Stability
-	 * 'Description : This method is to return time 'Developer : Sivanarumugam 'Reviewed By
-	 * : 'Created On : May 2018
-	 ************************************************************************************************************************************************************/
-	public static String getTimeStamp() {
-		Date now = new Date();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("mmddYYYYhhmm");
-		String time = dateFormat.format(now);
-		return time;
-	}
-
-	/***********************************************************************************************************************************************************
-	 * 'Method name : isHyperLink 'Project name : Macys Infrastructure Stability
-	 * 'Description : This method is to vaildate given element is link are not
-	 * 'Developer : Sivanarumugam 'Reviewed By : 'Created On : May 2018
-	 ************************************************************************************************************************************************************/
-	public static boolean isHyperLink(WebElement weleElementName, String strlinkname) throws Exception {
-
-		try {
-
-			General.waitToLoadElement(weleElementName);
-			String tagName = weleElementName.getTagName();
-			if (tagName.contains("a")) {
-				logger.info(strlinkname + " link is displayed");
-				Assert.assertTrue(true);
-				return true;
-			} else {
-				logger.info(strlinkname + " link is not displayed");
-				Assert.assertTrue(false);
-				return false;
-			}
-
-		} catch (Exception e) {
-			throw (e);
-		}
-	}
-
-	
-
-	
 	public static void Close_Window(WebDriver lcldriver) {
 		  logger.info("Inside Project Action --> Close Window ");
 		  String []datacopy=null;
@@ -161,6 +276,76 @@ public class General {
 		      throw new SeleniumNonFatalException(" Action ->Close Window");
 		  }
 	}
+	/***********************************************************************************************************************************************************
+	 * 'Method name  : getUIDropdownValue
+	 * 'Project name : FreightOptimizationAutomation
+	 * 'Description  : This method is to get DropDown value from UI in List for Specific vendor
+	 * 'Developer    : Praveen
+	 * 'Reviewed By  :
+	 * 'Created On   : June 2018
+	 ************************************************************************************************************************************************************/
+	public static List<String> getUIDropdownValueForSpecificVendor(WebDriver lcldriver, String locString,String strdata) throws Exception {
+		try {
+			List<String> cellData=new ArrayList<String>();
+			List<String> cellData1=new ArrayList<String>();
+
+
+
+			WebElement element = MISActionkeywords.objSeleniumElements.Get_Webelement(lcldriver, locString);
+
+
+		  boolean isEleDisp=element.isDisplayed();
+		  if(isEleDisp==true)
+		  {
+			  element.sendKeys(strdata);
+			  Thread.sleep(3000);
+			  List<WebElement> elements=lcldriver.findElements(By.cssSelector(".Select, .Select div, .Select input, .Select span"));
+			  int size=elements.size();
+
+			  for(int i=0;i<size;i++)
+			  {
+				  String data=elements.get(i).getText();
+				  if(data.isEmpty()||data.contains("Select..."))
+				  {
+
+				  }
+				  else
+				  {
+
+				  cellData.add(data);
+				  }
+			  }
+
+			  Thread.sleep(5000);
+			  cellData1.addAll(cellData.subList(3, cellData.size()));
+
+
+		  }
+
+
+			logger.info("Action getUIDropdownValue is Successful");
+
+			return cellData.subList(3, cellData.size());
+		} catch (Exception e) {
+
+			logger.info("Action getUIDropdownValue failed !");
+			throw (e);
+		}
+	}
 	
+	public static int records_On_Page(WebDriver lclDriver,String parameter) {
+		logger.info("Inside Project Action --> records_On_Page ");
+		int counts = 0;
+		try {
+			counts = lclDriver.findElements(By.xpath("//table/tbody/tr")).size();
+			//counts = lclDriver.findElements(By.xpath(General.get_Locator(parameter))).size();
+			System.out.println(counts);
+		
+		} catch (Exception e) {
+		
+			e.printStackTrace();
+		}
+		return counts;
+	}
 
 }

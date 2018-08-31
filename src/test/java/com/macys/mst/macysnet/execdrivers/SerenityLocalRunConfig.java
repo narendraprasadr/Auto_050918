@@ -6,6 +6,7 @@ import org.jbehave.core.steps.InstanceStepsFactory;
 import com.macys.mst.artemis.serenityJbehaveLocal.SerenityLocalTestRunner;
 import com.macys.mst.macysnet.stepdefs.MIS;
 import com.macys.mst.macysnet.stepdefs.MISRestServices;
+import com.macys.mst.macysnet.stepdefs.StatusofInvoice;
 public class SerenityLocalRunConfig extends SerenityLocalTestRunner {
 
 	@Override
@@ -13,6 +14,7 @@ public class SerenityLocalRunConfig extends SerenityLocalTestRunner {
 		return new InstanceStepsFactory(configuration()
 		        ,new MIS()
 		        ,new MISRestServices()
+		        ,new StatusofInvoice()
 
 		);
 	}

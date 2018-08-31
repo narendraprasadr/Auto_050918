@@ -25,7 +25,7 @@ import com.macys.mst.artemis.db.DBConnections;
 import com.macys.mst.artemis.reports.StepDetail;
 import com.macys.mst.artemis.selenium.LocalDriverManager;
 import com.macys.mst.artemis.selenium.SeUiContextBase;
-import com.macys.mst.macysnet.Actionkeywords.Invoice;
+import com.macys.mst.macysnet.MISObjects.Invoice;
 import com.macys.mst.macysnet.db.app.DBMethods;
 import com.macys.mst.macysnet.sqlconstants.SQLConstants;
 import com.macys.mst.macysnet.stepdefs.MISRestServices;
@@ -617,13 +617,18 @@ public class RestServicesUtils {
 public static boolean validateServiceResponseWithDBResponse(ArrayList<Invoice> serviceList,ArrayList<Invoice> dbList) {
 		
 		boolean ismatched = false;
+		System.out.println(serviceList.size());
+		System.out.println(dbList.size());
 		if (serviceList.size() == dbList.size()) {
 
 			for (int i = 0; i < serviceList.size(); i++) {
 
 				Invoice service = serviceList.get(i);
 				Invoice database = dbList.get(i);
-
+				/*if(service.getDiv().trim().equals(database.getDiv().trim()))
+				{
+					System.out.println("Pass");
+				}*/
 				if (service.div.trim().equals(database.div.trim())
 						&& service.dunsNbr.trim().equals(database.dunsNbr.trim())
 						&& service.dunsSuf.trim().equals(database.dunsSuf.trim())
@@ -642,7 +647,10 @@ public static boolean validateServiceResponseWithDBResponse(ArrayList<Invoice> s
 
 				} else {
 
+					/*logger.info(serviceList.get(i));
+					logger.info(dbList.get(i));*/
 					break;
+					
 				}
 
 			}

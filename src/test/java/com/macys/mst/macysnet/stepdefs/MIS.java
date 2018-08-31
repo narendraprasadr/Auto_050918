@@ -1,22 +1,38 @@
 package com.macys.mst.macysnet.stepdefs;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import com.macys.mst.artemis.kdddriver.FetchExampleTable;
+import com.macys.mst.artemis.reports.StepDetail;
 import com.macys.mst.artemis.selenium.LocalDriverManager;
 import com.macys.mst.artemis.selenium.WebDriverListener;
+import com.macys.mst.artemis.selenium.actions.SeleniumElements;
+import com.macys.mst.macysnet.Actionkeywords.MISActionkeywords;
+import com.macys.mst.macysnet.MISObjects.Invoice;
+import com.macys.mst.macysnet.MISObjects.InvoicesUI;
+import com.macys.mst.macysnet.utils.General;
+import com.macys.mst.macysnet.utils.RestServicesUtils;
+
+import org.apache.log4j.Logger;
 import org.jbehave.core.annotations.BeforeStory;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class MIS {
 
 	private ExamplesTable actionstable;
 
+	private static Logger logger = Logger.getLogger(MIS.class.getName());
 	private List tablemaprows;
 
 	private Map examplesmap;
@@ -25,7 +41,7 @@ public class MIS {
 
 	private WebDriverListener WbDrvrListener;
 
-	private static final WebDriver gbldriver = LocalDriverManager.getInstance().getDriver();
+	static final WebDriver gbldriver = LocalDriverManager.getInstance().getDriver();
 
 	public Long TestNGThreadID = Thread.currentThread().getId();
 
@@ -101,7 +117,11 @@ public class MIS {
 		FetchExampleTable.sendInputActions(gbldriver, null);
 	}
 
-	
+	@When("user enter the Account no <accountNo>, Invoice no <invoiceNo> and click on submit button")
+	public static void userentertheAccountnoaccountNochecknoinvoiceNoandclickonsubmitbutton() {
+		FetchExampleTable.sendInputActions(gbldriver, null);
+	}
+
 	@Then("validate the results of Check Detail screen")
 	public static void validatetheresultsofCheckDetailscreen() {
 		FetchExampleTable.sendInputActions(gbldriver, null);
@@ -152,8 +172,93 @@ public class MIS {
 		FetchExampleTable.sendInputActions(gbldriver, null);
 	}
 
-	@When("user enter the Account no <accountNo>, check no <checkNo> and click on submit button")
-	public static void userentertheAccountnoaccountNochecknocheckNoandclickonsubmitbutton() {
+	/*
+	 * @When("user enter the Account no <accountNo>, check no <checkNo> and click on submit button"
+	 * ) public static void
+	 * userentertheAccountnoaccountNochecknocheckNoandclickonsubmitbutton() {
+	 * FetchExampleTable.sendInputActions(gbldriver, null); }
+	 */
+	// MIS-38
+	@Given("user on AP query screen$URL")
+	public void APQueryScreen(String url) throws Exception {
+		SeleniumElements objSeleniumElements = new SeleniumElements();
+		gbldriver.get(url);
+		WebElement element = objSeleniumElements.Get_Webelement(gbldriver, "lblAPQuery");
+		element.click();
+		// gbldriver.findElement(General.get_Locator("lblAPQuery")).click();
+		// MISRestServices.test();
+	}
+
+	@When("When Select activity in AP Query screen")
+	public void selectActivitiy() {
+		MISActionkeywords.Select_Dropdown_Value(gbldriver, "ddlActivityOptions", "Trial Balance");
+	}
+
+	@When("When Select division in AP Query screen")
+	public void selectDivision() {
+	}
+
+	@When("When Select accountnumber in AP Query screen")
+	public void selectaccountnumber() {
+	}
+
+	@Given("user on AP query page")
+	public static void useronAPquerypage() {
 		FetchExampleTable.sendInputActions(gbldriver, null);
+	}
+
+	@When("Select activity in AP Query screen")
+	public static void SelectactivityinAPQueryscreen() {
+		FetchExampleTable.sendInputActions(gbldriver, null);
+	}
+
+	@When("Select division in AP Query screen")
+	public static void SelectdivisioninAPQueryscreen() {
+		FetchExampleTable.sendInputActions(gbldriver, null);
+	}
+
+	@Then("Get the accountnumber from AccountNumber dropdown")
+	public static void GettheaccountnumberfromAccountNumberdropdown() {
+		FetchExampleTable.sendInputActions(gbldriver, null);
+	}
+
+	@Then("Compare the UI Accountnbr with Database")
+	public static void ComparetheUIAccountnbrwithDatabase() {
+		FetchExampleTable.sendInputActions(gbldriver, null);
+	}
+
+	@Then("AP Query screen is available in a new tab")
+	public static void APQueryscreenisavailableinanewtab() {
+		FetchExampleTable.sendInputActions(gbldriver, null);
+	}
+
+	@Given("Vendor user is on Macysnet application")
+	public static void VendoruserisonMacysnetapplication() {
+		FetchExampleTable.sendInputActions(gbldriver, null);
+	}
+
+	@Then("AP Query screen is NOT available for the vendor who doesnot have access")
+	public static void APQueryscreenisNOTavailableforthevendorwhodoesnothaveaccess() {
+		FetchExampleTable.sendInputActions(gbldriver, null);
+	}
+
+	@Then("Get the Invoices information from UI")
+	public static void GettheInvoicesinformationfromUI() {
+		FetchExampleTable.sendInputActions(gbldriver, null);
+	}
+
+	@Then("Get the Invoices information from Database")
+	public static void GettheInvoicesinformationfromDatabase() throws Exception {
+		//String query = "INVOICEUI";
+		//MISActionkeywords.Get_Values_From_Database("ORACLE", query);
+		//MISActionkeywords.Get_Values_From_DatabaseInObject("ORACLE", query);
+		 FetchExampleTable.sendInputActions(gbldriver, null);
+	}
+
+	@Then("Compare UI values with Database")
+	public static void CompareUIvalueswithDatabase() {
+		FetchExampleTable.sendInputActions(gbldriver, null);
+		//MISActionkeywords.Compare_UISCREEN_values_With_Database();
+		
 	}
 }

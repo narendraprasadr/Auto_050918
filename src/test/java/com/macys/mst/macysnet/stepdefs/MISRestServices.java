@@ -24,6 +24,7 @@ import com.macys.mst.artemis.db.DBConnections;
 import com.macys.mst.artemis.db.DBUtils;
 import com.macys.mst.artemis.rest.RestUtilities;
 import com.macys.mst.artemis.selenium.WebDriverListener;
+import com.macys.mst.macysnet.Actionkeywords.MISActionkeywords;
 import com.macys.mst.macysnet.config.Constants;
 import com.macys.mst.macysnet.db.app.DBMethods;
 import com.macys.mst.macysnet.sqlconstants.SQLConstants;
@@ -66,119 +67,130 @@ public class MISRestServices implements SQLConstants {
 	@Given("REST service return code 200 for the $ServiceURL $inputs")
 	public static void VerifyResponsesCodesIs200(@Named("serviceUrl") String ServiceURL, @Named("inputs") String input)
 			throws Exception {
-
-		String valu = null;
-		// valu=RestUtilities.postRequestResponse(ServiceURL, input);
-		RestServicesUtils.verfiyRequestResponse(ServiceURL, input);
+		
+		String valu=null;
+		//valu=RestUtilities.postRequestResponse(ServiceURL, input);
+		RestServicesUtils.verfiyRequestResponse(ServiceURL,input);
 		System.out.println(valu);
 		serviceURL = ServiceURL;
 		RestServicesUtils.verifyResponseStatus(200, serviceURL, input);
-		serviceInput = input;
-		// RestListvalues = RestServicesUtils.getListOfValues1(serviceURL,input);
-		// serviceURL = serviceURL + input;
+		serviceInput=input;
+		//RestListvalues = RestServicesUtils.getListOfValues1(serviceURL,input);
+		//serviceURL = serviceURL + input;
 	}
 
 	@When("Pass the input $values for the service and retrieve")
 	public void postbodyvalue(String strvalue) throws Exception {
-		// Restvalues = RestServicesUtils.getListOfValues(serviceURL, strvalue);
+		//Restvalues = RestServicesUtils.getListOfValues(serviceURL, strvalue);
 	}
-
 	@When("Get the $values from Service for POs")
 	public void getValueFromService(String strValue) throws Exception {
-		serviceURL = serviceURL + serviceInput;
-
+		serviceURL=serviceURL+serviceInput;
+		
 		Restvalues = RestServicesUtils.getListOfValues(serviceURL, strValue);
 	}
-
 	@When("Get email Address from Service")
 	public void getEmailFromService() throws Exception {
-
+		
 		try {
-			RestListvalues = RestServicesUtils.getListOfValues1(serviceURL, serviceInput);
-			logger.info(RestListvalues + "' Service values retrieved succcessfully");
-			assertTrue(RestListvalues + "' Service values retrieved succcessfully", true);
+			RestListvalues = RestServicesUtils.getListOfValues1(serviceURL,serviceInput);
+			logger.info(RestListvalues +"' Service values retrieved succcessfully");
+			assertTrue(RestListvalues +"' Service values retrieved succcessfully",true);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.info(RestListvalues + "' Service values NOT retrieved succcessfully");
-			assertFalse(RestListvalues + "' Service values NOT retrieved succcessfully", true);
+			logger.info(RestListvalues +"' Service values NOT retrieved succcessfully");
+			assertFalse(RestListvalues +"' Service values NOT retrieved succcessfully",true);
 		}
 	}
-
+	public static void test()
+	{
+		MISActionkeywords.Macysnet_Login(MIS.gbldriver, "Admin");
+	}
 	@Then("Get email Address from Database")
 	public void getEmailFromDatabase() throws Exception {
-		// Thread.sleep(5000);
+		//Thread.sleep(5000);
 		try {
-
-			Connection connection = null;
-			String strsql = null;
-			connection = DBConnections.getinstance("db.sqlserver", "MA000XVSQL22").dbConnection();
+			
+			Connection connection=null;
+			String strsql=null;
+			//String url = "jdbc:mysql://HOST/DATABASE";
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
+			
+			//String strDBName="db.sqlserver",strDBUserName="MA000XVSQL22";
+			//connection = DBConnections.getinstance(strDBName,strDBUserName).dbConnection();
+			//connection = DriverManager.getConnection(Constants.uri, Constants.username,Constants.password);
+			connection =  DBConnections.getinstance("db.sqlserver", "MA000XVSQL22").dbConnection();
 			strsql = SQLConstants.Select.PossibleUserEmail;
-			dbvalues = DBUtils.getDBValueInList(connection, strsql);
-			logger.info(dbvalues + "' database values retrieved succcessfully");
-			assertTrue(dbvalues + "' database values retrieved succcessfully", true);
+			dbvalues=DBUtils.getDBValueInList(connection, strsql);
+			logger.info(dbvalues +"' database values retrieved succcessfully");
+			assertTrue(dbvalues +"' database values retrieved succcessfully",true);
 		} catch (Exception e) {
 			logger.info(e.getMessage());
 			assertFalse("SQL Error", true);
 		}
-
+		
 	}
-
 	@Then("Compare the Service values with Database")
 	public void compareDBwithService() throws Exception {
-
-		// System.out.println(dbvalues);
-
+		
+		//System.out.println(dbvalues);
+		
 		try {
-			if (RestListvalues.equals(dbvalues)) {
-				logger.info("Service value '" + RestListvalues + "' is Matched with '" + dbvalues + "' databas values");
-				assertTrue("Service value '" + RestListvalues + "' is Matched with '" + dbvalues + "' databas values",
-						true);
-				// System.out.println("PASSPASSPASSPASSPASSPASS");
-			} else {
-				logger.info(
-						"Service value '" + RestListvalues + "' is NOT Matched with '" + dbvalues + "' databas values");
-				assertFalse(
-						"Service value '" + RestListvalues + "' is NOT Matched with '" + dbvalues + "' databas values",
-						true);
-				// System.out.println("FAIL");
+			if(RestListvalues.equals(dbvalues))
+			{
+				logger.info("Service value '"+RestListvalues +"' is Matched with '" +dbvalues +"' databas values");
+				assertTrue("Service value '"+RestListvalues +"' is Matched with '" +dbvalues +"' databas values",true);
+				//System.out.println("PASSPASSPASSPASSPASSPASS");
+			}
+			else
+			{
+				logger.info("Service value '"+RestListvalues +"' is NOT Matched with '" +dbvalues +"' databas values");
+				assertFalse("Service value '"+RestListvalues +"' is NOT Matched with '" +dbvalues +"' databas values",true);
+				//System.out.println("FAIL");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			logger.info("Service value '" + RestListvalues + "' is NOT Matched with '" + dbvalues + "' databas values");
-			assertFalse("Service value '" + RestListvalues + "' is NOT Matched with '" + dbvalues + "' databas values",
-					true);
+			logger.info("Service value '"+RestListvalues +"' is NOT Matched with '" +dbvalues +"' databas values");
+			assertFalse("Service value '"+RestListvalues +"' is NOT Matched with '" +dbvalues +"' databas values",true);
 		}
 	}
 
 	@Then("Get the $values from Database for $POs")
-	public void getValueFromDatabase(String strvalue, String poValue) throws Exception {
-		try {
+	public void getValueFromDatabase(String strvalue,String poValue) throws Exception {
+		try
+		{
 			Field[] fields = SQLConstants.Select.class.getDeclaredFields();
-
-			Connection connection = null;
-			String documentNBr[] = null;
-			String strsql = null;
-			connection = DBConnections.getinstance("db.Oracle", "LFNDQA").dbConnection();
-			if (strvalue.contains("/")) {
-				documentNBr = strvalue.split("/");
+			
+			Connection connection=null;
+			String documentNBr[]=null;
+			String strsql=null;
+			Class.forName("oracle.jdbc.driver.OracleDriver").newInstance();
+			connection = DriverManager.getConnection("jdbc:oracle:thin:@//LFNDDB.federated.fds:1511/LFND", "mnetqa","mnetqa1");
+			//connection =  DBConnections.getinstance("db.Oracle", "LFNDQA").dbConnection();
+			if(strvalue.contains("/"))
+			{
+				documentNBr=strvalue.split("/");
 			}
-			if (poValue.equalsIgnoreCase("PO")) {
-				strsql = SQLConstants.Select.INVOICE_BY_PO.replace("2914988", documentNBr[3]);
+			if(poValue.equalsIgnoreCase("PO"))
+			{
+			strsql = SQLConstants.Select.INVOICE_BY_PO.replace("2914988", documentNBr[3]);
 			}
-			if (poValue.equalsIgnoreCase("Invoice")) {
-				strsql = SQLConstants.Select.INVOICE.replace("#documentnbr", documentNBr[3]);
+			if(poValue.equalsIgnoreCase("Invoice"))
+			{
+			strsql = SQLConstants.Select.INVOICE.replace("#documentnbr", documentNBr[3]);
 			}
-			// strsql=(String) SQLConstants.Select.class.getField("INVOICE").get(fields);
+			//strsql=(String) SQLConstants.Select.class.getField("INVOICE").get(fields);
 			DBresultMap = DBMethods.getDBValueInHashMap(connection, strsql);
-			logger.info(" Restvalues    :" + Restvalues);
-			logger.info(" DBresultMap   :" + DBresultMap);
+			logger.info(" Restvalues    :"+Restvalues);
+			logger.info(" DBresultMap   :"+DBresultMap);
 			DBConnections.closeDBConnection(connection);
-		} catch (Exception e) {
-
+		}
+		catch(Exception e)
+		{
+			
 		}
 	}
-
 	@Then("Compare the Service values with Database $values")
 	public void CompareServiceAndDatabaseValues(String strvalue) throws Exception {
 		try {
@@ -191,7 +203,6 @@ public class MISRestServices implements SQLConstants {
 
 		}
 	}
-
 	@Then("Verify the service returns the last 50 Invoices $inputs")
 	public void ValidateInvoices(String inputParameters) {
 
@@ -205,7 +216,6 @@ public class MISRestServices implements SQLConstants {
 
 		}
 	}
-
 	@Then("Verify the service returns the last 50 $POs $inputs")
 	public void ValidatePO(String inputParameters, String POs) {
 

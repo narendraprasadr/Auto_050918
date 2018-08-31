@@ -24,4 +24,4 @@ Then Get the values from Service and Database
 And Compare the Service values with Database
 Examples:
 |serviceUrl                                                        |returnCode|inputs                  |values                                                                                                  |
-|http://lp000xstrs0002:8360/api/macysnet/v1/vendorAP/VendorInvoices|200       |/71/910927390/9027304930|div,dunsNbr,dunsSuf,invoiceNbr,transNbr,transSeq,tranCode,desc,poNbr,checkNbr,transDueDate,transGrossAmt|
+|http://lp000xstrs0002:8360/api/macysnet/v1/vendorAP/VendorInvoices|200       |/71/910927390/9027304930|div,dunsNbr,dunsSuf,invoiceNbr,transNbr,transSeq,invoiceStatus,tranCode,desc,poNbr,checkNbr,transDueDate,transGrossAmt|
