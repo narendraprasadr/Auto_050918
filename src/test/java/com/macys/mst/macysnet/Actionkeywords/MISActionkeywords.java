@@ -79,6 +79,8 @@ public class MISActionkeywords {
 	public static ArrayList<Invoice> serviceObjList = new ArrayList<>();
 	public static ArrayList<InvoicesUI> UIdatabaseObjList = new ArrayList<>();
 	public static ArrayList<Invoice> databaseObjList = new ArrayList<>();
+	public static ArrayList<InvoicesUI> UIObjList = new ArrayList<>();
+
 
 	/***********************************************************************************************************************************************************
 	 * 'Method name : Macysnet_Login 'Project name :
@@ -93,7 +95,6 @@ public class MISActionkeywords {
 			if (verify_LoginUser(struserType)) {
 
 				SeUiContextBase.gotourl(lcldriver,(FileConfig.getInstance().getStringConfigValue("MacysNet.URL")));
-				lcldriver.get("http://dev.macysnet.com/AP/");
 				SeUiContextBase.Maximize_Browser_Window(lcldriver);
 				struserTypes = struserType;
 				StepDetail.addDetail("MacysNET login page is displayed", true);
@@ -826,6 +827,7 @@ public class MISActionkeywords {
 
 		try {
 			if (General.driver.findElements(By.xpath(General.get_Locator("documentsCount"))).size() > 0) {
+				
 				logger.info("Inside Action --> Records are displayed  ");
 				Assert.assertTrue(true);
 			} else {
@@ -1081,6 +1083,63 @@ public class MISActionkeywords {
 					String.format("Get_Values_From_ServiceInObject NOT successful. ", new Object[0]));
 
 		}
+	}
+	public static void Get_Values_From_UIScreen(WebDriver lclDriver,String locString,String data) throws Exception
+	{
+		logger.info("Inside Action --> Get_Values_From_UIScreen ");
+		
+		try {
+
+			int colIndex=0;
+			List<String> tableValuesInList = new ArrayList<String>();
+			String[] datacopy = data.split(",");
+
+			
+			List<WebElement> rowCount=lclDriver.findElements(By.xpath("//table/tbody/tr"));
+			int count=rowCount.size();
+			
+			if(count>0)
+			{
+			List<WebElement> colHead = lclDriver.findElements(By.xpath("//table/thead/tr/th"));
+			int colCount=colHead.size();
+			
+			for(int i=1; i<=count; i++)
+			{
+				//System.out.println(colHead.size());
+				for (int j = 1; j <=colCount; j++) {
+					
+					String tabValueTxt = lclDriver.findElement(By.xpath("//table/thead/tr/th[" + j + "]")).getText();
+					
+					for(String s:datacopy)
+					{
+					if (tabValueTxt.equalsIgnoreCase(s)) {
+						colIndex = j;
+						String value=lclDriver.findElement(By.xpath("//table/tbody/tr["+i+"]/td["+colIndex+"]")).getText();
+						tableValuesInList.add(value);
+						break;
+						}
+					
+					}
+					
+				}
+				UIObjList.add(new InvoicesUI(tableValuesInList));
+			}
+			logger.info(count +" Records are displayed  ");
+			Assert.assertTrue(true);
+			}
+			else
+			{
+				logger.info("Inside Action --> NO Records are displayed  ");
+				Assert.assertTrue(false);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			StepDetail.addDetail(String.format("Get_Values_From_UIScreen is not stored successfully", new Object[0]), false);
+			throw new SeleniumNonFatalException(
+					String.format("Get_Values_From_UIScreen NOT successful. ", new Object[0]));
+		}
+		
+		
 	}
 
 	public static void Get_Values_From_UIScreen(String getValue) throws Exception {

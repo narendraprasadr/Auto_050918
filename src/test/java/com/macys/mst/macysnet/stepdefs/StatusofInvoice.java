@@ -115,37 +115,43 @@ public class StatusofInvoice {
 	@Then("Get the Invoices information from UI")
 	public static void Get_Values_From_UIScreen(WebDriver lclDriver,String locString,String data) throws Exception
 	{
-		Thread.sleep(5000);
-		int colIndex=0;
-		List<String> tableValuesInList = new ArrayList<String>();
-		String[] datacopy = data.split(",");
-	
+		logger.info("Inside Action --> Get_Values_From_UIScreen ");
 		
-		List<WebElement> rowCount=lclDriver.findElements(By.xpath("//table/tbody/tr"));
-		int count=rowCount.size();
-		List<WebElement> colHead = lclDriver.findElements(By.xpath("//table/thead/tr/th"));
-		int colCount=colHead.size();
-		
-		for(int i=1; i<=count; i++)
-		{
-			//System.out.println(colHead.size());
-			for (int j = 1; j <=colCount; j++) {
-				
-				String tabValueTxt = lclDriver.findElement(By.xpath("//table/thead/tr/th[" + j + "]")).getText();
-				
-				for(String s:datacopy)
-				{
-				if (tabValueTxt.equalsIgnoreCase(s)) {
-					colIndex = j;
-					String value=lclDriver.findElement(By.xpath("//table/tbody/tr["+i+"]/td["+colIndex+"]")).getText();
-					tableValuesInList.add(value);
-					break;
+		try {
+			Thread.sleep(5000);
+			int colIndex=0;
+			List<String> tableValuesInList = new ArrayList<String>();
+			String[] datacopy = data.split(",");
+
+			
+			List<WebElement> rowCount=lclDriver.findElements(By.xpath("//table/tbody/tr"));
+			int count=rowCount.size();
+			List<WebElement> colHead = lclDriver.findElements(By.xpath("//table/thead/tr/th"));
+			int colCount=colHead.size();
+			
+			for(int i=1; i<=count; i++)
+			{
+				//System.out.println(colHead.size());
+				for (int j = 1; j <=colCount; j++) {
+					
+					String tabValueTxt = lclDriver.findElement(By.xpath("//table/thead/tr/th[" + j + "]")).getText();
+					
+					for(String s:datacopy)
+					{
+					if (tabValueTxt.equalsIgnoreCase(s)) {
+						colIndex = j;
+						String value=lclDriver.findElement(By.xpath("//table/tbody/tr["+i+"]/td["+colIndex+"]")).getText();
+						tableValuesInList.add(value);
+						break;
+						}
+					
 					}
-				
+					
 				}
-				
+				UIObjList.add(new InvoicesUI(tableValuesInList));
 			}
-			UIObjList.add(new InvoicesUI(tableValuesInList));
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		//System.out.println("list" + tableValuesInList);

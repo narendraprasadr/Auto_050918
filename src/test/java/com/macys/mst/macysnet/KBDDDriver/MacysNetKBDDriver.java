@@ -78,7 +78,7 @@ public class MacysNetKBDDriver extends KDDdriverMap{
 	         put("Get_Dropdown_Values_In_List" , new ExecuteAction(){public void executeAction() throws Exception{MISActionkeywords.Get_Dropdown_Values_In_List(LclDriver, object);}});
 	         put("Compare_Service_And_Database" , new ExecuteAction(){public void executeAction(){MISActionkeywords.Compare_Service_And_Database();}});
 	         put("Verify_Page_Should_Not_Contain_Element" , new ExecuteAction(){public void executeAction(){MISActionkeywords.Page_Should_Not_Contain_Element(LclDriver,object);}});
-	         put("Get_Values_From_UIScreen" , new ExecuteAction(){public void executeAction() throws Exception{StatusofInvoice.Get_Values_From_UIScreen(LclDriver, object, data);}});
+	         put("Get_Values_From_UIScreen" , new ExecuteAction(){public void executeAction() throws Exception{MISActionkeywords.Get_Values_From_UIScreen(LclDriver, object, data);}});
 	         put("Get_Values_From_DatabaseInObject" , new ExecuteAction(){public void executeAction() throws Exception{MISActionkeywords.Get_Values_From_DatabaseInObject(dataArray[0],dataArray[1]);}});
 	         put("Compare_UISCREEN_values_With_Database" , new ExecuteAction(){public void executeAction() throws Exception{MISActionkeywords.Compare_UISCREEN_values_With_Database();}});
 	         put("Validate_Report" , new ExecuteAction(){public void executeAction() throws Exception{MISActionkeywords.Report_validation(LclDriver, data);}});
