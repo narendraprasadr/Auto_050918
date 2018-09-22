@@ -261,4 +261,15 @@ public class MIS {
 		//MISActionkeywords.Compare_UISCREEN_values_With_Database();
 		
 	}
+	
+	@Given("user <user> on AP query screen to validate the divison with activity <activity>")
+	public void useronAPqueryscreentovalidatetheactivity() throws Exception {
+		FetchExampleTable.sendInputActions(gbldriver, null);
+	}
+	
+	@Then("Get the values from Services and Compare the Service values with Database")
+	public static void GetthevaluesfromServiceandComparetheservicevalueswithDatabase() {
+		FetchExampleTable.sendInputActions(gbldriver, null);
+	}
+	
 }

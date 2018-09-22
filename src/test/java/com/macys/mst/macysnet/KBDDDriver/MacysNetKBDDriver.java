@@ -61,9 +61,9 @@ public class MacysNetKBDDriver extends KDDdriverMap{
 	    
 	    final SeleniumElements Selelements = new SeleniumElements();
 	    
-	    actionsKeywords = new HashMap<String, ExecuteAction>(){
+	    actionsKeywords = new HashMap<String, ExecuteAction>(){//Double brace{{ is used to put the content in map new feature in java 8
 	      private static final long serialVersionUID = 1L;{
-	         put("Switch_Frame" , new ExecuteAction(){public void executeAction(){MISActionkeywords.Switch_Frame(LclDriver, data);}});
+	         put("Switch_Frame" , new ExecuteAction(){ public void executeAction(){MISActionkeywords.Switch_Frame(LclDriver, data);}});
 	         put("Switch_Window" , new ExecuteAction(){public void executeAction(){MISActionkeywords.Switch_Window(LclDriver, data);}});
 	         put("select_Date" , new ExecuteAction(){public void executeAction(){MISActionkeywords.select_Date(LclDriver, object, data);}});
 	         put("Login_Application" , new ExecuteAction(){public void executeAction(){MISActionkeywords.Macysnet_Login(LclDriver,data);}});

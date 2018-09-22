@@ -972,62 +972,65 @@ public class MISActionkeywords {
 		logger.info("Inside Action --> Get_Values_From_Service ");
 		try {
 			Get_Values_From_ServiceInObject(getValue);
-			/*
-			 * logger.info("The Service URL is: " + serviceurl);
-			 * logger.info("The input is: " + getValue); Map<String,
-			 * List<String>> resultMap = new HashMap<String, List<String>>();
-			 * List<String> bodylist = new ArrayList<String>();
-			 * RestAssured.baseURI = serviceurl; RequestSpecification request =
-			 * RestAssured.given(); Response response = request.get(serviceurl);
-			 * //System.out.println(response.asString()); String
-			 * responseBody=response.asString();
-			 * 
-			 * 
-			 * if (getValue.contains(",")) {
-			 * 
-			 * for (String subString : getValue.split(",")) {
-			 * 
-			 * bodylist = response.jsonPath().getList(subString); if
-			 * (subString.contains("Date")) {
-			 * bodylist.removeAll(Arrays.asList(Integer.valueOf(0)));
-			 * bodylist.removeAll(Arrays.asList(" ", ""));
-			 * bodylist.removeAll(Collections.singleton(null)); List<String>
-			 * bodylist2 = new ArrayList<String>(); for (int i = 0; i <
-			 * bodylist.size(); i++) {
-			 * 
-			 * String[] arrOfStr = bodylist.get(i).split(" ");
-			 * bodylist2.add(arrOfStr[0].trim()); }
-			 * resultMap.put(subString.toLowerCase(), bodylist2); Restvalues =
-			 * resultMap; } else if (subString.equalsIgnoreCase("checknbr") ||
-			 * subString.equalsIgnoreCase("checkDate")) {
-			 * bodylist.removeAll(Arrays.asList(Integer.valueOf(0)));
-			 * resultMap.put(subString.toLowerCase(), bodylist); Restvalues =
-			 * resultMap; } else {
-			 * 
-			 * resultMap.put(subString.toLowerCase(), bodylist); Restvalues =
-			 * resultMap; }
-			 * 
-			 * } } else if(getValue.equalsIgnoreCase("email")){ responseBody =
-			 * response.getBody().asString();
-			 * logger.info("Response Body is =>  " + responseBody);
-			 * 
-			 * Pattern pattern = Pattern.compile("[\\w.]+@[\\w.]+"); Matcher
-			 * matcher = pattern.matcher(responseBody);
-			 * 
-			 * while(matcher.find()){ String email = matcher.group();
-			 * bodylist.add(email);
-			 * System.out.println("Email from service="+email); }
-			 * resultMap.put(getValue, bodylist); Restvalues = resultMap; } else
-			 * 
-			 * {
-			 * 
-			 * bodylist = response.jsonPath().getList(getValue);
-			 * resultMap.put(getValue, bodylist); }
-			 * 
-			 * Restvalues = resultMap; logger.info("request value is  : " +
-			 * resultMap); assertTrue("Service values are stored successfully",
-			 * true);
-			 */
+			
+			  logger.info("The Service URL is: " + serviceurl);
+			  logger.info("The input is: " + getValue); Map<String,
+			  List<String>> resultMap = new HashMap<String, List<String>>();
+			  List<String> bodylist = new ArrayList<String>();
+			  
+			  RestAssured.baseURI = serviceurl; 
+			  RequestSpecification request = RestAssured.given(); 
+			  Response response = request.get(serviceurl);
+			  //System.out.println(response.asString()); 
+			  String responseBody=response.asString();
+			  
+			  
+			  if (getValue.contains(",")) {
+			  
+			  for (String subString : getValue.split(",")) {
+			 
+			  bodylist = response.jsonPath().getList(subString); 
+			  if
+			  (subString.contains("Date")) {
+			  bodylist.removeAll(Arrays.asList(Integer.valueOf(0)));
+			  bodylist.removeAll(Arrays.asList(" ", ""));
+			  bodylist.removeAll(Collections.singleton(null)); List<String>
+			  bodylist2 = new ArrayList<String>(); 
+			  for (int i = 0; i <bodylist.size(); i++) {
+			  
+			  String[] arrOfStr = bodylist.get(i).split(" ");
+			  bodylist2.add(arrOfStr[0].trim()); }
+			  resultMap.put(subString.toLowerCase(), bodylist2); Restvalues =
+			  resultMap; } else if (subString.equalsIgnoreCase("checknbr") ||
+			  subString.equalsIgnoreCase("checkDate")) {
+			  bodylist.removeAll(Arrays.asList(Integer.valueOf(0)));
+			  resultMap.put(subString.toLowerCase(), bodylist); Restvalues =
+			  resultMap; } else {
+			  
+			  resultMap.put(subString.toLowerCase(), bodylist); Restvalues =
+			  resultMap; }
+			  
+			  } } else if(getValue.equalsIgnoreCase("email")){ responseBody =
+			  response.getBody().asString();
+			  logger.info("Response Body is =>  " + responseBody);
+			  
+			  Pattern pattern = Pattern.compile("[\\w.]+@[\\w.]+"); Matcher
+			  matcher = pattern.matcher(responseBody);
+			  
+			  while(matcher.find()){ String email = matcher.group();
+			  bodylist.add(email);
+			  System.out.println("Email from service="+email); }
+			  resultMap.put(getValue, bodylist); Restvalues = resultMap; } else
+			  
+			  {
+			  
+			  bodylist = response.jsonPath().getList(getValue);
+			  resultMap.put(getValue, bodylist); }
+			  
+			  Restvalues = resultMap; logger.info("request value is  : " +
+			  resultMap); assertTrue("Service values are stored successfully",
+			  true);
+			 
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1516,4 +1519,21 @@ catch (Exception e) {
 			}
 
 	}
+	public static void get_WebServiceData(String strURL,String strvalue)
+	{
+		try {
+			//Map<String, List<String>> resultMap = new HashMap<String, List<String>>();
+			//List<String> bodylist = new ArrayList<String>();
+			RestAssured.baseURI = strURL;
+			RequestSpecification request = RestAssured.given();
+			Response response = request.get();
+
+		
+	}catch(Exception e)
+	{
+		
+	}
+	
+	}
+	
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Suite" duration-ms="24065" started-at="2018-09-12T09:06:55Z" finished-at="2018-09-12T09:07:19Z">
+    <groups>
+    </groups>
+    <test name="test1" duration-ms="24065" started-at="2018-09-12T09:06:55Z" finished-at="2018-09-12T09:07:19Z">
+      <class name="com.macys.mst.macysnet.execdrivers.ExecutionConfig">
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.macys.mst.macysnet.execdrivers.ExecutionConfig@290222c1]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2018-09-12T14:36:55Z" finished-at="2018-09-12T14:36:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="RunDriver()[pri:0, instance:com.macys.mst.macysnet.execdrivers.ExecutionConfig@290222c1]" name="RunDriver" duration-ms="24042" started-at="2018-09-12T14:36:55Z" finished-at="2018-09-12T14:37:19Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- RunDriver -->
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.macys.mst.macysnet.execdrivers.ExecutionConfig@290222c1]" name="afterMethod" is-config="true" duration-ms="0" started-at="2018-09-12T14:37:19Z" finished-at="2018-09-12T14:37:19Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+      </class> <!-- com.macys.mst.macysnet.execdrivers.ExecutionConfig -->
+    </test> <!-- test1 -->
+  </suite> <!-- Suite -->
+</testng-results>

@@ -10,7 +10,7 @@
 		</cyberark>
 				
 		<MacysNet>
-		   <URL>http://dev.macysnet.com/AP/</URL>
+		   <URL>http://qa.macysnet.com/AP/</URL>
 		  <Admin>
 				<userId>roint3</userId>
 				 <pwdobjectid> Misc-Macys-Application-Passive-roint3</pwdobjectid>
@@ -19,6 +19,10 @@
 			   <userId>roint3</userId>
 			   <pwdobjectid> Misc-Macys-Application-Passive-roint3</pwdobjectid>
 			 </vendor>
+			 <vendor1>
+			   <userId>willie</userId>
+			   <pwdobjectid> Misc-Macys-Application-Passive-roint3</pwdobjectid>
+			 </vendor1>
 	    </MacysNet>
 
 		<activespace>

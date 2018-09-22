@@ -4,7 +4,7 @@
 	<config type="testConfig" name="MIS">
 		<stories>
 			 <!--  <story>MnetJDAIntegration</story> -->
-			  <story>MIS-9</story>
+			  <story>MIS-5</story>
 			  <!-- <story>StatusOfInvoice.story</story> -->
 			
 		</stories>
